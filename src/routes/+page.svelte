@@ -1,5 +1,5 @@
 <script>
-	import Kernal from "../components/Kernal.svelte";
+
 import LoadingScreen from "../components/LoadingScreen.svelte"
 import {Loded} from "../store/MainStore.js"
 </script>
@@ -7,9 +7,8 @@ import {Loded} from "../store/MainStore.js"
 
 {#if !$Loded}
 
-<div class="kernal">
-<Kernal />
-</div>
+
+
 <div class = "loading">
 <LoadingScreen />
 </div>
