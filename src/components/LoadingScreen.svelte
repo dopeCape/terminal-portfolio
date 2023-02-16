@@ -1,6 +1,7 @@
 <script>
 	import { Tick,Loded } from '../store/MainStore.js';
 
+	import {fade,fly} from "svelte/transition";
 
 	
 	let width = 0;
@@ -14,15 +15,15 @@
 		$Loded  = false
 	}
 	else if (width+4 === parentW){
-		console.log("why tho",width, parentW)
+		$Loded = true
 
 	}
 	}
 
 </script>
 	
-<div class="main-div">
-	<div class="loading-container" bind:offsetWidth={parentW}>
+<div class="main-div" out:fade>
+	<div class="loading-container" bind:offsetWidth={parentW} out:fade>
 		<div bind:offsetWidth={width}   class="loading-bar"/>
 	</div>
 </div>
@@ -45,10 +46,12 @@
 	.loading-container {
 		margin-top: 5px;
 	width: 40%;
-		height: 4px;
+
+		height: 8px;
 		border-radius: 5px;
 		border: 2px solid gray ;
 		position: relative;
+
 
 	}
 	@keyframes move{
@@ -71,10 +74,10 @@
 	.loading-bar {
 
 		position: absolute;
-
+		padding: 2px;
 		height: 100%;
 	
-		background: gray;
+		background: grey;
 		animation: move 4s ;
 	}
 </style>
