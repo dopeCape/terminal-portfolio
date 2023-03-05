@@ -8,7 +8,7 @@
 	let parentW = null;
 	let parentH = null;
 	$: {
-		$Tick++;
+
 		if (parentW == 0) {
 			console.log(parentW);
 			$Loded = false;

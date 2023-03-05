@@ -1,7 +1,7 @@
 <script>
 	import { Terminal_command } from '../store/ComponentStore.js';
 	import { current_dir } from '../store/dir_store.js';
-	import {isAbout} from "../store/MainStore.js";
+	import {isAbout,isContact,isProj} from "../store/MainStore.js";
 	let input;
 
 	let width = 100;
@@ -24,7 +24,7 @@
 
 	const handelTerInput = (e) => {
 
-		if (e.keyCode == '13') {
+		if (e.keyCode == '13') { //NOTE: key code 13 means "enter key"
 			if (e.target.value == 'clear') {
 				command_to_render = [];
 				$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
@@ -66,6 +66,34 @@
 				$isAbout = true;	
 			
 1
+			}else if(e.target.value == "./contact"){
+		
+	$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
+				command_to_render.push({
+					command: e.target.value,
+					dir: currnet_dir,
+					msg: ""
+				});
+				count = $Terminal_command.length - 1;
+
+				command_to_render = command_to_render;
+				e.target.value = '';
+				$isContact = true
+
+
+			}else if(e.target.value == "./projects"){
+				command_to_render.push({
+					command: e.target.value,
+					dir: currnet_dir,
+					msg: ""
+				});
+				count = $Terminal_command.length - 1;
+
+				command_to_render = command_to_render;
+				e.target.value = '';
+				$isProj = true
+
+
 			}else if(e.target.value== ""){
 					$Terminal_command.push({ command: "", dir: currnet_dir });
 				command_to_render.push({
@@ -115,10 +143,6 @@
 
 <div class="main_div" on:click={focusOnTermailInput} style="height: {height}%;width:{width}%;">
 	<div class="unmain">
-		<div>
-			<h2 class="close-icon">x</h2>
-		</div>
-
 		<div>
 			<div>
 				{#each command_to_render as ter}
