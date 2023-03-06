@@ -1,10 +1,25 @@
 <script>
-
-
+import {isProj,windowsOpen,classList} from "../store/MainStore.js";
+const close = (e)=>{
+	$isProj = false;
+	doMeDaddy();
+		$windowsOpen = $windowsOpen -1
+}
+	const doMeDaddy = () => {
+		for (let i = 1; i < 4; i++) {
+			let x = parseInt($classList[i][3]);
+			if (x > parseInt($classList[3][3])){
+			x = x - 1;
+			$classList[i] = 'div' + x;
+			}
+		
+		}
+	};
 
 </script>
 
 <div class="main_proj-div">
+<h2 on:click={close} class="close">x</h2>
 <div class="proj_contents">
 	 sample templte for projects
 </div>
@@ -12,8 +27,25 @@
 
 
 <style>
+.close{
+
+	position: absolute;
+		right: 10px;
+		font-size: 20px;
+		z-index: 3;
+		margin: 0;
+
+		color: red;
+		cursor: pointer;
+
+}
+.proj_contents{
+color:white;
+margin-left: 5px;
+}
 .main_proj-div{
 	transition: width 1.5s linear, height 1.5s linear;
+	position: relative;
 	border:1px solid white;
 	border-radius:15px;
 	height:100%;

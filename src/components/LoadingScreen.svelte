@@ -1,5 +1,5 @@
 <script>
-	import { Tick, Loded } from '../store/MainStore.js';
+	import {  Loded } from '../store/MainStore.js';
 	import Terminal from './Terminal.svelte';
 
 	/* import {fade,fly} from "svelte/transition"; */

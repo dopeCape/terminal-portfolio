@@ -1,9 +1,20 @@
 <script>
-import {isAbout} from "../store/MainStore.js";
+import {isAbout,windowsOpen,classList} from "../store/MainStore.js";
 const close = (e)=>{
 	$isAbout = false;
+	doMeDaddy();
+		$windowsOpen = $windowsOpen -1
 }
-
+	const doMeDaddy = () => {
+		for (let i = 1; i < 4; i++) {
+			let x = parseInt($classList[i][3]);
+			if (x > parseInt($classList[1][3])){
+			x = x - 1;
+			$classList[i] = 'div' + x;
+			}
+		
+		}
+	};
 </script>
 
 <div class="main_about_div">
@@ -18,7 +29,7 @@ const close = (e)=>{
 <style>
 .close{
 
-	position: absolute;
+	position:absolute;
 		right: 10px;
 		font-size: 20px;
 		z-index: 3;
@@ -33,6 +44,7 @@ color:white;
 margin-left: 5px;
 }
 .main_about_div{
+	position: relative;
 	display: flex;
 	transition: width 1.5s linear, height 1.5s linear;
 	border:1px solid white;

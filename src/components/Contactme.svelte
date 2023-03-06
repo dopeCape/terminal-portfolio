@@ -1,7 +1,20 @@
 <script>
-	import { isContact } from '../store/MainStore.js';
+	import { isContact, windowsOpen, classList } from '../store/MainStore.js';
+
 	const close = (e) => {
 		$isContact = false;
+		doMeDaddy();
+		$windowsOpen = $windowsOpen - 1;
+	};
+	const doMeDaddy = () => {
+		for (let i = 1; i < 4; i++) {
+			let x = parseInt($classList[i][3]);
+			if (x > parseInt($classList[2][3])){
+			x = x - 1;
+			$classList[i] = 'div' + x;
+			}
+		
+		}
 	};
 </script>
 
@@ -26,6 +39,7 @@
 	}
 	.main_contact_div {
 		display: flex;
+		position: relative;
 		transition: width 1.5s linear, height 1.5s linear;
 		border: 1px solid white;
 		border-radius: 15px;

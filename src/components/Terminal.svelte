@@ -1,7 +1,7 @@
 <script>
 	import { Terminal_command } from '../store/ComponentStore.js';
 	import { current_dir } from '../store/dir_store.js';
-	import {isAbout,isContact,isProj} from "../store/MainStore.js";
+	import { isAbout, isContact, isProj, windowsOpen, classList } from '../store/MainStore.js';
 	let input;
 
 	let width = 100;
@@ -12,9 +12,9 @@
 	const tree = {
 		'~': {
 			child: [
-				{ n: ' about_me.md', t: 'f' },
-				{ n: 'stuff_i_know.md', t: 'f' },
-				{n:'talk_to_me.md',t:"f"},
+				{ n: 'aboutt.md', t: 'f' },
+
+				{ n: 'contact.md', t: 'f' },
 				{ n: 'blogz.link', t: 'l' },
 				{ n: 'projects i made', t: 'd' }
 			]
@@ -23,8 +23,8 @@
 	let command_to_render = [];
 
 	const handelTerInput = (e) => {
-
-		if (e.keyCode == '13') { //NOTE: key code 13 means "enter key"
+		if (e.keyCode == '13') {
+			//NOTE: key code 13 means "enter key"
 			if (e.target.value == 'clear') {
 				command_to_render = [];
 				$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
@@ -52,62 +52,70 @@
 
 				command_to_render = command_to_render;
 				e.target.value = '';
-			}else if(e.target.value == "./about_me.md" ||e.target.value == "./about_me" ){
-						$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
+			} else if (e.target.value == './about_me.md' || e.target.value == './about_me') {
+				if (!$isAbout) {
+					$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
+					command_to_render.push({
+						command: e.target.value,
+						dir: currnet_dir,
+						msg: ''
+					});
+					count = $Terminal_command.length - 1;
+
+					command_to_render = command_to_render;
+
+					e.target.value = '';
+					let x = $windowsOpen + 1;
+					$classList[1] = 'div' + x;
+					$windowsOpen = $windowsOpen + 1;
+					$isAbout = true;
+				}
+			} else if (e.target.value == './contact') {
+				if (!$isContact) {
+					$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
+					command_to_render.push({
+						command: e.target.value,
+						dir: currnet_dir,
+						msg: ''
+					});
+					count = $Terminal_command.length - 1;
+
+					command_to_render = command_to_render;
+					e.target.value = '';
+					let x = $windowsOpen + 1;
+					$classList[2] = 'div' + x;
+					$windowsOpen = $windowsOpen + 1;
+					$isContact = true;
+				}
+			} else if (e.target.value == './projects') {
+				if (!$isProj) {
+					command_to_render.push({
+						command: e.target.value,
+						dir: currnet_dir,
+						msg: ''
+					});
+					count = $Terminal_command.length - 1;
+
+					command_to_render = command_to_render;
+					e.target.value = '';
+					let x = $windowsOpen + 1;
+					$classList[3] = 'div' + x;
+
+					$windowsOpen = $windowsOpen + 1;
+					$isProj = true;
+				}
+			} else if (e.target.value == '') {
+				$Terminal_command.push({ command: '', dir: currnet_dir });
 				command_to_render.push({
-					command: e.target.value,
+					command: '',
 					dir: currnet_dir,
-					msg: ""
+					msg: ''
 				});
 				count = $Terminal_command.length - 1;
 
 				command_to_render = command_to_render;
 				e.target.value = '';
-				$isAbout = true;	
-			
-1
-			}else if(e.target.value == "./contact"){
-		
-	$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
-				command_to_render.push({
-					command: e.target.value,
-					dir: currnet_dir,
-					msg: ""
-				});
-				count = $Terminal_command.length - 1;
-
-				command_to_render = command_to_render;
-				e.target.value = '';
-				$isContact = true
-
-
-			}else if(e.target.value == "./projects"){
-				command_to_render.push({
-					command: e.target.value,
-					dir: currnet_dir,
-					msg: ""
-				});
-				count = $Terminal_command.length - 1;
-
-				command_to_render = command_to_render;
-				e.target.value = '';
-				$isProj = true
-
-
-			}else if(e.target.value== ""){
-					$Terminal_command.push({ command: "", dir: currnet_dir });
-				command_to_render.push({
-					command: "",
-					dir: currnet_dir,
-					msg: ""
-				});
-				count = $Terminal_command.length - 1;
-
-				command_to_render = command_to_render;
-				e.target.value = '';
-	
-			}
-			else {
+			} else {
 				$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
 				command_to_render.push({
 					command: e.target.value,
@@ -119,7 +127,8 @@
 				command_to_render = command_to_render;
 				e.target.value = '';
 			}
-		} else if (e.keyCode == 38) { //NOTE:down key
+		} else if (e.keyCode == 38) {
+			//NOTE:down key
 			e.target.value = $Terminal_command[count].command;
 			if (count > 0) {
 				count = count - 1;
@@ -129,7 +138,8 @@
 			e.selectionStart = e.selectionEnd = e.target.value.length;
 
 			console.log(e.selectionEnd);
-		} else if (e.keyCode == 40) { //NOTE:up key
+		} else if (e.keyCode == 40) {
+			//NOTE:up key
 			if (count != $Terminal_command.length - 1) {
 				count = count + 1;
 			}
