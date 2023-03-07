@@ -158,7 +158,7 @@
 				{#each command_to_render as ter}
 					<div style="margin-bottom:8px;">
 						<div class="pre_dir" style="color:white ">{ter.dir}</div>
-						<div class="pre command">{'>'}{ter.command}</div>
+						<div class="pre_command">{'>'}{ter.command}</div>
 						{#if ter.msg != undefined}
 							{#if Array.isArray(ter.msg)}
 								<div class="list-dirs">
@@ -191,6 +191,11 @@
 <style>
 	.unmain {
 		display: flex;
+		position: absolute;
+	}
+	.input_fied_contiainer{
+		width: 100%;
+		position: relative;
 	}
 	.close-icon {
 		position: absolute;
@@ -228,11 +233,17 @@
 		display: inline-block;
 	}
 
+	
+	.main_div::-webkit-scrollbar {
+		visibility: hidden;
+	}
 	.main_div {
 		position: relative;
+		height: 100%;
+		max-height: 100%;
+		overflow: scroll;
+		background: var(--foreground);
 
-		overflow: auto;
-		background: #222831;
 		box-sizing: border-box;
 	}
 	.current_input {
@@ -240,26 +251,36 @@
 		flex-direction: row;
 		width: 100%;
 		position: absolute;
-		color: white;
+		color: var(--color3);
+		font-size: 20px;
 	}
 	.terminal_input {
-		color: #00adb5;
+		color: var(--color3);
 		caret-shape: block;
-
-		background: #222831;
+		font-size: 20px;
+		background: var(--foreground);
+	position: relative;
 		border: none;
+
+		right: 0;
 		outline: none;
-		width: 100%;
+		/* width: 100%; */
 	}
 	.current_dir_input {
+		font-size: 20px;
 		color: white;
 	}
 
 	.ter_input:focus {
 		outline: none;
 	}
+	.pre_msg {
+		font-size: 20px;
+		color: var(--color1);
+	}
 	.pre_command {
-		font-size: 10px !important;
+		color: var(--color1);
+		font-size: 20px !important;
 		margin-bottom: 8px;
 	}
 </style>

@@ -1,14 +1,26 @@
 <script>
-	import {  Loded } from '../store/MainStore.js';
+	import { Loded, windowsOpen } from '../store/MainStore.js';
 	import Terminal from './Terminal.svelte';
+
+	import { dark_theme, light_theme, curent_theme } from '../store/Colorstore.js';
 
 	/* import {fade,fly} from "svelte/transition"; */
 
 	let width = 0;
 	let parentW = null;
 	let parentH = null;
+	let root;
+	let color;
+	export let maxheight = '100vh';
+	
 	$: {
-
+		if ($curent_theme == 'dark') {
+			color = $dark_theme;
+		} else {
+			color = $light_theme;
+		}
+	}
+	$: {
 		if (parentW == 0) {
 			console.log(parentW);
 			$Loded = false;
@@ -21,7 +33,7 @@
 	}
 </script>
 
-<div class="main-div">
+<div class="main-div" bind:this={root}>
 	<div
 		id="contaier"
 		class={$Loded ? 'done-loading' : 'loading-container'}
@@ -30,17 +42,28 @@
 		{#if !$Loded}
 			<div bind:offsetWidth={width} class="loading-bar" />
 		{:else}
-			<Terminal/>
+			<Terminal
+				--foreground={color.foreground}
+				--color3={color.color3}
+				--color4={color.color4}
+				--color1={color.color1}
+			/>
 		{/if}
 	</div>
 </div>
 
 <style>
+	:global(:root){
+	--maxheight: 100vh;
+	}
 	.main-div {
 		background: black;
 		height: 100%;
 		width: 100%;
 		margin-right: 50px;
+		position: relative;
+
+
 		display: flex;
 		gap: 30%;
 		flex-direction: row;
@@ -50,10 +73,12 @@
 	#contaier {
 		transition: width 2s linear, height 2s linear, border-radius 2s linear;
 	}
+
 	.done-loading {
 		width: 40%;
 
 		height: 8px;
+
 
 		position: relative;
 		border: 5px solid gray;
@@ -61,21 +86,20 @@
 		position: relative;
 		animation-name: make-it-big;
 		/* animation-delay: 500ms; */
-		animation-duration: 1.0s;
+		animation-duration: 1s;
 		animation-fill-mode: forwards;
 		animation-timing-function: linear;
+	}
+	@keyframes make-it-wide {
+		0% {
+			width: 40%;
 		}
-	@keyframes make-it-wide{
-	0%{
-	width:40% ;
-	}
-	50%{
-	width: 80%;
-	}
-	100%{
-	width: 99%;
-	}
-	
+		50% {
+			width: 80%;
+		}
+		100% {
+			width: 99%;
+		}
 	}
 	@keyframes make-it-big {
 		0% {
@@ -93,17 +117,15 @@
 			height: 99%;
 			width: 40%;
 			/* visibility: hidden; */
-
 		}
-		60%{
-		border: 2px solid gray;
+		60% {
+			border: 2px solid gray;
 			border-radius: 10px;
 			height: 99%;
 			width: 40%;
-		
 		}
 		100% {
-			margin:0;
+			margin: 0;
 			border: 2px solid gray;
 			height: 99%;
 			width: 99%;

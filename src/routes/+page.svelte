@@ -1,56 +1,90 @@
 <script>
 	import LoadingScreen from '../components/LoadingScreen.svelte';
 	import AboutMe from '../components/About_me.svelte';
-	import { Loded, isAbout, isContact, isProj ,windowsOpen,classList} from '../store/MainStore.js';
+	import { Loded, isAbout, isContact, isProj, windowsOpen, classList } from '../store/MainStore.js';
+	import {dark_theme,curent_theme,light_theme} from "../store/Colorstore.js";
 	import Contactme from '../components/Contactme.svelte';
 	import ProjectTemplate from '../components/Project_template.svelte';
-	let main_div_class = "1_div";
-$:{
-	if ($windowsOpen == 1){
-	null			
+let root;
+let c;
+$: {
+		if (root != undefined) {
+			if ($windowsOpen > 2) {
+				root.style.setProperty("--maxheight","50vh")
+			}else{
+
+				root.style.setProperty("--maxheight","100vh")
+			}
+		}
+	}
+	$:{
+	if (root != undefined){
+	if($curent_theme  == "dark"){
+		c = $dark_theme
+
+	}else{
+	c =$light_theme
+	}
+
+		root.style.setProperty('--background',`${c.background}`)	
 
 	}
-	if($windowsOpen ==2 ){
-	main_div_class = "for2";
 	}
-	if($windowsOpen == 3){
-	main_div_class = "for3";
+	let main_div_class = '1_div';
+	$: {
+		if ($windowsOpen == 1) {
+			null;
+		}
+		if ($windowsOpen == 2) {
+			main_div_class = 'for2';
+		}
+		if ($windowsOpen == 3) {
+			main_div_class = 'for3';
+		}
+		if ($windowsOpen == 4) {
+			main_div_class = 'for4';
+		}
 	}
-	if($windowsOpen == 4){
-	main_div_class = "for4";
-	}
-	
-}
+
+
 </script>
 
 <div class="movable">
-	<div class={$Loded ? 'main-div '+main_div_class : 'loading_main_div'}>
+	<div class={$Loded ? 'main-div ' + main_div_class : 'loading_main_div'} bind:this={root}>
 		<div class={$isAbout || $isContact || $isProj ? 'loading div1' : 'loading div-full'}>
 			<LoadingScreen />
 		</div>
 
 		{#if $isAbout}
-			<div class={$classList[1]+" about"}>
+			<div class={$classList[1] + ' about'}>
 				<AboutMe />
 			</div>
 		{/if}
 		{#if $isContact}
-			<div class={$classList[2] + " contact"}>
+			<div class={$classList[2] + ' contact'}>
 				<Contactme />
 			</div>
 		{/if}
 		{#if $isProj}
-			<div class= {$classList[3] + " project"}>
-			<ProjectTemplate />
+			<div class={$classList[3] + ' project'}>
+				<ProjectTemplate />
 			</div>
 		{/if}
 	</div>
 </div>
 
 <style>
+	:root{
+	--background :#1B172D;
+	--maxheight:100vh;
+	}
+	.about{
+	
 
-
+		transition: width 500ms ease-in-out,height 500ms ease-in-out;
+	}
 	.movable {
+		 
 		height: 100vh;
 		width: 100vw;
 	}
@@ -61,8 +95,9 @@ $:{
 		position: relative;
 		height: 100vh;
 
-		background: black;
+		background-color: var(--background);
 		overflow: auto;
+		transition: 800ms;
 
 		box-sizing: border-box;
 	}
@@ -71,24 +106,45 @@ $:{
 		display: grid;
 		/* column-gap:5px; */
 		position: relative;
-		height: 100vh;
+		height: 100%;
 		background: black;
 		overflow: auto;
-		width: 100vw;
+		width: 100%;
 		box-sizing: border-box;
 		grid-template-rows: 100%;
+
 	}
+	/* @keyframes o-t { */
+	/* 	0% { */
+	/* 		grid-template: 'div1 div1'; */
+	/* 	} */
+	/* 	20% { */
+	/* 		grid-template: 'div1 div1 div1 div1  div1 div1 div1 div2'; */
+	/* 	} */
+	/* 	40% { */
+	/* 		grid-template: 'div1 div1 div1 div1 div1 div1  div2 div2'; */
+	/* 	} */
+	/* 	60% { */
+	/* 		grid-template: 'div1 div1 div1 div1 div1 div2 div2 div2'; */
+	/* 	} */
+	/* 	80%{ */
+	/* 		grid-template: 'div1 div1 div1 div1 div2 div2 div2 div2'; */
+	/* 	} */
+	/* } */
 	.for2 {
-		grid-template: "div1 div2";
+		
+		grid-template: 'div1 div2';
+
 	}
 	.for3 {
-	grid-template: 	"div1 div3"
-			"div2 div3";
+		grid-template:
+			'div1 div3'
+			'div2 div3';
 	}
-	.for4{
-	grid-template: "div1 div2 div4 div4"
-			"div3 div3 div4 div4";
-
+	.for4 {
+		grid-template:
+			'div1 div2 div4 div4'
+			'div3 div3 div4 div4';
 	}
 	.loading {
 		z-index: 1;
@@ -99,17 +155,20 @@ $:{
 		grid-column-start: 1;
 		grid-column-end: 3;
 	}
+
 	.div1 {
-	grid-area: div1;	
+		
+		max-height: var(--maxheight);
+		transition: width 500ms ease-in-out,height 500ms ease-in-out;
+		grid-area: div1;
 	}
 	.div2 {
-	grid-area: div2;
+		grid-area: div2;
 	}
 	.div3 {
-	grid-area: div3;
+		grid-area: div3;
 	}
-	.div4{
-
-	grid-area: div4;
+	.div4 {
+		grid-area: div4;
 	}
 </style>
