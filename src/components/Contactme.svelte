@@ -34,18 +34,18 @@
 		cursor: pointer;
 	}
 	.contact_containts {
-		color: white;
+		color:var(--color3);
 		margin-left: 5px;
 	}
 	.main_contact_div {
 		display: flex;
 		position: relative;
-		transition: width 1.5s linear, height 1.5s linear;
+	transition: width 1.5s linear, height 1.5s linear,all 1s ease-out;
 		border: 1px solid white;
-		border-radius: 15px;
+		/* border-radius: 10px; */
 		height: 99%;
 
-		background: black;
+		background: var(--foreground);
 		width: 99%;
 	}
 </style>

@@ -10,6 +10,15 @@ const dark_theme = writable({
 	number: '#E67936'
 });
 
+// const dark_theme = writable({
+// 	foreground: '#1d1135',
+// 	background: '#0E2031',
+// 	color1: '#ba1e68',
+// 	color2: '#5643fd',
+// 	color3: '#7649fe',
+// 	color4: '#fcfbfe',
+// 	number: '#E67936'
+// });
 const light_theme = writable({
 	foreground: '#FAE6FE',
 	background: '#E1CFE5',
@@ -20,6 +29,6 @@ const light_theme = writable({
 	number: '#8A762A'
 });
 
-const curent_theme = writable('dark');
+const curent_theme = writable('light');
 
 export { curent_theme, light_theme, dark_theme };

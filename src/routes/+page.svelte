@@ -2,33 +2,30 @@
 	import LoadingScreen from '../components/LoadingScreen.svelte';
 	import AboutMe from '../components/About_me.svelte';
 	import { Loded, isAbout, isContact, isProj, windowsOpen, classList } from '../store/MainStore.js';
-	import {dark_theme,curent_theme,light_theme} from "../store/Colorstore.js";
+	import { dark_theme, curent_theme, light_theme } from '../store/Colorstore.js';
 	import Contactme from '../components/Contactme.svelte';
 	import ProjectTemplate from '../components/Project_template.svelte';
-let root;
-let c;
-$: {
+	let root;
+	let c;
+	$: {
 		if (root != undefined) {
 			if ($windowsOpen > 2) {
-				root.style.setProperty("--maxheight","50vh")
-			}else{
-
-				root.style.setProperty("--maxheight","100vh")
+				root.style.setProperty('--maxheight', '50vh');
+			} else {
+				root.style.setProperty('--maxheight', '100vh');
 			}
 		}
 	}
-	$:{
-	if (root != undefined){
-	if($curent_theme  == "dark"){
-		c = $dark_theme
+	$: {
+		if (root != undefined) {
+			if ($curent_theme == 'dark') {
+				c = $dark_theme;
+			} else {
+				c = $light_theme;
+			}
 
-	}else{
-	c =$light_theme
-	}
-
-		root.style.setProperty('--background',`${c.background}`)	
-
-	}
+			root.style.setProperty('--background', `${c.background}`);
+		}
 	}
 	let main_div_class = '1_div';
 	$: {
@@ -45,48 +42,58 @@ $: {
 			main_div_class = 'for4';
 		}
 	}
-
-
 </script>
 
-<div class="movable">
 	<div class={$Loded ? 'main-div ' + main_div_class : 'loading_main_div'} bind:this={root}>
 		<div class={$isAbout || $isContact || $isProj ? 'loading div1' : 'loading div-full'}>
 			<LoadingScreen />
 		</div>
 
 		{#if $isAbout}
-			<div class={$classList[1] + ' about'}>
-				<AboutMe />
+			<div class={$classList[1] + ' about screen'}>
+				<AboutMe
+				--foreground={c.foreground}
+				--color3={c.color3}
+				--color4={c.color4}
+				--color1={c.color1}
+	/>
 			</div>
 		{/if}
 		{#if $isContact}
-			<div class={$classList[2] + ' contact'}>
-				<Contactme />
+			<div class={$classList[2] + ' contact screen'}>
+				<Contactme 
+			--foreground={c.foreground}
+				--color3={c.color3}
+				--color4={c.color4}
+				--color1={c.color1}
+	/>
 			</div>
 		{/if}
 		{#if $isProj}
-			<div class={$classList[3] + ' project'}>
-				<ProjectTemplate />
+			<div class={$classList[3] + ' project screen'}>
+				<ProjectTemplate 
+			--foreground={c.foreground}
+				--color3={c.color3}
+				--color4={c.color4}
+				--color1={c.color1}
+	/>
 			</div>
 		{/if}
 	</div>
-</div>
 
 <style>
-	:root{
-	--background :#1B172D;
-	--maxheight:100vh;
+	:root {
+		--background: #1b172d;
+		--maxheight: 100vh;
 	}
-	.about{
-	
-
-		transition: width 500ms ease-in-out,height 500ms ease-in-out;
+	.about {
+		transition: width 500ms ease-in-out, height 500ms ease-in-out;
 	}
 	.movable {
-		 
 		height: 100vh;
 		width: 100vw;
+
+
 	}
 
 	.main-div {
@@ -99,21 +106,32 @@ $: {
 		overflow: auto;
 		transition: 800ms;
 
+
 		box-sizing: border-box;
 	}
+	.screen{
 
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+		
+		height: 100%;
+		width: 100%;
+	}
 	.loading_main_div {
 		display: grid;
 		/* column-gap:5px; */
 		position: relative;
-		height: 100%;
+		height:100vh ;
 		background: black;
 		overflow: auto;
 		width: 100%;
 		box-sizing: border-box;
 		grid-template-rows: 100%;
-
+		gap: 5px;
 	}
+
 	/* @keyframes o-t { */
 	/* 	0% { */
 	/* 		grid-template: 'div1 div1'; */
@@ -132,9 +150,7 @@ $: {
 	/* 	} */
 	/* } */
 	.for2 {
-		
 		grid-template: 'div1 div2';
-
 	}
 	.for3 {
 		grid-template:
@@ -157,9 +173,8 @@ $: {
 	}
 
 	.div1 {
-		
 		max-height: var(--maxheight);
-		transition: width 500ms ease-in-out,height 500ms ease-in-out;
+		transition: width 500ms ease-in-out, height 500ms ease-in-out;
 		grid-area: div1;
 	}
 	.div2 {

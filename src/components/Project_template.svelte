@@ -40,18 +40,18 @@ const close = (e)=>{
 
 }
 .proj_contents{
-color:white;
+color:var(--color3);
 margin-left: 5px;
 }
 .main_proj-div{
-	transition: width 1.5s linear, height 1.5s linear;
+	transition: width 1.5s linear, height 1.5s linear,all 1s ease-out;
 	position: relative;
 	border:1px solid white;
-	border-radius:15px;
-	height:100%;
+	/* border-radius:10px; */
+	height:99%;
 
-	background: black;
-	width: 100%;
+	background: var(--foreground);
+	width: 99%;
 }
 
 </style>

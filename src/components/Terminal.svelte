@@ -1,6 +1,8 @@
 <script>
 	import { Terminal_command } from '../store/ComponentStore.js';
 	import { current_dir } from '../store/dir_store.js';
+	import { flip } from 'svelte/animate';
+	import { curent_theme } from '../store/Colorstore.js';
 	import { isAbout, isContact, isProj, windowsOpen, classList } from '../store/MainStore.js';
 	let input;
 
@@ -115,6 +117,22 @@
 
 				command_to_render = command_to_render;
 				e.target.value = '';
+			} else if (e.target.value == './change_theme') {
+				if ($curent_theme == 'light') {
+					$curent_theme = 'dark';
+				} else {
+					$curent_theme = 'light';
+				}
+				$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
+				command_to_render.push({
+					command: e.target.value,
+					dir: currnet_dir,
+					msg: ''
+				});
+				count = $Terminal_command.length - 1;
+
+				command_to_render = command_to_render;
+				e.target.value = '';
 			} else {
 				$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
 				command_to_render.push({
@@ -151,13 +169,13 @@
 	};
 </script>
 
-<div class="main_div" on:click={focusOnTermailInput} style="height: {height}%;width:{width}%;">
+<div class="main_div_ter" on:click={focusOnTermailInput} style="height: {height}%;width:{width}%;">
 	<div class="unmain">
 		<div>
 			<div>
 				{#each command_to_render as ter}
 					<div style="margin-bottom:8px;">
-						<div class="pre_dir" style="color:white ">{ter.dir}</div>
+						<div class="pre_dir" >{ter.dir}</div>
 						<div class="pre_command">{'>'}{ter.command}</div>
 						{#if ter.msg != undefined}
 							{#if Array.isArray(ter.msg)}
@@ -176,7 +194,7 @@
 			<div class="input_fied_contiainer">
 				<div class="current_dir_input">{currnet_dir}</div>
 				<div class="current_input">
-					{'>'}<input
+					{'> '} <input
 						type="text"
 						bind:this={input}
 						on:keydown={handelTerInput}
@@ -193,7 +211,7 @@
 		display: flex;
 		position: absolute;
 	}
-	.input_fied_contiainer{
+	.input_fied_contiainer {
 		width: 100%;
 		position: relative;
 	}
@@ -203,11 +221,14 @@
 		z-index: 3;
 		margin: 0;
 
+		transition: all 1s ease-out;
 		color: red;
 		cursor: pointer;
 	}
 	.list-dirs {
 		display: flex;
+		transition: all 1s ease-out;
+
 		width: 40%;
 		gap: 15px;
 		font-size: 15px;
@@ -216,6 +237,7 @@
 	.type-f {
 		width: 100%;
 		color: gray;
+		transition: all 1s ease-out;
 		display: inline-block;
 		text-align: center;
 		white-space: nowrap;
@@ -223,27 +245,29 @@
 	.type-d {
 		display: inline-block;
 		white-space: nowrap;
+		transition: all 1s ease-out;
 		width: 100%;
 		color: violet;
 	}
 	.type-l {
 		width: 100%;
+		transition: all 1s ease-out;
 		color: red;
 		white-space: nowrap;
 		display: inline-block;
 	}
 
-	
-	.main_div::-webkit-scrollbar {
-		visibility: hidden;
+	.main_div_ter::-webkit-scrollbar {
+		width: 0px;
+		height: 0px;
 	}
-	.main_div {
+	.main_div_ter {
 		position: relative;
 		height: 100%;
 		max-height: 100%;
 		overflow: scroll;
 		background: var(--foreground);
-
+		transition: all 1s ease-out;
 		box-sizing: border-box;
 	}
 	.current_input {
@@ -252,6 +276,7 @@
 		width: 100%;
 		position: absolute;
 		color: var(--color3);
+		transition: all 1s ease-out;
 		font-size: 20px;
 	}
 	.terminal_input {
@@ -259,28 +284,39 @@
 		caret-shape: block;
 		font-size: 20px;
 		background: var(--foreground);
-	position: relative;
+		position: relative;
 		border: none;
-
-		right: 0;
+	/* padding: 5px; */
+		transition: all 1s ease-out;
+		/* right: 0; */
 		outline: none;
 		/* width: 100%; */
 	}
 	.current_dir_input {
 		font-size: 20px;
-		color: white;
+		transition: all 1s ease-out;
+		color: var(--color3);
 	}
 
 	.ter_input:focus {
 		outline: none;
 	}
+	.pre_dir{
+		transition: all 1s ease-out;
+		color: var(--color1);
+	
+
+	}
 	.pre_msg {
 		font-size: 20px;
+
+		transition: all 1s ease-out;
 		color: var(--color1);
 	}
 	.pre_command {
 		color: var(--color1);
 		font-size: 20px !important;
 		margin-bottom: 8px;
+		transition: all 1s ease-out;
 	}
 </style>

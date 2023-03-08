@@ -11,8 +11,8 @@
 	let parentH = null;
 	let root;
 	let color;
-	export let maxheight = '100vh';
-	
+	export const maxheight = '100vh';
+
 	$: {
 		if ($curent_theme == 'dark') {
 			color = $dark_theme;
@@ -33,7 +33,7 @@
 	}
 </script>
 
-<div class="main-div" bind:this={root}>
+<div class={$Loded ? 'fl main_div_loading ' : 'fl main_div_loading '} bind:this={root}>
 	<div
 		id="contaier"
 		class={$Loded ? 'done-loading' : 'loading-container'}
@@ -53,22 +53,23 @@
 </div>
 
 <style>
-	:global(:root){
-	--maxheight: 100vh;
+	:global(:root) {
+		--maxheight: 100vh;
 	}
-	.main-div {
-		background: black;
-		height: 100%;
-		width: 100%;
-		margin-right: 50px;
-		position: relative;
-
-
+	.fl {
 		display: flex;
-		gap: 30%;
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
+	}
+	.main_div_loading {
+		max-height: 100vh;
+
+		height: 100%;
+		width: 100%;
+
+		position: relative;
+		gap: 30%;
 	}
 	#contaier {
 		transition: width 2s linear, height 2s linear, border-radius 2s linear;
@@ -80,9 +81,10 @@
 		height: 8px;
 
 
-		position: relative;
-		border: 5px solid gray;
-		border-radius: 10px;
+		overflow: hidden;
+		position: absolute;
+		border: 2px solid gray;
+		/* border-radius: 10px; */
 		position: relative;
 		animation-name: make-it-big;
 		/* animation-delay: 500ms; */
@@ -108,31 +110,28 @@
 
 			height: 8px;
 
-			border: 2px solid gray;
 			position: relative;
 		}
 		50% {
 			border: 2px solid gray;
-			border-radius: 10px;
+
 			height: 99%;
 			width: 40%;
 			/* visibility: hidden; */
 		}
 		60% {
-			border: 2px solid gray;
-			border-radius: 10px;
 			height: 99%;
 			width: 40%;
 		}
 		100% {
-			margin: 0;
-			border: 2px solid gray;
+
+
 			height: 99%;
 			width: 99%;
+
 		}
 	}
 	.loading-container {
-		margin-top: 5px;
 		width: 40%;
 
 		height: 8px;
