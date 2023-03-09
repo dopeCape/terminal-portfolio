@@ -46,7 +46,9 @@
 
 	<div class={$Loded ? 'main-div ' + main_div_class : 'loading_main_div'} bind:this={root}>
 		<div class={$isAbout || $isContact || $isProj ? 'loading div1' : 'loading div-full'}>
-			<LoadingScreen />
+			<LoadingScreen 
+
+			/>
 		</div>
 
 		{#if $isAbout}
@@ -54,6 +56,7 @@
 				<AboutMe
 				--foreground={c.foreground}
 				--color3={c.color3}
+				--color2={c.color2}
 				--color4={c.color4}
 				--color1={c.color1}
 	/>
@@ -72,10 +75,11 @@
 		{#if $isProj}
 			<div class={$classList[3] + ' project screen'}>
 				<ProjectTemplate 
-			--foreground={c.foreground}
+				--foreground={c.foreground}
 				--color3={c.color3}
 				--color4={c.color4}
 				--color1={c.color1}
+
 	/>
 			</div>
 		{/if}
@@ -83,7 +87,7 @@
 
 <style>
 	:root {
-		--background: #1b172d;
+		--background:
 		--maxheight: 100vh;
 	}
 	.about {
@@ -124,7 +128,7 @@
 		/* column-gap:5px; */
 		position: relative;
 		height:100vh ;
-		background: black;
+		/* background: black; */
 		overflow: auto;
 		width: 100%;
 		box-sizing: border-box;

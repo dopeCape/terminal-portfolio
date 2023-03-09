@@ -43,10 +43,14 @@ const close = (e)=>{
 color:var(--color3);
 margin-left: 5px;
 }
+.main_proj-div:hover{
+
+	border:1px solid gray;
+}
 .main_proj-div{
-	transition: width 1.5s linear, height 1.5s linear,all 1s ease-out;
+	transition: width 1.5s linear, height 1.5s linear,all 1s ease-out,border 0s;
 	position: relative;
-	border:1px solid white;
+
 	/* border-radius:10px; */
 	height:99%;
 

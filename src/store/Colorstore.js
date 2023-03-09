@@ -1,13 +1,14 @@
 import { writable } from 'svelte/store';
 
 const dark_theme = writable({
-	foreground: '#261F3E',
-	background: '#0E2031',
-	color1: '#FFD455',
-	color2: '#1B2466',
-	color3: '#BF66C2',
-	color4: '#9D232D',
-	number: '#E67936'
+	foreground: '#32302f',
+	background: '#bdae93',
+	color1: '#b8bb26',
+	color2: '#8ec07c',
+	color3: '#d3869b',
+	color4: '#fe8019',
+	number: '#fb4934',
+	comment: '#6272a4'
 });
 
 // const dark_theme = writable({
@@ -20,12 +21,12 @@ const dark_theme = writable({
 // 	number: '#E67936'
 // });
 const light_theme = writable({
-	foreground: '#FAE6FE',
-	background: '#E1CFE5',
-	color1: '#A75412',
-	color2: '#B618B7',
-	color3: '#1B797D',
-	color4: '#242426',
+	foreground: '#fbf1c7',
+	background: '#32302f',
+	color1: '#79740e',
+	color2: '#437b50',
+	color3: '#f83f71',
+	color4: '#b57614',
 	number: '#8A762A'
 });
 

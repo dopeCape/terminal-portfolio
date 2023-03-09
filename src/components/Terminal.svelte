@@ -171,11 +171,11 @@
 
 <div class="main_div_ter" on:click={focusOnTermailInput} style="height: {height}%;width:{width}%;">
 	<div class="unmain">
-		<div>
+		<div style="width: 100%;">
 			<div>
 				{#each command_to_render as ter}
 					<div style="margin-bottom:8px;">
-						<div class="pre_dir" >{ter.dir}</div>
+						<div class="pre_dir">{ter.dir}</div>
 						<div class="pre_command">{'>'}{ter.command}</div>
 						{#if ter.msg != undefined}
 							{#if Array.isArray(ter.msg)}
@@ -194,12 +194,8 @@
 			<div class="input_fied_contiainer">
 				<div class="current_dir_input">{currnet_dir}</div>
 				<div class="current_input">
-					{'> '} <input
-						type="text"
-						bind:this={input}
-						on:keydown={handelTerInput}
-						class="terminal_input"
-					/>
+					{'> '}
+					<input type="text" bind:this={input} on:keydown={handelTerInput} class="terminal_input" />
 				</div>
 			</div>
 		</div>
@@ -210,6 +206,7 @@
 	.unmain {
 		display: flex;
 		position: absolute;
+		width: 100%;
 	}
 	.input_fied_contiainer {
 		width: 100%;
@@ -232,7 +229,7 @@
 		width: 40%;
 		gap: 15px;
 		font-size: 15px;
-		align-items: stretch;
+		align-items: center;
 	}
 	.type-f {
 		width: 100%;
@@ -275,46 +272,51 @@
 		flex-direction: row;
 		width: 100%;
 		position: absolute;
-		color: var(--color3);
+		color: var(--color1);
+		font-weight: bold;
 		transition: all 1s ease-out;
 		font-size: 20px;
 	}
 	.terminal_input {
-		color: var(--color3);
+		color: var(--color1);
 		caret-shape: block;
 		font-size: 20px;
 		background: var(--foreground);
+		width: 100%;
 		position: relative;
+
 		border: none;
-	/* padding: 5px; */
+
+		font-weight: bold;
 		transition: all 1s ease-out;
-		/* right: 0; */
+
 		outline: none;
-		/* width: 100%; */
 	}
 	.current_dir_input {
-		font-size: 20px;
+		font-size: 25px;
 		transition: all 1s ease-out;
-		color: var(--color3);
+		color: var(--color1);
+		font-weight: bold;
 	}
 
 	.ter_input:focus {
 		outline: none;
 	}
-	.pre_dir{
+	.pre_dir {
 		transition: all 1s ease-out;
 		color: var(--color1);
-	
-
+		font-weight: bold;
 	}
 	.pre_msg {
 		font-size: 20px;
 
+		font-weight: bold;
 		transition: all 1s ease-out;
 		color: var(--color1);
 	}
 	.pre_command {
 		color: var(--color1);
+		font-weight: bold;
 		font-size: 20px !important;
 		margin-bottom: 8px;
 		transition: all 1s ease-out;

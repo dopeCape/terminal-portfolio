@@ -14,10 +14,14 @@
 	export const maxheight = '100vh';
 
 	$: {
-		if ($curent_theme == 'dark') {
-			color = $dark_theme;
-		} else {
-			color = $light_theme;
+		if (root != undefined) {
+			if ($curent_theme == 'dark') {
+				color = $dark_theme;
+			} else {
+				color = $light_theme;
+			}
+			root.style.setProperty('--foreground', color.foreground);
+			root.style.setProperty('--background', color.background);
 		}
 	}
 	$: {
@@ -55,6 +59,8 @@
 <style>
 	:global(:root) {
 		--maxheight: 100vh;
+		--foreground:
+		--background:"";
 	}
 	.fl {
 		display: flex;
@@ -64,7 +70,7 @@
 	}
 	.main_div_loading {
 		max-height: 100vh;
-
+		background: var(--background);
 		height: 100%;
 		width: 100%;
 
@@ -84,10 +90,8 @@
 		overflow: hidden;
 		position: absolute;
 		border: 2px solid gray;
-		/* border-radius: 10px; */
 		position: relative;
 		animation-name: make-it-big;
-		/* animation-delay: 500ms; */
 		animation-duration: 1s;
 		animation-fill-mode: forwards;
 		animation-timing-function: linear;
@@ -107,17 +111,13 @@
 		0% {
 			margin-top: 5px;
 			width: 40%;
-
 			height: 8px;
-
 			position: relative;
 		}
 		50% {
 			border: 2px solid gray;
-
 			height: 99%;
 			width: 40%;
-			/* visibility: hidden; */
 		}
 		60% {
 			height: 99%;
@@ -173,7 +173,9 @@
 		position: absolute;
 		padding: 2px;
 		height: 100%;
-		background: grey;
+
+		background: var(--foreground);
+		/* background: white; */
 		animation: move 4s;
 	}
 </style>

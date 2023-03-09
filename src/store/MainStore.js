@@ -3,6 +3,10 @@ import { writable } from 'svelte/store';
 const Loded = writable(false);
 const windowsOpen = writable(1);
 const isAbout = writable(false);
+const focusAbout = writable(false);
+const focusTerm = writable(true);
+const focusProj = writable(false);
+const focusContact = writable(false);
 const isContact = writable(false);
 const isTerm = writable(true);
 const isProj = writable(false);
@@ -17,5 +21,9 @@ export {
 	isTerm,
 	noOfWidowsOpenOtherThanTerm,
 	isProj,
-	classList
+	classList,
+	focusAbout,
+	focusTerm,
+	focusProj,
+	focusContact
 };
