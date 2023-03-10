@@ -39,7 +39,7 @@
 	}
 	.main_contact_div:hover{
 
-	border:1px solid gray;
+	border:2px solid var(--color3) ;
 	}
 	.main_contact_div {
 		display: flex;

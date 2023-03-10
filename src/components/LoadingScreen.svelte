@@ -81,6 +81,9 @@
 		transition: width 2s linear, height 2s linear, border-radius 2s linear;
 	}
 
+	.done-loading:hover{
+	 border:2px solid var(--color3)
+	}
 	.done-loading {
 		width: 40%;
 

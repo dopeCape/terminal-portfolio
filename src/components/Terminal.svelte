@@ -2,33 +2,55 @@
 	import { Terminal_command } from '../store/ComponentStore.js';
 	import { current_dir } from '../store/dir_store.js';
 	import { flip } from 'svelte/animate';
+	import { fade, blur } from 'svelte/transition';
 	import { curent_theme } from '../store/Colorstore.js';
-	import { isAbout, isContact, isProj, windowsOpen, classList } from '../store/MainStore.js';
+	import { isAbout, isContact, isProj, windowsOpen, classList, Loded } from '../store/MainStore.js';
+	import { onMount } from 'svelte';
 	let input;
-
 	let width = 100;
 	let height = 100;
 	let currnet_dir = $current_dir;
 	let count;
+	let x = 1;
 	$: count = $Terminal_command.length - 1;
+	onMount(() => {
+		if (input != undefined) {
+			input.focus();
+		}
+	});
 	const tree = {
 		'~': {
 			child: [
 				{ n: 'aboutt.md', t: 'f' },
-
 				{ n: 'contact.md', t: 'f' },
 				{ n: 'blogz.link', t: 'l' },
 				{ n: 'projects i made', t: 'd' }
 			]
 		}
 	};
+	const helpa = [{ n: 'exe <application_name>' }, { n: 'ls:to list current child apps and file' },{n:"cd:to change directory"}];
+
 	let command_to_render = [];
+	function sleepFor(sleepDuration) {
+		var now = new Date().getTime();
+		while (new Date().getTime() < now + sleepDuration) {
+			/* Do nothing */
+		}
+	}
 
 	const handelTerInput = (e) => {
 		if (e.keyCode == '13') {
 			//NOTE: key code 13 means "enter key"
 			if (e.target.value == 'clear') {
-				command_to_render = [];
+				let i = 0;
+				while (i < command_to_render.length) {
+					setTimeout(() => {
+						command_to_render.pop();
+						command_to_render = command_to_render;
+					}, 200);
+					i++;
+				}
+
 				$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
 				count = $Terminal_command.length - 1;
 				e.target.value = '';
@@ -91,6 +113,7 @@
 				}
 			} else if (e.target.value == './projects') {
 				if (!$isProj) {
+					$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
 					command_to_render.push({
 						command: e.target.value,
 						dir: currnet_dir,
@@ -145,6 +168,7 @@
 				command_to_render = command_to_render;
 				e.target.value = '';
 			}
+			x = x + 1;
 		} else if (e.keyCode == 38) {
 			//NOTE:down key
 			e.target.value = $Terminal_command[count].command;
@@ -169,40 +193,78 @@
 	};
 </script>
 
-<div class="main_div_ter" on:click={focusOnTermailInput} style="height: {height}%;width:{width}%;">
+<div class="main_div_ter" on:click={focusOnTermailInput}>
 	<div class="unmain">
 		<div style="width: 100%;">
 			<div>
-				{#each command_to_render as ter}
-					<div style="margin-bottom:8px;">
-						<div class="pre_dir">{ter.dir}</div>
-						<div class="pre_command">{'>'}{ter.command}</div>
-						{#if ter.msg != undefined}
-							{#if Array.isArray(ter.msg)}
-								<div class="list-dirs">
-									{#each ter.msg as ms}
-										<span class={`type-${ms.t}`}>{ms.n}</span>
-									{/each}
-								</div>
-							{:else}
-								<div class="pre_msg">{ter.msg}</div>
+				{#each command_to_render as ter, index}
+					{#if command_to_render.length - 1 == index}
+						<div style="margin-bottom:8px;" in:fade={{ duration: 400 }}>
+							<div class="pre_dir">{ter.dir}</div>
+							<div class="pre_command">{'>'}{ter.command}</div>
+							{#if ter.msg != undefined}
+								{#if Array.isArray(ter.msg)}
+									<div class="list-dirs">
+										{#each ter.msg as ms}
+											<span class={`type-${ms.t}`}>{ms.n}</span>
+										{/each}
+									</div>
+								{:else}
+									<div class="pre_msg">{ter.msg}</div>
+								{/if}
 							{/if}
-						{/if}
-					</div>
+						</div>
+					{:else}
+						<div style="margin-bottom:8px;">
+							<div class="pre_dir">{ter.dir}</div>
+							<div class="pre_command">{'>'}{ter.command}</div>
+							{#if ter.msg != undefined}
+								{#if Array.isArray(ter.msg)}
+									<div class="list-dirs">
+										{#each ter.msg as ms}
+											<span class={`type-${ms.t}`}>{ms.n}</span>
+										{/each}
+									</div>
+								{:else}
+									<div class="pre_msg">{ter.msg}</div>
+								{/if}
+							{/if}
+						</div>
+					{/if}
 				{/each}
 			</div>
-			<div class="input_fied_contiainer">
+			<div class={x % 2 == 0 ? 'input_fied_contiainer x' : 'input_fied_contiainer y'}>
 				<div class="current_dir_input">{currnet_dir}</div>
-				<div class="current_input">
-					{'> '}
+				<div class="current_input" in:fade={{ duration: 2000 }}>
+					{'>'}
 					<input type="text" bind:this={input} on:keydown={handelTerInput} class="terminal_input" />
 				</div>
 			</div>
 		</div>
 	</div>
+	{#if command_to_render.length < 2}
+		<div class="help_container" transition:blur={{ amount: 100, duration: 1000 }}>
+			<div class="help"><p>type "help".. it wont hurt your ego</p></div>
+		</div>
+	{/if}
 </div>
 
 <style>
+	.help_container {
+		border-radius: 5px;
+		border: 2px solid var(--color3);
+		height: 200px;
+		position: absolute;
+		width: 400px;
+		position: absolute;
+		top: 40%;
+		right: 10%;
+	}
+	.help {
+		color: var(--color4);
+		text-align: center;
+		font-size: 40px;
+	}
 	.unmain {
 		display: flex;
 		position: absolute;
@@ -225,14 +287,13 @@
 	.list-dirs {
 		display: flex;
 		transition: all 1s ease-out;
-
+		justify-content: flex-start;
 		width: 40%;
 		gap: 15px;
 		font-size: 15px;
 		align-items: center;
 	}
 	.type-f {
-		width: 100%;
 		color: gray;
 		transition: all 1s ease-out;
 		display: inline-block;
@@ -243,11 +304,10 @@
 		display: inline-block;
 		white-space: nowrap;
 		transition: all 1s ease-out;
-		width: 100%;
+
 		color: violet;
 	}
 	.type-l {
-		width: 100%;
 		transition: all 1s ease-out;
 		color: red;
 		white-space: nowrap;
@@ -293,7 +353,7 @@
 		outline: none;
 	}
 	.current_dir_input {
-		font-size: 25px;
+		font-size: 20px;
 		transition: all 1s ease-out;
 		color: var(--color1);
 		font-weight: bold;

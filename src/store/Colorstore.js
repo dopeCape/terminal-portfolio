@@ -30,6 +30,6 @@ const light_theme = writable({
 	number: '#8A762A'
 });
 
-const curent_theme = writable('light');
+const curent_theme = writable('dark');
 
 export { curent_theme, light_theme, dark_theme };
