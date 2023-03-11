@@ -21,7 +21,7 @@
 	const tree = {
 		'~': {
 			child: [
-				{ n: 'aboutt.md', t: 'f' },
+
 				{ n: 'contact.md', t: 'f' },
 				{ n: 'blogz.link', t: 'l' },
 				{ n: 'projects i made', t: 'd' }

@@ -1,5 +1,8 @@
 <script>
 	import LoadingScreen from '../components/LoadingScreen.svelte';
+	import {crossfade}from "svelte/transition"
+	import {quintOut} from "svelte/easing"
+	import {flip} from "svelte/animate"
 	import {scale} from "svelte/transition"
 	import AboutMe from '../components/About_me.svelte';
 	import { Loded, isAbout, isContact, isProj, windowsOpen, classList } from '../store/MainStore.js';
@@ -44,6 +47,23 @@
 			main_div_class = 'for4';
 		}
 	}
+const [send, receive] = crossfade({
+		duration: d => Math.sqrt(d * 200),
+
+		fallback(node, params) {
+			const style = getComputedStyle(node);
+			const transform = style.transform === 'none' ? '' : style.transform;
+
+			return {
+				duration: 2000,
+				easing: quintOut,
+				css: t => `
+					transform: ${transform} scale(${t});
+					opacity: ${t}
+				`
+			};
+		}
+	});
 </script>
 
 	<div class={$Loded ? 'main-div ' + main_div_class : 'loading_main_div'} bind:this={root}>
@@ -54,7 +74,7 @@
 		</div>
 
 		{#if $isAbout && $Loded}
-			<div class={$classList[1] + ' about screen' } in:scale={{duration:800}}>
+			<div id="about" class={$classList[1] + ' about screen' } in:receive={{key:"about",duration:2000}} out:send={{key:"about",duration:2000}}>
 				<AboutMe
 				--foreground={c.foreground}
 				--color3={c.color3}
