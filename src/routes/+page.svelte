@@ -1,17 +1,18 @@
 <script>
 	import LoadingScreen from '../components/LoadingScreen.svelte';
-	import {crossfade}from "svelte/transition"
-	import {quintOut} from "svelte/easing"
-	import {flip} from "svelte/animate"
-	import {scale} from "svelte/transition"
+	import anim from 'animejs/lib/anime';
+	import { crossfade } from 'svelte/transition';
+	import { expoOut, quintOut } from 'svelte/easing';
+	import { Terminal_command } from '../store/ComponentStore.js';
+	import { scale } from 'svelte/transition';
 	import AboutMe from '../components/About_me.svelte';
-	import { Loded, isAbout, isContact, isProj, windowsOpen, classList } from '../store/MainStore.js';
+	import {closed, Loded, isAbout, isContact, isProj, windowsOpen, classList } from '../store/MainStore.js';
 	import { dark_theme, curent_theme, light_theme } from '../store/Colorstore.js';
 	import Contactme from '../components/Contactme.svelte';
 	import ProjectTemplate from '../components/Project_template.svelte';
 	let root;
 	let c;
-	
+
 	$: {
 		if (root != undefined) {
 			if ($windowsOpen > 2) {
@@ -47,65 +48,211 @@
 			main_div_class = 'for4';
 		}
 	}
-const [send, receive] = crossfade({
-		duration: d => Math.sqrt(d * 200),
 
-		fallback(node, params) {
-			const style = getComputedStyle(node);
-			const transform = style.transform === 'none' ? '' : style.transform;
+	$: {
+		if (root != undefined) {
+			if ($windowsOpen == 1 && $Terminal_command.length > 0) {
+				anim({
+					targets: '.loading',
+					duration: 150,
 
-			return {
-				duration: 2000,
-				easing: quintOut,
-				css: t => `
-					transform: ${transform} scale(${t});
-					opacity: ${t}
-				`
-			};
+					height: '100%',
+					width: '100%',
+
+					/* easing:'spring(1,80,10,0)', */
+					easing: 'easeOutQuint',
+					direction: 'forwards'
+				});
+				root.style.setProperty('--div1t', '0');
+				root.style.setProperty('--div1l', '0');
+			}
+			if ($windowsOpen == 2) {
+				root.style.setProperty('--div2w', '50%');
+				root.style.setProperty('--div2h', '100%');
+				root.style.setProperty('--div2t', '0');
+				root.style.setProperty('--div2l', '50%');
+
+				anim({
+					targets: '.loading',
+					duration: 400,
+					top:"0",
+					left:"0",
+					height: '100%',
+					width: '50%',
+
+					/* easing:'spring(1,80,10,0)', */
+					easing: 'easeOutQuint',
+					direction: 'forwards'
+				});
+				anim({
+					targets: '.div1',
+					duration: 400,
+
+					left:"0",
+					height: '100%',
+					width: '50%',
+
+					/* easing:'spring(1,80,10,0)', */
+					easing: 'easeOutQuint',
+					direction: 'forwards'
+				});
+				anim({
+				targets:".div2 ",
+				duration:400,
+				height:"100%",
+				width:"50%",
+				top:"0",
+
+				left:"50%",
+				easing: 'easeOutQuint',
+				direction: 'forwards'
+
+				})
+			}
+			if ($windowsOpen == 3) {
+				anim({
+					targets: '.loading',
+					height: '50%',
+					width:"50%",
+					duration: 400,
+					easing: 'easeOutQuint',
+					direction: 'forwards'
+				});
+				anim({
+					targets: '.div2',
+					duration: 400,
+					scale: [0.5, 1],
+					left:"0",
+					maxWidth:"50%",
+					waxHeight:"50%",
+					
+					top: '50%',
+					width:"50%",
+					height:"50%",
+					/* easing:'spring(1,80,10,0)', */
+					easing: 'easeOutQuint',
+					direction: 'forwards'
+				});
+
+
+			anim({
+					targets: '.div3',
+					duration: 0o0,
+					left:"0",
+					maxWidth:"50%",
+					top: '50%',
+					width:"50%",
+					height:"50%",
+					/* easing:'spring(1,80,10,0)', */
+					easing: 'easeOutQuint',
+					direction: 'forwards'
+				});
+				
+
+							
+
+				root.style.setProperty('--div3w', '50%');
+				root.style.setProperty('--div3h', '100%');
+				root.style.setProperty('--div3t', '0');
+				root.style.setProperty('--div3l', '50%');
+			}
+			if ($windowsOpen == 4) {
+				root.style.setProperty('--div2w', '25%');
+				root.style.setProperty('--div2h', '50%');
+				root.style.setProperty('--div2t', '0');
+				root.style.setProperty('--div2l', '25%');
+				root.style.setProperty('--div3w', '50%');
+				root.style.setProperty('--div3h', '50%');
+				root.style.setProperty('--div3t', 'unset');
+				root.style.setProperty('--div3l', 'unset');
+				anim({
+					targets: '.loading',
+					width: '25%',
+					duration: 400,
+					easing: 'easeOutQuint',
+					direction: 'forwards'
+				});
+				anim({
+					targets: '.div2',
+					duration: 400,
+					scale: [0.5, 1],
+					left: '25%',
+					maxWidth:"25%",
+					top: '0%',
+
+					/* easing:'spring(1,80,10,0)', */
+					easing: 'easeOutQuint',
+					direction: 'forwards'
+				});
+				anim({
+					targets: '.div3',
+					duration: 400,
+					scale: [0.5, 1],
+					left: '0%',
+					top: '50%',
+
+					/* easing:'spring(1,80,10,0)', */
+					easing: 'easeOutQuint',
+					direction: 'forwards'
+				});
+				root.style.setProperty('--div4w', '50%');
+				root.style.setProperty('--div4h', '100%');
+				root.style.setProperty('--div4t', '0');
+				root.style.setProperty('--div4l', '50%');
+			}
 		}
-	});
+	}
 </script>
 
-	<div class={$Loded ? 'main-div ' + main_div_class : 'loading_main_div'} bind:this={root}>
-		<div class={($isAbout || $isContact || $isProj)&& $Loded ? 'loading div1' : 'loading div-full'}>
-			<LoadingScreen 
-			--color3={c!=undefined?c.color3:"red"}
-			/>
-		</div>
+<div class={$Loded ? 'main-div ' + main_div_class : 'loading_main_div'} bind:this={root}>
+	<div
+		class={($isAbout || $isContact || $isProj) && $Loded ? ' loading  div1 ' : 'loading main-div  '}
+	>
+		<LoadingScreen --color3={c != undefined ? c.color3 : 'red'} />
+	</div>
 
-		{#if $isAbout && $Loded}
-			<div id="about" class={$classList[1] + ' about screen' } in:receive={{key:"about",duration:2000}} out:send={{key:"about",duration:2000}}>
-				<AboutMe
+	{#if $isAbout && $Loded}
+		<div
+			id="about"
+			class={$classList[1] + ' about screen'}
+			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
+		>
+			<AboutMe
 				--foreground={c.foreground}
 				--color3={c.color3}
 				--color2={c.color2}
 				--color4={c.color4}
 				--color1={c.color1}
-	/>
-			</div>
-		{/if}
-		{#if $isContact && $Loded}
-			<div class={$classList[2] + ' contact screen'} in:scale={{duration:800}}>
-				<Contactme 
-			--foreground={c.foreground}
-				--color3={c.color3}
-				--color4={c.color4}
-				--color1={c.color1}
-	/>
-			</div>
-		{/if}
-		{#if $isProj  && $Loded}
-			<div class={$classList[3] + ' project screen'} in:scale={{duration:800}}>
-				<ProjectTemplate 
+			/>
+		</div>
+	{/if}
+	{#if $isContact && $Loded}
+		<div
+			class={$classList[2] + ' contact screen'}
+			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
+		>
+			<Contactme
 				--foreground={c.foreground}
 				--color3={c.color3}
 				--color4={c.color4}
 				--color1={c.color1}
-
-	/>
-			</div>
-		{/if}
-	</div>
+			/>
+		</div>
+	{/if}
+	{#if $isProj && $Loded}
+		<div
+			class={$classList[3] + ' project screen'}
+			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
+		>
+			<ProjectTemplate
+				--foreground={c.foreground}
+				--color3={c.color3}
+				--color4={c.color4}
+				--color1={c.color1}
+			/>
+		</div>
+	{/if}
+</div>
 
 <style>
 	:root {
@@ -142,6 +289,7 @@ const [send, receive] = crossfade({
 	align-items: center;
 
 		
+		transition: width 500ms ease-in-out, height 500ms ease-in-out;
 		height: 100%;
 		width: 100%;
 	}
@@ -158,63 +306,65 @@ const [send, receive] = crossfade({
 		gap: 5px;
 	}
 
-	/* @keyframes o-t { */
-	/* 	0% { */
-	/* 		grid-template: 'div1 div1'; */
-	/* 	} */
-	/* 	20% { */
-	/* 		grid-template: 'div1 div1 div1 div1  div1 div1 div1 div2'; */
-	/* 	} */
-	/* 	40% { */
-	/* 		grid-template: 'div1 div1 div1 div1 div1 div1  div2 div2'; */
-	/* 	} */
-	/* 	60% { */
-	/* 		grid-template: 'div1 div1 div1 div1 div1 div2 div2 div2'; */
-	/* 	} */
-	/* 	80%{ */
-	/* 		grid-template: 'div1 div1 div1 div1 div2 div2 div2 div2'; */
-	/* 	} */
-	/* } */
-	.for2 {
-		grid-template: 'div1 div2';
-	}
-	.for3 {
-		grid-template:
-			'div1 div3'
-			'div2 div3';
-	}
-	.for4 {
-		grid-template:
-			'div1 div2 div4 div4'
-			'div3 div3 div4 div4';
-	}
+	
+
+
+
 	.loading {
 		z-index: 1;
-		height: 100%;
-		width: 100%;
+		height: (--div1h);
+		width: (--div1w);
+
 	}
-	.div-full {
-		grid-column-start: 1;
-		grid-column-end: 3;
-	}
+
 	
 	.div1 {
-		max-height: var(--maxheight);
-		transition: width 500ms ease-in-out, height 500ms ease-in-out;
-		grid-area: div1;
+
+		position: absolute;
+		width: var(--div1w);	
+		height:  var(--div1h);
+		max-width: var(--div1w);
+		max-height: var(--div1h);
+		top: var(--div1t);
+		left: var(--div1l);
 	}
 	.div2 {
-		grid-area: div2;
+		position: absolute;
+		max-width: var(--div2w);
+		transition: width 500ms ease-in-out, height 500ms ease-in-out;
+		max-height: var(--div2h);width: var(--div2w);	
+		height:  var(--div2h);
+		top: var(--div2t);
+		left: var(--div2l);
+	z-index: 1;
+		/* animation: div2-3 0.5s linear  forwards; */
+		/* animation-play-state: paused; */
+		/* animation-timing-function: linear; */
 	}
 	.div3 {
 
-		grid-area: div3;
+		position: absolute;
+		max-width: var(--div3w);
+		max-height: var(--div3h);width: var(--div3w);	
+		height:  var(--div3h);
+		
+		transition: width 500ms ease-in-out, height 500ms ease-in-out;
+		top: var(--div3t);
+		left: var(--div3l);
 		/* animation-name: form2-3; */
 		/* animation-duration: 1s; */
 		/* animation-fill-mode: forwards; */
 
 	}
 	.div4 {
-		grid-area: div4;
+
+position: absolute;
+		max-width: var(--div4w);
+		transition: width 500ms ease-in-out, height 500ms ease-in-out;
+		max-height: var(--div4h);width: var(--div4w);	
+		height:  var(--div4h);
+		top: var(--div4t);
+		left: var(--div4l);
+
 	}
 </style>

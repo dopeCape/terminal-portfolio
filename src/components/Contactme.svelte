@@ -1,10 +1,12 @@
 <script>
-	import { isContact, windowsOpen, classList } from '../store/MainStore.js';
+	import {closed, isContact, windowsOpen, classList } from '../store/MainStore.js';
 
 	const close = (e) => {
 		$isContact = false;
-		doMeDaddy();
+
+		$closed = true;
 		$windowsOpen = $windowsOpen - 1;
+		doMeDaddy();
 	};
 	const doMeDaddy = () => {
 		for (let i = 1; i < 4; i++) {

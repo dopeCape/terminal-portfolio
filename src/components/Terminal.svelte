@@ -4,7 +4,7 @@
 	import { flip } from 'svelte/animate';
 	import { fade, blur } from 'svelte/transition';
 	import { curent_theme } from '../store/Colorstore.js';
-	import { isAbout, isContact, isProj, windowsOpen, classList, Loded } from '../store/MainStore.js';
+	import {closed, isAbout, isContact, isProj, windowsOpen, classList, Loded } from '../store/MainStore.js';
 	import { onMount } from 'svelte';
 	let input;
 	let width = 100;
@@ -93,6 +93,7 @@
 					$classList[1] = 'div' + x;
 					$windowsOpen = $windowsOpen + 1;
 					$isAbout = true;
+					$closed = false;
 				}
 			} else if (e.target.value == './contact') {
 				if (!$isContact) {
@@ -110,6 +111,7 @@
 					$classList[2] = 'div' + x;
 					$windowsOpen = $windowsOpen + 1;
 					$isContact = true;
+					$closed = false;
 				}
 			} else if (e.target.value == './projects') {
 				if (!$isProj) {
@@ -128,6 +130,7 @@
 
 					$windowsOpen = $windowsOpen + 1;
 					$isProj = true;
+					$closed = false;
 				}
 			} else if (e.target.value == '') {
 				$Terminal_command.push({ command: '', dir: currnet_dir });

@@ -1,9 +1,12 @@
 <script>
-	import { isAbout, windowsOpen, classList } from '../store/MainStore.js';
+	import { closed,isAbout, windowsOpen, classList } from '../store/MainStore.js';
+	import CodeSnippit from './Code_snippit.svelte';
 	const close = (e) => {
 		$isAbout = false;
-		doMeDaddy();
+		$closed = true;
 		$windowsOpen = $windowsOpen - 1;
+		doMeDaddy();
+
 	};
 	const doMeDaddy = () => {
 		for (let i = 1; i < 4; i++) {
@@ -14,9 +17,12 @@
 			}
 		}
 	};
+let clickRunCode=false;
 </script>
 
 <div class="main_about-div">
+
+	<div>
 	<div class="tittle_bar">
 		<div class="about_content">who is this guy?</div>
 		<h2 on:click={close} class="close">x</h2>
@@ -41,6 +47,8 @@
 		</div>
 		<div class="text_info" />
 	</div>
+</div>
+
 </div>
 
 <style>

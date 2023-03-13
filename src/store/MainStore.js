@@ -1,6 +1,10 @@
 import { writable } from 'svelte/store';
 
+const closed = writable(false);
 const Loded = writable(false);
+const d2 = writable(true);
+const d3 = writable(true);
+const d4 = writable(true);
 const windowsOpen = writable(1);
 const isAbout = writable(false);
 const focusAbout = writable(false);
@@ -25,5 +29,6 @@ export {
 	focusAbout,
 	focusTerm,
 	focusProj,
-	focusContact
+	focusContact,
+	closed
 };
