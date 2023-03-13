@@ -1,9 +1,9 @@
 <script>
-	import { closed,isAbout, windowsOpen, classList } from '../store/MainStore.js';
-	import CodeSnippit from './Code_snippit.svelte';
+	import {closed, isAbout, windowsOpen, classList } from '../store/MainStore.js';
+
 	const close = (e) => {
 		$isAbout = false;
-		$closed = true;
+		$closed= true;
 		$windowsOpen = $windowsOpen - 1;
 		doMeDaddy();
 

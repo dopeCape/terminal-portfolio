@@ -6,7 +6,15 @@
 	import { Terminal_command } from '../store/ComponentStore.js';
 	import { scale } from 'svelte/transition';
 	import AboutMe from '../components/About_me.svelte';
-	import {closed, Loded, isAbout, isContact, isProj, windowsOpen, classList } from '../store/MainStore.js';
+	import {
+		closed,
+		Loded,
+		isAbout,
+		isContact,
+		isProj,
+		windowsOpen,
+		classList
+	} from '../store/MainStore.js';
 	import { dark_theme, curent_theme, light_theme } from '../store/Colorstore.js';
 	import Contactme from '../components/Contactme.svelte';
 	import ProjectTemplate from '../components/Project_template.svelte';
@@ -75,8 +83,8 @@
 				anim({
 					targets: '.loading',
 					duration: 400,
-					top:"0",
-					left:"0",
+					top: '0',
+					left: '0',
 					height: '100%',
 					width: '50%',
 
@@ -88,7 +96,7 @@
 					targets: '.div1',
 					duration: 400,
 
-					left:"0",
+					left: '0',
 					height: '100%',
 					width: '50%',
 
@@ -97,23 +105,22 @@
 					direction: 'forwards'
 				});
 				anim({
-				targets:".div2 ",
-				duration:400,
-				height:"100%",
-				width:"50%",
-				top:"0",
+					targets: '.div2 ',
+					duration: 400,
+					height: '100%',
+					width: '50%',
+					top: '0',
 
-				left:"50%",
-				easing: 'easeOutQuint',
-				direction: 'forwards'
-
-				})
+					left: '50%',
+					easing: 'easeOutQuint',
+					direction: 'forwards'
+				});
 			}
 			if ($windowsOpen == 3) {
 				anim({
 					targets: '.loading',
 					height: '50%',
-					width:"50%",
+					width: '50%',
 					duration: 400,
 					easing: 'easeOutQuint',
 					direction: 'forwards'
@@ -122,34 +129,45 @@
 					targets: '.div2',
 					duration: 400,
 					scale: [0.5, 1],
-					left:"0",
-					maxWidth:"50%",
-					waxHeight:"50%",
-					
+					left: '0',
+					maxWidth: '50%',
+					waxHeight: '50%',
+
 					top: '50%',
-					width:"50%",
-					height:"50%",
+					width: '50%',
+					height: '50%',
 					/* easing:'spring(1,80,10,0)', */
 					easing: 'easeOutQuint',
 					direction: 'forwards'
 				});
 
-
-			anim({
-					targets: '.div3',
-					duration: 0o0,
-					left:"0",
-					maxWidth:"50%",
-					top: '50%',
-					width:"50%",
-					height:"50%",
-					/* easing:'spring(1,80,10,0)', */
-					easing: 'easeOutQuint',
-					direction: 'forwards'
-				});
-				
-
-							
+				if ($closed) {
+					anim({
+						targets: '.div3',
+						duration: 0o0,
+						left: '0',
+						maxWidth: '50%',
+						top: '50%',
+						width: '50%',
+						height: '50%',
+						/* easing:'spring(1,80,10,0)', */
+						easing: 'easeOutQuint',
+						direction: 'forwards'
+					});
+				} else {
+					anim({
+						targets: '.div3',
+						duration: 400,
+						left: '50%',
+						maxWidth: '50%',
+						top: '0',
+						width: '50%',
+						height: '100%',
+						/* easing:'spring(1,80,10,0)', */
+						easing: 'easeOutQuint',
+						direction: 'forwards'
+					});
+				}
 
 				root.style.setProperty('--div3w', '50%');
 				root.style.setProperty('--div3h', '100%');
@@ -177,7 +195,7 @@
 					duration: 400,
 					scale: [0.5, 1],
 					left: '25%',
-					maxWidth:"25%",
+					maxWidth: '25%',
 					top: '0%',
 
 					/* easing:'spring(1,80,10,0)', */

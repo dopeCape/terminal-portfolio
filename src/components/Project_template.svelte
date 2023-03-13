@@ -1,7 +1,7 @@
 <script>
 import {closed,isProj,windowsOpen,classList} from "../store/MainStore.js";
 const close = (e)=>{
-	$isProj = false;
+		$isProj = false;
 	
 		$closed = true;
 		$windowsOpen = $windowsOpen -1
