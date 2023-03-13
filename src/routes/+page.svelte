@@ -104,6 +104,17 @@
 					easing: 'easeOutQuint',
 					direction: 'forwards'
 				});
+anim({
+					targets: '.div3 ',
+					duration: 400,
+					height: '100%',
+					width: '50%',
+					top: '0',
+
+					left: '50%',
+					easing: 'easeOutQuint',
+					direction: 'forwards'
+				});
 				anim({
 					targets: '.div2 ',
 					duration: 400,
@@ -115,6 +126,7 @@
 					easing: 'easeOutQuint',
 					direction: 'forwards'
 				});
+
 			}
 			if ($windowsOpen == 3) {
 				anim({
@@ -168,7 +180,18 @@
 						direction: 'forwards'
 					});
 				}
-
+				anim({
+						targets: '.div3',
+						duration: 400,
+						left: '50%',
+						maxWidth: '50%',
+						top: '0',
+						width: '50%',
+						height: '100%',
+						/* easing:'spring(1,80,10,0)', */
+						easing: 'easeOutQuint',
+						direction: 'forwards'
+					});
 				root.style.setProperty('--div3w', '50%');
 				root.style.setProperty('--div3h', '100%');
 				root.style.setProperty('--div3t', '0');
