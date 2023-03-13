@@ -1,6 +1,6 @@
 import { writable } from 'svelte/store';
 
-const closed = writable(false);
+const closed = writable(0);
 const Loded = writable(false);
 const d2 = writable(true);
 const d3 = writable(true);

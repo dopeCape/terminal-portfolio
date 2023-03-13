@@ -4,7 +4,7 @@
 	import { crossfade } from 'svelte/transition';
 	import { expoOut, quintOut } from 'svelte/easing';
 	import { Terminal_command } from '../store/ComponentStore.js';
-	import { scale } from 'svelte/transition';
+	import { scale,fade } from 'svelte/transition';
 	import AboutMe from '../components/About_me.svelte';
 	import {
 		closed,
@@ -104,29 +104,30 @@
 					easing: 'easeOutQuint',
 					direction: 'forwards'
 				});
-anim({
-					targets: '.div3 ',
-					duration: 400,
-					height: '100%',
-					width: '50%',
-					top: '0',
+				if ($closed > 2) {
+					anim({
+						targets: '.div3 ',
+						duration: 400,
+						height: '100%',
+						width: '50%',
+						top: '0',
 
-					left: '50%',
-					easing: 'easeOutQuint',
-					direction: 'forwards'
-				});
-				anim({
-					targets: '.div2 ',
-					duration: 400,
-					height: '100%',
-					width: '50%',
-					top: '0',
+						left: '50%',
+						easing: 'easeOutQuint',
+						direction: 'forwards'
+					});
+					anim({
+						targets: '.div2 ',
+						duration: 400,
+						height: '100%',
+						width: '50%',
+						top: '0',
 
-					left: '50%',
-					easing: 'easeOutQuint',
-					direction: 'forwards'
-				});
-
+						left: '50%',
+						easing: 'easeOutQuint',
+						direction: 'forwards'
+					});
+				}
 			}
 			if ($windowsOpen == 3) {
 				anim({
@@ -144,7 +145,6 @@ anim({
 					left: '0',
 					maxWidth: '50%',
 					waxHeight: '50%',
-
 					top: '50%',
 					width: '50%',
 					height: '50%',
@@ -153,20 +153,7 @@ anim({
 					direction: 'forwards'
 				});
 
-				if ($closed) {
-					anim({
-						targets: '.div3',
-						duration: 0o0,
-						left: '0',
-						maxWidth: '50%',
-						top: '50%',
-						width: '50%',
-						height: '50%',
-						/* easing:'spring(1,80,10,0)', */
-						easing: 'easeOutQuint',
-						direction: 'forwards'
-					});
-				} else {
+				if ($closed > 3) {
 					anim({
 						targets: '.div3',
 						duration: 400,
@@ -180,18 +167,7 @@ anim({
 						direction: 'forwards'
 					});
 				}
-				anim({
-						targets: '.div3',
-						duration: 400,
-						left: '50%',
-						maxWidth: '50%',
-						top: '0',
-						width: '50%',
-						height: '100%',
-						/* easing:'spring(1,80,10,0)', */
-						easing: 'easeOutQuint',
-						direction: 'forwards'
-					});
+
 				root.style.setProperty('--div3w', '50%');
 				root.style.setProperty('--div3h', '100%');
 				root.style.setProperty('--div3t', '0');
@@ -231,6 +207,10 @@ anim({
 					scale: [0.5, 1],
 					left: '0%',
 					top: '50%',
+					width:"50%",
+					maxWidth:"50%",
+					maxheight:"50%",
+					height:"100%",
 
 					/* easing:'spring(1,80,10,0)', */
 					easing: 'easeOutQuint',
@@ -257,6 +237,7 @@ anim({
 			id="about"
 			class={$classList[1] + ' about screen'}
 			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
+
 		>
 			<AboutMe
 				--foreground={c.foreground}
@@ -271,6 +252,7 @@ anim({
 		<div
 			class={$classList[2] + ' contact screen'}
 			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
+
 		>
 			<Contactme
 				--foreground={c.foreground}
@@ -284,6 +266,7 @@ anim({
 		<div
 			class={$classList[3] + ' project screen'}
 			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
+
 		>
 			<ProjectTemplate
 				--foreground={c.foreground}

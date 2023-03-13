@@ -2,13 +2,14 @@
 	import {closed, isContact, windowsOpen, classList } from '../store/MainStore.js';
 
 	const close = (e) => {
-		$isContact = false;
-
-		$closed = true;
-		$windowsOpen = $windowsOpen - 1;
 		doMeDaddy();
+	
+
+
+		
 	};
 	const doMeDaddy = () => {
+	$closed= parseInt($classList[2][3]) ;
 		for (let i = 1; i < 4; i++) {
 			let x = parseInt($classList[i][3]);
 			if (x > parseInt($classList[2][3])){
@@ -17,7 +18,10 @@
 			}
 		
 		}
-	};
+
+		$isContact = false;
+		$windowsOpen = $windowsOpen - 1;
+};
 </script>
 
 <div class="main_contact_div">
