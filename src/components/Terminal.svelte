@@ -47,7 +47,7 @@
 					setTimeout(() => {
 						command_to_render.pop();
 						command_to_render = command_to_render;
-					}, 200);
+					}, );
 					i++;
 				}
 
@@ -254,19 +254,23 @@
 
 <style>
 	.help_container {
-		border-radius: 5px;
+
+
 		border: 2px solid var(--color3);
+		border-left: 2px solid var(--color3);
 		height: 200px;
 		position: absolute;
 		width: 400px;
 		position: absolute;
 		top: 40%;
 		right: 10%;
+
 	}
 	.help {
 		color: var(--color4);
 		text-align: center;
-		font-size: 40px;
+
+		font-size: 30px;
 	}
 	.unmain {
 		display: flex;
@@ -347,7 +351,7 @@
 		background: var(--foreground);
 		width: 100%;
 		position: relative;
-
+		font-family: "Press Start 2P";
 		border: none;
 
 		font-weight: bold;
