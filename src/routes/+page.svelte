@@ -244,6 +244,7 @@ keyframes: [
 				--color2={c.color2}
 				--color4={c.color4}
 				--color1={c.color1}
+				--Comment={c.Comment}
 			/>
 		</div>
 	{/if}

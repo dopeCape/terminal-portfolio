@@ -203,8 +203,8 @@
 				{#each command_to_render as ter, index}
 					{#if command_to_render.length - 1 == index}
 						<div style="margin-bottom:8px;" in:fade={{ duration: 400 }}>
-							<div class="pre_dir">{ter.dir}</div>
-							<div class="pre_command">{'>'}{ter.command}</div>
+
+							<div class="pre_command">{`Tejas@tejas-macbook-pro${ter.dir}$ `}{ter.command}</div>
 							{#if ter.msg != undefined}
 								{#if Array.isArray(ter.msg)}
 									<div class="list-dirs">
@@ -219,8 +219,8 @@
 						</div>
 					{:else}
 						<div style="margin-bottom:8px;">
-							<div class="pre_dir">{ter.dir}</div>
-							<div class="pre_command">{'>'}{ter.command}</div>
+
+							<div class="pre_command">{`Tejas@tejas-macbook-pro${ter.dir}$ `}{ter.command}</div>
 							{#if ter.msg != undefined}
 								{#if Array.isArray(ter.msg)}
 									<div class="list-dirs">
@@ -237,9 +237,9 @@
 				{/each}
 			</div>
 			<div class={x % 2 == 0 ? 'input_fied_contiainer x' : 'input_fied_contiainer y'}>
-				<div class="current_dir_input">{currnet_dir}</div>
+
 				<div class="current_input" in:fade={{ duration: 2000 }}>
-					{'>'}
+					{`Tejas@tejas-macbook-pro${$current_dir}$ `}
 					<input type="text" bind:this={input} on:keydown={handelTerInput} class="terminal_input" />
 				</div>
 			</div>
@@ -270,12 +270,14 @@
 		color: var(--color4);
 		text-align: center;
 
-		font-size: 30px;
+		font-size: 1.5rem;
 	}
 	.unmain {
 		display: flex;
 		position: absolute;
 		width: 100%;
+		margin-left:5px;
+
 	}
 	.input_fied_contiainer {
 		width: 100%;
@@ -297,7 +299,7 @@
 		justify-content: flex-start;
 		width: 40%;
 		gap: 15px;
-		font-size: 15px;
+		font-size: 1rem;
 		align-items: center;
 	}
 	.type-f {
@@ -336,31 +338,33 @@
 	}
 	.current_input {
 		display: flex;
+		margin-top:5px;
 		flex-direction: row;
 		width: 100%;
+
 		position: absolute;
 		color: var(--color1);
 		font-weight: bold;
 		transition: all 1s ease-out;
-		font-size: 20px;
+		font-size: 1rem;
 	}
 	.terminal_input {
 		color: var(--color1);
 		caret-shape: block;
-		font-size: 20px;
+		font-size: 1rem;
 		background: var(--foreground);
-		width: 100%;
+		margin-left:5px ;
 		position: relative;
-		font-family: "Press Start 2P";
+		font-family: "hack";
 		border: none;
-
+		
 		font-weight: bold;
 		transition: all 1s ease-out;
 
 		outline: none;
 	}
 	.current_dir_input {
-		font-size: 20px;
+		font-size: 1rem;
 		transition: all 1s ease-out;
 		color: var(--color1);
 		font-weight: bold;
@@ -375,16 +379,16 @@
 		font-weight: bold;
 	}
 	.pre_msg {
-		font-size: 20px;
+		font-size: 1rem;
 
 		font-weight: bold;
 		transition: all 1s ease-out;
-		color: var(--color1);
+		color: var(--color4);
 	}
 	.pre_command {
 		color: var(--color1);
 		font-weight: bold;
-		font-size: 20px !important;
+		font-size: 1rem;
 		margin-bottom: 8px;
 		transition: all 1s ease-out;
 	}

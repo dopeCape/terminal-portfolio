@@ -21,19 +21,35 @@
 	};
 	$: {
 		console.log(windowsOpen);
-		let el = document.getElementsByClassName('json_data');
+		let el = document.getElementsByClassName('font_resize');
 		for (let i = 0; i < el.length; i++) {
 			let x;
 			if ($windowsOpen == 2) {
-				x = offsetH * 0.01;
-			} else {
 				x = offsetH * 0.02;
+			} else {
+				x = offsetH * 0.03;
 			}
 
 			console.log(el);
 			el[i].style.fontSize = `${x}px`;
 		}
+
+	if(root !=undefined){
+
+		if($windowsOpen ==2){
+
+		root.style.setProperty("--font",`${offsetH *0.015}px`)
+		root.style.setProperty("--margin_title",`${offsetH * 0.02}px`)
+		}else{
+
+		root.style.setProperty("--font",`${offsetH *0.017}px`)
+		root.style.setProperty("--margin_title",`${offsetH * 0.01}px`)
+		}
+
 	}
+
+	}
+	let root;
 	let clickRunCode = false;
 	let offsetW;
 	let offsetH;
@@ -52,10 +68,10 @@
 	];
 </script>
 
-<div class="main_about-div" bind:offsetWidth={offsetW} bind:offsetHeight={offsetH}>
+<div class="main_about-div" bind:offsetWidth={offsetW} bind:this={root} bind:offsetHeight={offsetH}>
 	<div>
 		<div class="tittle_bar">
-			<div class="about_content">who is this guy?</div>
+			<div class="about_content font_resize"><p class="tittle_bar_tittle">who is this guy?</p></div>
 			<h2 on:click={close} class="close">x</h2>
 		</div>
 		<div class="main_content">
@@ -67,28 +83,62 @@
 			</div>
 			<div class="info_container">
 				{#each tejes as t}
-					<p class="json_data"><span class="property">{t.n} : </span>{t.v}</p>
+					<p class="json_data font_resize"><span class="property">{t.n} : </span>{t.v}</p>
 				{/each}
 				<div class="skill_meter">
 					<fieldset class="skill_border">
-						<legend>Sys Info</legend>
-						<div class="lang_progress">rust</div>
-						<div class="lang_progress">go</div>
-						<div class="lang_progress">js/ts</div>
-						<div class="lang_progress">webdev</div>
+						<legend class="font_resize">Sys Info</legend>
+						<div class="lang_progress font_resize">rust</div>
+						<div class="lang_progress font_resize">go</div>
+						<div class="lang_progress font_resize">js/ts</div>
+						<div class="lang_progress font_resize">webdev</div>
 
-						<div class="lang_progress">css</div>
-						<div class="lang_progress">py/cpp</div>
+						<div class="lang_progress font_resize">css</div>
+						<div class="lang_progress font_resize">py/cpp</div>
 					</fieldset>
 				</div>
 			</div>
-			<div class="text_info" />
+			<div class="text_info " >
+			<p class="info_para">Hi there! I'm glad you stopped by. My name is [insert your name here], and I am an 18-year-old self-taught developer with a passion for building scalable backends and low-level programming.</p>
+
+<p class="info_para">Ever since I was a child, I've been fascinated by technology and its ability to make our lives easier. As I grew older, I realized that I wanted to be a part of the team that creates the technology that we use every day.</p>
+
+<p class="info_para">I began my journey by teaching myself the basics of programming, and I quickly fell in love with the world of software development. I found myself drawn to the more challenging aspects of programming, such as building scalable backends and working with low-level languages.</p>
+
+<p class="info_para">I am constantly looking for new challenges to tackle and new technologies to learn. I believe that the key to success in this field is a willingness to learn and adapt to new technologies as they emerge.</p>
+
+<p class="info_para">If you're interested in building scalable backends or working with low-level programming, I would love to connect with you. Feel free to reach out to me, and let's work together to build the next generation of technology! </p>
+			</div>
 		</div>
 	</div>
 </div>
 
 <style>
+.tittle_bar_tittle{
+	margin-top: var(--margin_title);
+
+
+}
+.info_para{
+	margin-top:10px ;
+
+}
+.text_info::-webkit-scrollbar{
+width: 0;
+
+}
+.text_info{
+	font-size: var(--font);
+	position: absolute;
+	max-height: 100%;
+	overflow:scroll ;
+	max-width: 100%;
+	text-align: center;	
+	color: var(--Comment);
+
+}
 .lang_progress{
+
 	color:var(--color2);
 	text-align: center;
 
@@ -119,7 +169,7 @@
 	.skill_border {
 		border: 1px solid var(--color3);
 		position: initial;
-
+		margin-right:5px ;
 		grid-gap: 1px;
 
 
@@ -144,11 +194,16 @@
 		margin-block-end: 0;
 		margin-block-start: 0;
 	}
+	.json_data::-webkit-scrollbar{
+		width: 0;
+		}
+
 	.json_data {
-		margin-left: 10px;
+
 		margin-bottom: 10px;
 		transition: all 200ms cubic-bezier(0.22, 1, 0.36, 1);
-		white-space: nowrap;
+
+			max-width: 100%;
 
 		color: var(--color1);
 	}
@@ -175,12 +230,14 @@
 	}
 	.info_container::-webkit-scrollbar {
 		opacity: 0.4;
+	width: 0;
 	}
 	.info_container::-webkit-scrollbar-thumb {
 		border-radius: 30%;
 	}
 
 	.info_container {
+		margin-top: 5px;
 		text-justify: auto;
 
 		grid-area: json;
@@ -191,8 +248,9 @@
 		flex-direction: column;
 		height: 100%;
 		position: absolute;
+
 		overflow-y: scroll;
-		overflow-x: hidden;
+		overflow-x: scroll;
 
 		max-width: 100%;
 		max-height: 100%;
@@ -203,7 +261,10 @@
 		border-top: 1px solid gray;
 		grid-area: text;
 		position: absolute;
+		padding-left: 9px;
+		padding-right:9px ;
 		max-width: 100%;
+		text-align: left;
 		max-height: 100%;
 	}
 	.main_content {
@@ -215,6 +276,7 @@
 		height: 95%;
 		position: absolute;
 		top: 5%;
+		gap: 5px;
 	}
 	.tittle_bar {
 		display: flex;

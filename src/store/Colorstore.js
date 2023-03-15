@@ -1,16 +1,16 @@
 import { writable } from 'svelte/store';
 
-const dark_theme = writable({
-	//NOTE:noctic obscuro
-	foreground: '#031417',
-	background: '#b2cacd',
-	color1: '#16b673',
-	color2: '#df769b',
-	color3: '#e4b781',
-	color4: '#d67e5c',
-	number: '#7060eb',
-	Comment: '#5b858b'
-});
+//const dark_theme = writable({
+//	//NOTE:noctic obscuro
+//	foreground: '#031417',
+//	background: '#b2cacd',
+//	color1: '#16b673',
+//	color2: '#df769b',
+//	color3: '#e4b781',
+//	color4: '#d67e5c',
+//	number: '#7060eb',
+//	Comment: '#5b858b'
+//});
 //const dark_theme = writable({
 //	//NOTE:jellyfish
 //	foreground: '#00002c',
@@ -22,17 +22,17 @@ const dark_theme = writable({
 //	color4: '#00ffff',
 //	number: '#ff7e34'
 //});
-//const dark_theme = writable({
-//	//NOTE:ayu dark
-//	foreground: '#0b0e14',
-//	background: '#1d222b',
-//	Comment: '#acb6bf8c',
-//	color1: '#aad94c',
-//	number: '#d2a6ff',
-//	color2: '#bfbdb6',
-//	color3: '#d2a6ff',
-//	color4: '#ffb454'
-//});
+const dark_theme = writable({
+	//NOTE:ayu dark
+	foreground: '#0b0e14',
+	background: '#1d222b',
+	Comment: '#acb6bf8c',
+	color1: '#aad94c',
+	number: '#d2a6ff',
+	color2: '#bfbdb6',
+	color3: '#d2a6ff',
+	color4: '#ffb454'
+});
 const light_theme = writable({
 	//NOTE:noctic  lux
 	foreground: '#fef8ec',
