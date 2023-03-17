@@ -1,5 +1,5 @@
 <script>
-import {closed,isProj,windowsOpen,classList} from "../store/MainStore.js";
+import {closed,isProj,windowsOpen,classList,classNos} from "../store/MainStore.js";
 const close = (e)=>{
 		doMeDaddy();
 	
@@ -9,6 +9,20 @@ const close = (e)=>{
 
 }
 	const doMeDaddy = () => {
+		$closed = parseInt($classList[3][3]);
+
+
+		if($classNos[1]<$classNos[3]){
+
+		$classNos[1] =$classNos[1] +1;
+		}
+if($classNos[2]<$classNos[3]){
+
+
+		$classNos[2] =$classNos[2] +1;
+		}
+
+		$classNos[3] =0;
 		for (let i = 1; i < 4; i++) {
 			let x = parseInt($classList[i][3]);
 			if (x > parseInt($classList[3][3])){
@@ -16,8 +30,8 @@ const close = (e)=>{
 			$classList[i] = 'div' + x;
 			}
 		
-		}
-	$closed = true;
+			}
+
 		$isProj = false;
 
 		$windowsOpen = $windowsOpen -1

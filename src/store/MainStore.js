@@ -1,6 +1,7 @@
 import { writable } from 'svelte/store';
 
 const closed = writable(0);
+const classNos = writable([]);
 const Loded = writable(false);
 const d2 = writable(true);
 const d3 = writable(true);
@@ -16,8 +17,10 @@ const isTerm = writable(true);
 const isProj = writable(false);
 const noOfWidowsOpenOtherThanTerm = writable(0);
 const classList = writable(['', '', '', '']);
-
+const About_loded = writable(false);
 export {
+	classNos,
+	About_loded,
 	Loded,
 	windowsOpen,
 	isAbout,

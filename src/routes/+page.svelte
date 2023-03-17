@@ -237,6 +237,7 @@ keyframes: [
 			id="about"
 			class={$classList[1] + ' about screen'}
 			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
+
 		>
 			<AboutMe
 				--foreground={c.foreground}

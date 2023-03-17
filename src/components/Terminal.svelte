@@ -4,7 +4,17 @@
 	import { flip } from 'svelte/animate';
 	import { fade, blur } from 'svelte/transition';
 	import { curent_theme } from '../store/Colorstore.js';
-	import {closed, isAbout, isContact, isProj, windowsOpen, classList, Loded } from '../store/MainStore.js';
+	import {
+		classNos,
+		About_loded,
+		closed,
+		isAbout,
+		isContact,
+		isProj,
+		windowsOpen,
+		classList,
+		Loded
+	} from '../store/MainStore.js';
 	import { onMount } from 'svelte';
 	let input;
 	let width = 100;
@@ -21,14 +31,17 @@
 	const tree = {
 		'~': {
 			child: [
-
 				{ n: 'contact.md', t: 'f' },
 				{ n: 'blogz.link', t: 'l' },
 				{ n: 'projects i made', t: 'd' }
 			]
 		}
 	};
-	const helpa = [{ n: 'exe <application_name>' }, { n: 'ls:to list current child apps and file' },{n:"cd:to change directory"}];
+	const helpa = [
+		{ n: 'exe <application_name>' },
+		{ n: 'ls:to list current child apps and file' },
+		{ n: 'cd:to change directory' }
+	];
 
 	let command_to_render = [];
 	function sleepFor(sleepDuration) {
@@ -43,13 +56,23 @@
 			//NOTE: key code 13 means "enter key"
 			if (e.target.value == 'clear') {
 				let i = 0;
-				while (i < command_to_render.length) {
-					setTimeout(() => {
+				let l = command_to_render.length
+
+				let cInterval = setInterval(() => {
+
+					console.log("asdfa")
+					if (i < l) {
 						command_to_render.pop();
 						command_to_render = command_to_render;
-					}, );
-					i++;
-				}
+
+						i++;
+					}else{
+
+				clearInterval(cInterval)
+
+					}
+
+				}, 30);
 
 				$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
 				count = $Terminal_command.length - 1;
@@ -86,6 +109,9 @@
 					});
 					count = $Terminal_command.length - 1;
 
+					$classNos[2] =$classNos[2] -1;
+					$classNos[3] =$classNos[3] -1;
+					$classNos[1] = 4;
 					command_to_render = command_to_render;
 
 					e.target.value = '';
@@ -105,6 +131,10 @@
 					});
 					count = $Terminal_command.length - 1;
 
+
+					$classNos[1] =$classNos[1] -1;
+					$classNos[3] =$classNos[3] -1;
+					$classNos[2] = 4;
 					command_to_render = command_to_render;
 					e.target.value = '';
 					let x = $windowsOpen + 1;
@@ -123,6 +153,10 @@
 					});
 					count = $Terminal_command.length - 1;
 
+
+					$classNos[1] =$classNos[1] -1;
+					$classNos[2] =$classNos[2] -1;
+					$classNos[3] = 4;
 					command_to_render = command_to_render;
 					e.target.value = '';
 					let x = $windowsOpen + 1;
@@ -203,7 +237,6 @@
 				{#each command_to_render as ter, index}
 					{#if command_to_render.length - 1 == index}
 						<div style="margin-bottom:8px;" in:fade={{ duration: 400 }}>
-
 							<div class="pre_command">{`Tejas@tejas-macbook-pro${ter.dir}$ `}{ter.command}</div>
 							{#if ter.msg != undefined}
 								{#if Array.isArray(ter.msg)}
@@ -219,7 +252,6 @@
 						</div>
 					{:else}
 						<div style="margin-bottom:8px;">
-
 							<div class="pre_command">{`Tejas@tejas-macbook-pro${ter.dir}$ `}{ter.command}</div>
 							{#if ter.msg != undefined}
 								{#if Array.isArray(ter.msg)}
@@ -237,7 +269,6 @@
 				{/each}
 			</div>
 			<div class={x % 2 == 0 ? 'input_fied_contiainer x' : 'input_fied_contiainer y'}>
-
 				<div class="current_input" in:fade={{ duration: 2000 }}>
 					{`Tejas@tejas-macbook-pro${$current_dir}$ `}
 					<input type="text" bind:this={input} on:keydown={handelTerInput} class="terminal_input" />
@@ -254,8 +285,6 @@
 
 <style>
 	.help_container {
-
-
 		border: 2px solid var(--color3);
 		border-left: 2px solid var(--color3);
 		height: 200px;
@@ -264,7 +293,6 @@
 		position: absolute;
 		top: 40%;
 		right: 10%;
-
 	}
 	.help {
 		color: var(--color4);
@@ -276,8 +304,8 @@
 		display: flex;
 		position: absolute;
 		width: 100%;
-		margin-left:5px;
-
+		margin-left: 5px;
+	margin-top: 10px;
 	}
 	.input_fied_contiainer {
 		width: 100%;
@@ -338,7 +366,7 @@
 	}
 	.current_input {
 		display: flex;
-		margin-top:5px;
+
 		flex-direction: row;
 		width: 100%;
 
@@ -353,11 +381,11 @@
 		caret-shape: block;
 		font-size: 1rem;
 		background: var(--foreground);
-		margin-left:5px ;
+		margin-left: 5px;
 		position: relative;
-		font-family: "hack";
+		font-family: 'hack';
 		border: none;
-		
+
 		font-weight: bold;
 		transition: all 1s ease-out;
 
