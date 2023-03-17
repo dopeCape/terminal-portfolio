@@ -1,46 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<script src="https://kit.fontawesome.com/cf090b08ff.js" crossorigin="anonymous"></script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css"
+		/>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+		<link
+			href="https://fonts.googleapis.com/css2?family=Signika+Negative&family=Ubuntu:wght@500&display=swap"
+			rel="stylesheet"
+		/>
+		<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.css" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
+		<link herf="prism.css" rel="stylesheet" />
+		<meta name="viewport" content="width=device-width" />
+		<link
+			rel="prefetch"
+			href="https://firebasestorage.googleapis.com/v0/b/portfolio-db7ba.appspot.com/o/20220830164014_IMG_1555.JPG?alt=media&token=2f3a98d1-9057-4bee-8afa-cedacc64fbbc"
+		/>
 
-<head>
-	<meta charset="utf-8" />
-	<script src="https://kit.fontawesome.com/cf090b08ff.js" crossorigin="anonymous"></script>
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-	<link href="https://fonts.googleapis.com/css2?family=Signika+Negative&family=Ubuntu:wght@500&display=swap"
-		rel="stylesheet" />
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/hack-font@3.3.0/build/web/hack.css" />
-	<link rel="icon" href="%sveltekit.assets%/favicon.png" />
-	<link herf="prism.css" rel="stylesheet" />
-	<meta name="viewport" content="width=device-width" />
-	<link rel="prefetch"
-		href="https://firebasestorage.googleapis.com/v0/b/portfolio-db7ba.appspot.com/o/20220830164014_IMG_1555.JPG?alt=media&token=2f3a98d1-9057-4bee-8afa-cedacc64fbbc" />
-	<!-- <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script> -->
+		<!-- <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script> -->
 
-	%sveltekit.head%
-</head>
-<style>
-	@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Teko:wght@300&display=swap');
-</style>
+		%sveltekit.head%
+	</head>
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Teko:wght@300&display=swap');
+	</style>
 
-<style>
-	body,
-	html {
-		display: inline;
-		font-family: 'hack';
-		margin: 0;
-		padding: 0;
-	}
+	<style>
+		body,
+		html {
+			display: inline;
+			font-family: 'hack';
+			margin: 0;
+			padding: 0;
+		}
 
-	* {
-		-moz-box-sizing: border-box;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-	}
-</style>
+		* {
+			-moz-box-sizing: border-box;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+	</style>
 
-<body data-sveltekit-preload-data="hover">
-	<script srr="prism.js"></script>
-	<div style="display: contents">%sveltekit.body%</div>
-</body>
-
+	<body data-sveltekit-preload-data="hover">
+		<script srr="prism.js"></script>
+		<script>
+			hljs.highlightAll();
+		</script>
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
 </html>

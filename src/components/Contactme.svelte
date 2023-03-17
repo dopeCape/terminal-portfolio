@@ -1,9 +1,19 @@
 <script>
 	import { closed, isContact, windowsOpen, classNos, classList } from '../store/MainStore.js';
 
+  import Highlight from "svelte-highlight";
+  import typescript from "svelte-highlight/languages/typescript";
+
+  import atomOneDark from "svelte-highlight/styles/atom-one-dark";
+ 	 
+	 let code = "let tejas  = 'tejas'";
+
+
 	const close = (e) => {
 		doMeDaddy();
 	};
+	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 	const doMeDaddy = () => {
 		$closed = parseInt($classList[2][3]);
 
@@ -27,17 +37,38 @@
 	};
 </script>
 
+<svelte:head>
+  {@html atomOneDark}
+</svelte:head>
+
 <div class="main_contact_div">
 	<h2 on:click={close} class="close">x</h2>
 	<div class="contain">
 		<div class="contact_tittle"><p class="title">wanna talk?</p></div>
-		<div class="contact" />
-q
+		<div class="contact">
+			<div class="contact_form_cont">
+				<input class="email contact_input" type="email" />
 
+				<textarea class="text_contact contact_input language-js" />
+
+<Highlight language={typescript} {code} />
+		
+			</div>
+			<div class="social_media_cont" />
+		</div>
 	</div>
 </div>
 
 <style>
+	.contact_input {
+		background: var(--foreground);
+		caret-color: var(--color1);
+		color: var(--color1);
+		border: 1px solid var(--color3);
+		outline: none;
+	}
+	.text_contact {
+	}
 	.contain {
 		display: flex;
 		flex-direction: column;
