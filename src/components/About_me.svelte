@@ -140,7 +140,7 @@
 		}, 10);
 	});
 	$: {
-		if($windowsOpen <5){
+		if ($windowsOpen < 5) {
 			anime({
 				targets: '.skill_meter',
 				height: '100%',
@@ -193,24 +193,20 @@
 				easing: 'easeOutElastic(1, .2)',
 				opacity: '1'
 			});
-
 		}
-			}
+	}
 	const doMeDaddy = () => {
 		$closed = parseInt($classList[1][3]);
 
-
-		if($classNos[3]<$classNos[1]){
-
-		$classNos[3] =$classNos[3] +1;
+		if ($classNos[3] < $classNos[1]) {
+			$classNos[3] = $classNos[3] + 1;
 		}
-if($classNos[2]<$classNos[1]){
-
-
-		$classNos[2] =$classNos[2] +1;
+		if ($classNos[2] < $classNos[1]) {
+			$classNos[2] = $classNos[2] + 1;
 		}
 
-		$classNos[1] =0;		for (let i = 1; i < 4; i++) {
+		$classNos[1] = 0;
+		for (let i = 1; i < 4; i++) {
 			let x = parseInt($classList[i][3]);
 
 			if (x > parseInt($classList[1][3])) {
@@ -282,7 +278,7 @@ if($classNos[2]<$classNos[1]){
 					<p class="tittle_bar_tittle">who is this guy?</p>
 				</div>
 			</div>
-			<div class={$classNos[1] == (4||3) ? 'main_content for2' : 'main_content for3'}>
+			<div class={$classNos[1] == (4 || 3) ? 'main_content for2' : 'main_content for3'}>
 				<div class="info_container">
 					{#each rTejas as t}
 						<p class="json_data font_resize">
@@ -292,72 +288,59 @@ if($classNos[2]<$classNos[1]){
 						</p>
 					{/each}
 
-						<div class="{$classNos[1] > 2?'skill_meter ':'skill_meter dish'}">
-							<fieldset class="skill_border">
-								<legend class="font_resize">Sys Info</legend>
-								<div class="meter_cont">
-									Rust
-									<div class="meter"><div class="meter_color" data-value="70%" /></div>
-								</div>
-								<div class="meter_cont" data-value="75%">
-									go
+					<div class={$classNos[1] > 2 ? 'skill_meter ' : 'skill_meter dish'}>
+						<fieldset class="skill_border">
+							<legend class="font_resize">Sys Info</legend>
 
-									<div class="meter"><div class="meter_color" data-value="75%" /></div>
-								</div>
 
-								<div class="meter_cont" data-value="80%">
-									webDev
+							<div class="meter_cont">Rust<div class="meter"><div data-value="70%" class="meter_color"></div></div></div>
 
-									<div class="meter"><div class="meter_color" data-value="80%" /></div>
-								</div>
-								<div class="meter_cont" data-value="50%">
-									py/cpp
+							<div class="meter_cont">Go<div class="meter"><div data-value="75%"class="meter_color"></div></div></div>
+							<div class="meter_cont">Webdev<div class="meter"><div data-value="78%" class="meter_color"></div></div></div>
+							<div class="meter_cont">Cpp/Py<div class="meter"><div data-value="50%" class="meter_color"></div></div></div>
 
-									<div class="meter"><div class="meter_color" data-value="50%" /></div>
-								</div>
-							</fieldset>
-						</div>
-
+							
+						</fieldset>
+					</div>
 				</div>
 
-					<div class="{$classNos[1] == 4?'text_info':'text_info dish'  }">
-						<p class="info_para">
-							Hi there! I'm glad you stopped by. My name is Tejas , and I am an 18-year-old
-							self-taught developer with a passion for building scalable backends and low-level
-							programming.
-						</p>
+				<div class={$classNos[1] == 4 ? 'text_info' : 'text_info dish'}>
+					<p class="info_para">
+						Hi there! I'm glad you stopped by. My name is Tejas , and I am an 18-year-old
+						self-taught developer with a passion for building scalable backends and low-level
+						programming.
+					</p>
 
-						<p class="info_para">
-							Ever since I was a child, I've been fascinated by technology and its ability to make
-							our lives easier. As I grew older, I realized that I wanted to be a part of the team
-							that creates the technology that we use every day.
-						</p>
+					<p class="info_para">
+						Ever since I was a child, I've been fascinated by technology and its ability to make our
+						lives easier. As I grew older, I realized that I wanted to be a part of the team that
+						creates the technology that we use every day.
+					</p>
 
-						<p class="info_para">
-							I began my journey by teaching myself the basics of programming, and I quickly fell in
-							love with the world of software development. I found myself drawn to the more
-							challenging aspects of programming, such as building scalable backends and working
-							with low-level languages.
-						</p>
+					<p class="info_para">
+						I began my journey by teaching myself the basics of programming, and I quickly fell in
+						love with the world of software development. I found myself drawn to the more
+						challenging aspects of programming, such as building scalable backends and working with
+						low-level languages.
+					</p>
 
-						<p class="info_para">
-							I am constantly looking for new challenges to tackle and new technologies to learn. I
-							believe that the key to success in this field is a willingness to learn and adapt to
-							new technologies as they emerge.
-						</p>
+					<p class="info_para">
+						I am constantly looking for new challenges to tackle and new technologies to learn. I
+						believe that the key to success in this field is a willingness to learn and adapt to new
+						technologies as they emerge.
+					</p>
 
-						<p class="info_para">
-							If you're interested in building scalable backends or working with low-level
-							programming, I would love to connect with you. Feel free to reach out to me.
-						</p>
-					</div>
-
+					<p class="info_para">
+						If you're interested in building scalable backends or working with low-level
+						programming, I would love to connect with you. Feel free to reach out to me.
+					</p>
+				</div>
 			</div>
 		</div>
 	{:else}
 		<div
 			class="pre_lode"
-			out:fade={{  duration: 200, easing: linear }}
+			out:fade={{ duration: 200, easing: linear }}
 			in:fade={{ duration: 200, easing: linear }}
 		>
 			<div class="img_container">
@@ -376,8 +359,21 @@ if($classNos[2]<$classNos[1]){
 </div>
 
 <style>
-	.dish{
-	display: none;
+	.svg_text{
+	font: 1rem;
+	color: var(--color4);
+	opacity: 1;
+	}
+	.svg_main {
+
+
+	width: 50%;
+	height: 100%;
+	position: absolute;
+	color:brown;
+	}
+	.dish {
+		display: none;
 	}
 	.json_pro {
 		color: red;
@@ -537,7 +533,7 @@ if($classNos[2]<$classNos[1]){
 		margin-left: 5px;
 		margin-right: 5px;
 		grid-gap: 1px;
-
+	position: relative;
 		height: 100%;
 		grid-template-columns: repeat(2, 50%);
 
