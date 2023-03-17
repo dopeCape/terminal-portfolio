@@ -32,6 +32,8 @@
 	<div class="contain">
 		<div class="contact_tittle"><p class="title">wanna talk?</p></div>
 		<div class="contact" />
+q
+
 	</div>
 </div>
 
