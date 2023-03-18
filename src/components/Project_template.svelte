@@ -1,5 +1,6 @@
 <script>
 	import { closed, isProj, windowsOpen, classList } from '../store/MainStore.js';
+	import ActualProjectsTemplete from './Actual_projects_templete.svelte';
 	const close = (e) => {
 		doMeDaddy();
 	};
@@ -22,24 +23,31 @@
 <div class="main_proj-div">
 	<h2 on:click={close} class="close">x</h2>
 	<div class="proj_container">
-		<div class="proj_tittle"> what has he made?</div>
-
+		<div class="proj_tittle">what has he made?</div>
 		<div class="proj_contents">
-			<div class="iframe_proj" >
-			<iframe src="https://google.com" frameborder="0"></iframe>
-			</div>
-			<div class="proj_details" ></div>
-			<div class="next_lang" />
-			<div class="prev_lang" />
-			<div class="sub_next" />
-			<div class="sub_prev" />
-		</div>
+		<ActualProjectsTemplete/>
+</div>
 	</div>
 </div>
 
 <style>
 	:global() {
 		--font-size: ;
+	}
+	.iframe_proj {
+		width: 100%;
+		height: 100%;
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-content: center;
+	flex-wrap: wrap;
+	}
+
+	.iframe {
+		width: 90%;
+		height: 90%;
+
 	}
 	.close {
 		position: absolute;
@@ -51,15 +59,15 @@
 		color: red;
 		cursor: pointer;
 	}
-	.proj_contents{
-	height: 95%;
-	max-height: 95%;
-	width:100%;
-	position: absolute;
-	top:5%;
-	max-width: 100%;
-	display: grid;
-	grid-template:'' ;
+	.proj_contents {
+		height: 95%;
+		max-height: 95%;
+		width: 100%;
+		position: absolute;
+		top: 5%;
+		max-width: 100%;
+		display: grid;
+		grid-template: '';
 	}
 
 	.proj_container {
