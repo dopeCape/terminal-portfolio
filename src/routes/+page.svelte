@@ -255,9 +255,12 @@ keyframes: [
 			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
 		>
 			<Contactme
+
+				--Comment={c.Comment}
 				--foreground={c.foreground}
 				--color3={c.color3}
 				--color4={c.color4}
+				--color2={c.color2}
 				--color1={c.color1}
 			/>
 		</div>
@@ -268,6 +271,9 @@ keyframes: [
 			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
 		>
 			<ProjectTemplate
+
+				--Comment={c.Comment}
+				--color2={c.color2}
 				--foreground={c.foreground}
 				--color3={c.color3}
 				--color4={c.color4}

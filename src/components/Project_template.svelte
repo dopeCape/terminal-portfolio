@@ -1,6 +1,59 @@
 <script>
 	import { closed, isProj, windowsOpen, classList } from '../store/MainStore.js';
 	import ActualProjectsTemplete from './Actual_projects_templete.svelte';
+	import Contactme from './Contactme.svelte';
+ /* demoLink; */
+	/* export let githubLink; */
+	/* export let stackUsed; */
+	/* export let discription; */
+	/* export let logo; */
+	
+
+	const projects = [
+	{
+	demoLink:"https://golang.org",
+	githubLink:"https://github.com/dopeCape/config",
+	stackUsed:["rust","tauri","svelte","anime.js","mongoDB","rocket"],
+	dis:"Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
+	lang:"rust"
+
+	},{
+	demoLink:"https://youtube.com",
+	githubLink:"https://github.com/dopeCape/config",
+	stackUsed:["go","xyx","svelte","anime.js","mongoDB","rocket"],
+	dis:"Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.Lorem Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+	lang:"go"
+
+	},{
+demoLink:"https://reddit.com",
+	githubLink:"https://github.com/dopeCape/config",
+	stackUsed:["js","xyx","svelte","anime.js","mongoDB","rocket"],
+	dis:"Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.Lorem Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
+	lang:"js"
+	}
+
+	]
+let counter =0;
+const prevProj =()=>{
+	if (counter == 0){
+		counter  = projects.length -1
+	}else{
+	counter = counter -1
+	counter = counter % (projects.length)
+	console.log(counter)
+
+	}
+
+	
+}
+const nextProj =()=>{
+ 
+	counter = counter +1;
+	counter = counter % (projects.length)
+	console.log(counter)
+
+}
+
 	const close = (e) => {
 		doMeDaddy();
 	};
@@ -25,31 +78,53 @@
 	<div class="proj_container">
 		<div class="proj_tittle">what has he made?</div>
 		<div class="proj_contents">
-		<ActualProjectsTemplete/>
+		<ActualProjectsTemplete  data={projects[counter]} />
+		
 </div>
 	</div>
+	<div class="buttons_proj">
+<div class="previos" on:click={prevProj}>
+<i class="fa-solid fa-arrow-left icon"></i>
+</div>
+	<div class="next" on:click={nextProj}>
+<i class=" fa-solid fa-arrow-right icon"></i>
+
+</div>	
+
+
+<div class="prev"></div>
+	</div>
+
 </div>
 
 <style>
 	:global() {
 		--font-size: ;
 	}
-	.iframe_proj {
-		width: 100%;
-		height: 100%;
+.previos {
+		position: absolute;
+		left: 10px;
+	}
+	.next {
+		position: absolute;
+		right: 10px;
+	}
+	.icon {
+		font-size: 50px;
+
+		color: var(--color4);
+
 		position: relative;
+	}
+	.buttons_proj {
+		position: absolute;
+		width: 100%;
+		height: 5%;
+	bottom: 2%;
 		display: flex;
-		justify-content: center;
-		align-content: center;
-	flex-wrap: wrap;
+		justify-content: space-around;
 	}
-
-	.iframe {
-		width: 90%;
-		height: 90%;
-
-	}
-	.close {
+.close {
 		position: absolute;
 		right: 10px;
 		font-size: 20px;
@@ -93,9 +168,12 @@
 		border: 2px solid var(--color3);
 	}
 	.main_proj-div {
+
 		transition: width 1.5s linear, height 1.5s linear, all 1s ease-out, border 0s;
 		position: relative;
 
+		transition: border-color 50ms linear;
+		border: 2px solid var(--foreground);
 		/* border-radius:10px; */
 		height: 99%;
 

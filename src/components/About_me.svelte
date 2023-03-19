@@ -491,7 +491,8 @@
 		overflow: scroll;
 		max-width: 100%;
 		text-align: center;
-		color: var(--Comment);
+		color: var(--color2);
+
 	}
 	.lang_progress {
 		color: var(--color2);
