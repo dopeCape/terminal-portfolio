@@ -194,9 +194,9 @@ margin-bottom: 10px;
 		max-height: 100%;
 		overflow: scroll;
 		text-align: center;
-		display: flex;
-		align-content: center;
-		justify-content: center;
+
+
+
 		flex-wrap: wrap;
 		color: var(--color2);
 		line-height: 25px;
