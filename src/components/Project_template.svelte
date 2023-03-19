@@ -1,5 +1,5 @@
 <script>
-	import { closed, isProj, windowsOpen, classList } from '../store/MainStore.js';
+	import { closed, isProj, windowsOpen, classList, classNos } from '../store/MainStore.js';
 	import ActualProjectsTemplete from './Actual_projects_templete.svelte';
 	import Contactme from './Contactme.svelte';
  /* demoLink; */
@@ -7,7 +7,25 @@
 	/* export let stackUsed; */
 	/* export let discription; */
 	/* export let logo; */
+	let root ;
+	$:{
+
+	if(root!=undefined){
+
+if($classNos[3] ==4){
+		root.style.setProperty("--icon_font","50px")
+	}if($classNos[3] ==3){
+
+
+		root.style.setProperty("--icon_font","40px")
+	}
+	if($windowsOpen ==2){
+
+		root.style.setProperty("--icon_font","25px")
+	}
+	}
 	
+	}
 
 	const projects = [
 	{
@@ -73,7 +91,7 @@ const nextProj =()=>{
 	};
 </script>
 
-<div class="main_proj-div">
+<div class="main_proj-div" bind:this={root}>
 	<h2 on:click={close} class="close">x</h2>
 	<div class="proj_container">
 		<div class="proj_tittle">what has he made?</div>
@@ -110,7 +128,7 @@ const nextProj =()=>{
 		right: 10px;
 	}
 	.icon {
-		font-size: 50px;
+		font-size: var(--font-size);
 
 		color: var(--color4);
 

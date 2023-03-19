@@ -1,5 +1,5 @@
 <script>
-	
+import {classNos,windowsOpen} from "../store/MainStore.js"
 	export let data = {}
 	const clickedDemo = () => {
 		window.open(data.demoLink, 'blank');
@@ -8,29 +8,32 @@
 		window.open(data.githubLink, 'blank');
 
 	};
-	const dummy_stack = ["TypeScript","React","Redux","mongoDB","Node","anime.js"
-
-
-	]
+		
+		let root;
 </script>
 
-<div class="templete">
+<div class="templete" bind:this={root}>
+	{#if $classNos[3] == 4}
 	<div class="iframe_cont">
 		<iframe class="iframe" title="project" src={data.demoLink} frameborder="0" />
 	</div>
-	<div class="dis_cont">
+	{/if}
+	<div class="dis_cont {$classNos[3] == 4  ? 'max' : ($classNos[3] == 3 ? 'min' : 'min ')} ">
+		{#if $classNos[3] != 2}
 		<div class="dis">
 		{data.dis}
 		</div>
-		<div class="feild_cont">
-			<div class="logo_stack">
-				<fieldset class="stack_fieldset field"><legend class="stack">Stack used</legend>
+		{/if}
+		<div class="feild_cont {$classNos[3] ==2?'full_fied' :'half_fied'}">
+			<div class="logo_stack {$classNos[3] ==2?'full_fied' :'half_fied'}">
+				<fieldset class="stack_fieldset field {$classNos[3] ==2?'full_fied' :'half_fied'}"><legend class="stack">Stack used</legend>
 				{#each data.stackUsed as data}
 			<div class="tags">{data}</div>
 
 				{/each}
 
 				</fieldset>
+				{#if $classNos[3] !=2}
 				<div class="logo">
 		{#if data.lang =="rust"}
 <i class="fa-brands fa-rust"></i>
@@ -40,7 +43,10 @@
 <i class="fa-brands fa-golang"></i>
 
 		{/if}
+
 			</div>
+			
+		{/if}
 			</div>
 
 			<fieldset class="links_fieldset  field">
@@ -55,6 +61,16 @@
 </div>
 
 <style>
+	.half_fied{
+
+	width: 50%;
+		max-height: 100%;
+
+	}
+	.full_fied{
+	width: 100%;
+	max-width: 100%;
+	}
 	.tags{
 		color: var(--color1);
 		font-size:0.9rem;
@@ -80,6 +96,7 @@
 		width: 100%;
 		position: relative;
 		display: flex;
+		margin-top: 10px;
 	}
 	.logo {
 		height: 100%;
@@ -91,7 +108,7 @@ margin-bottom: 10px;
 		
 	}
 	.stack_fieldset {
-		width: 50%;
+
 	display: grid;
 	max-height: 100%;
 	overflow: hidden;
@@ -120,10 +137,10 @@ margin-bottom: 10px;
 	.feild_cont {
 		display: flex;
 		flex-direction: column;
-		max-width: 50%;
-		max-height: 100%;
+
+
 		height: 100%;
-		width: 50%;
+
 		margin-left: 5px;
 	}
 	.previos {
@@ -153,9 +170,19 @@ margin-bottom: 10px;
 		padding: 0;
 		width: 100%;
 		position: relative;
-		max-height: 30%;
+
 		overflow: hidden;
 		display: flex;
+	}
+	.max{
+
+		height: 30%;
+		max-height: 30%;
+	}
+	.min{
+
+		height: 90%;
+		max-height: 90%;
 	}
 	.dis::-webkit-scrollbar {
 		width: 0;
@@ -166,6 +193,11 @@ margin-bottom: 10px;
 		margin-left: 5%;
 		max-height: 100%;
 		overflow: scroll;
+		text-align: center;
+		display: flex;
+		align-content: center;
+		justify-content: center;
+		flex-wrap: wrap;
 		color: var(--color2);
 		line-height: 25px;
 		text-align: left;
