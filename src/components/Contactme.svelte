@@ -2,12 +2,40 @@
 	import { closed, isContact, windowsOpen, classNos, classList } from '../store/MainStore.js';
 
 	import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
+	import { onMount } from 'svelte';
 
 	const close = (e) => {
 		doMeDaddy();
 	};
 	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
+	const LETTERS = 'abcdefghijklmnopqrstuvwxyx1234567890@!.';
+	onMount(() => {
+		let el = document.getElementById('contact_div');
+		for (let i = 0; i < LETTERS.length; i++) {
+			const node = document.createElement("div")
+			const text = document.createTextNode(LETTERS[i])
+			node.appendChild(text) 
+			node.id  = LETTERS[i]
+			node.className ="ba"
+			node.style.position = "absolute"
+			node.style.color = "white"
+			el.appendChild(node)
+		}
+	});
+	let root;
+	$: {
+		if (root != undefined) {
+			if ($classNos[2] == 2) {
+				root.style.setProperty('--font_size', '50px');
+			}
+			if ($classNos[2] == 3) {
+				root.style.setProperty('--font_size', '50px');
+			}
+			if ($classNos[2] == 4) {
+				root.style.setProperty('--font_size', '50px');
+			}
+		}
+	}
 	const doMeDaddy = () => {
 		$closed = parseInt($classList[2][3]);
 
@@ -35,40 +63,68 @@
 	{@html atomOneDark}
 </svelte:head>
 
-<div class="main_contact_div">
+<div class="main_contact_div" bind:this={root}>
+	;
 	<h2 on:click={close} class="close">x</h2>
 	<div class="contain">
 		<div class="contact_tittle"><p class="title">wanna talk?</p></div>
-		<div class="contact">
+		<div class="contact" id="contact_div">
 			<div class="contact_form_cont">
 				<input class=" contact_input email" type="email" />
 
-				<textarea class="text_contact contact_input language-js" />
+				<textarea class="text contact_input  language-js" />
 			</div>
 			<div class="social_media_cont" />
+		</div>
+		<div class="social_icons">
+			<i class="fa-brands fa-square-instagram icon" />
+			<i class="fa-brands fa-square-twitter icon" />
+
+			<i class="fa-brands fa-square-github icon" />
+			<i class="fa-brands fa-linkedin icon" />
 		</div>
 	</div>
 </div>
 
 <style>
-	.test {
-		height: 0;
-		width: 0;
-		border: none;
-		outline: none;
-		background-color: var(--foreground);
+	.ba{
+	position: absolute;
+	color:var(--color1)
+	}
+	.social_icons {
+		bottom: 20%;
+		left: 25%;
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+		width: 50%;
+		flex-wrap: wrap;
+
+		position: absolute;
+	}
+	.icon:hover {
+		transform: scale(1.02);
+		color: var(--color2);
+	}
+	.icon {
+		transition: transform 200ms linear, color 200ms linear;
+		font-size: var(--font_size);
+		color: var(--Comment);
 	}
 	.contact_form_cont {
 		display: flex;
-		border:2px solid var(--color3);
-		background-color:var(--background) ;
-		--webkit-filter: blur(5);
+background-color: aqua;
+		
+background-color: rgba(0, 0, 0, .25);
+
+		border: 1px solid var(--color3);
+
 		border-radius: 10px;
 		height: 60%;
 		flex-direction: column;
 		width: 60%;
 		justify-content: center;
-		align-items: center;
+		align-items: flex-start;
 		top: 5%;
 		position: relative;
 	}
@@ -80,18 +136,20 @@
 		position: absolute;
 		justify-content: center;
 		align-items: flex-start;
-
 	}
-	.email{
-
-	height:30px ;
+	.text {
+		margin-left: 10px;
 	}
-	.text_contact::-webkit-scrollbar{
-	width: 0;
-	}
-	.text_contact{
+	.email {
+		height: 30px;
 
-	height: 90px;
+		margin-left: 10px;
+	}
+	.text_contact::-webkit-scrollbar {
+		width: 0;
+	}
+	.text_contact {
+		height: 90px;
 	}
 	.contact_input {
 		background: var(--foreground);
@@ -139,6 +197,7 @@
 		position: relative;
 		transition: width 1.5s linear, height 1.5s linear, all 1s ease-out, border 0s;
 
+		border: 2px solid gray;
 		/* border-radius: 10px; */
 		height: 99%;
 
