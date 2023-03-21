@@ -9,19 +9,6 @@
 	};
 	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	const LETTERS = 'abcdefghijklmnopqrstuvwxyx1234567890@!.';
-	onMount(() => {
-		let el = document.getElementById('contact_div');
-		for (let i = 0; i < LETTERS.length; i++) {
-			const node = document.createElement("div")
-			const text = document.createTextNode(LETTERS[i])
-			node.appendChild(text) 
-			node.id  = LETTERS[i]
-			node.className ="ba"
-			node.style.position = "absolute"
-			node.style.color = "white"
-			el.appendChild(node)
-		}
-	});
 	let root;
 	$: {
 		if (root != undefined) {
@@ -29,10 +16,10 @@
 				root.style.setProperty('--font_size', '50px');
 			}
 			if ($classNos[2] == 3) {
-				root.style.setProperty('--font_size', '50px');
+				root.style.setProperty('--font_size', '60px');
 			}
 			if ($classNos[2] == 4) {
-				root.style.setProperty('--font_size', '50px');
+				root.style.setProperty('--font_size', '70px');
 			}
 		}
 	}
@@ -64,22 +51,13 @@
 </svelte:head>
 
 <div class="main_contact_div" bind:this={root}>
-	;
 	<h2 on:click={close} class="close">x</h2>
 	<div class="contain">
-		<div class="contact_tittle"><p class="title">wanna talk?</p></div>
-		<div class="contact" id="contact_div">
-			<div class="contact_form_cont">
-				<input class=" contact_input email" type="email" />
-
-				<textarea class="text contact_input  language-js" />
-			</div>
-			<div class="social_media_cont" />
-		</div>
+		<div class="contact_tittle"><div class="title">wanna talk?</div></div>
 		<div class="social_icons">
 			<i class="fa-brands fa-square-instagram icon" />
 			<i class="fa-brands fa-square-twitter icon" />
-
+			<i class="fa-solid fa-envelope icon" />
 			<i class="fa-brands fa-square-github icon" />
 			<i class="fa-brands fa-linkedin icon" />
 		</div>
@@ -87,19 +65,18 @@
 </div>
 
 <style>
-	.ba{
-	position: absolute;
-	color:var(--color1)
+	.ba {
+		position: absolute;
+		color: var(--color1);
 	}
 	.social_icons {
-		bottom: 20%;
-		left: 25%;
+		bottom: 50%;
+		left: 12.5%;
 		display: flex;
 		align-items: center;
 		justify-content: space-evenly;
-		width: 50%;
+		width: 80%;
 		flex-wrap: wrap;
-
 		position: absolute;
 	}
 	.icon:hover {
@@ -113,18 +90,13 @@
 	}
 	.contact_form_cont {
 		display: flex;
-background-color: aqua;
-		
-background-color: rgba(0, 0, 0, .25);
-
-		border: 1px solid var(--color3);
 
 		border-radius: 10px;
 		height: 60%;
 		flex-direction: column;
 		width: 60%;
 		justify-content: center;
-		align-items: flex-start;
+		align-items: center;
 		top: 5%;
 		position: relative;
 	}
@@ -135,6 +107,7 @@ background-color: rgba(0, 0, 0, .25);
 		height: 95%;
 		position: absolute;
 		justify-content: center;
+
 		align-items: flex-start;
 	}
 	.text {
@@ -170,6 +143,11 @@ background-color: rgba(0, 0, 0, .25);
 		flex-direction: column;
 		width: 100%;
 		position: absolute;
+		background: radial-gradient(rgba(255,255,255,0.2) 8%, transparent 8%);
+		background-position: 0% 0%;
+		background-size: 5vmin 5vmin;
+
+
 	}
 	.close {
 		position: absolute;
@@ -183,8 +161,11 @@ background-color: rgba(0, 0, 0, .25);
 
 	.contact_tittle {
 		color: var(--color3);
-		padding-left: 45%;
 
+		display: flex;
+		justify-content: center;
+align-items: center;
+	background: var(--foreground);
 		height: 5%;
 		width: 100%;
 		border-bottom: 1px solid gray;
@@ -207,4 +188,5 @@ background-color: rgba(0, 0, 0, .25);
 		max-height: 99%;
 		width: 99%;
 	}
+
 </style>
