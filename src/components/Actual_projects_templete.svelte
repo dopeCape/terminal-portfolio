@@ -1,4 +1,6 @@
 <script>
+import anime from "animejs";
+	import { onMount } from "svelte";
 import {classNos,windowsOpen} from "../store/MainStore.js"
 	export let data = {}
 	const clickedDemo = () => {
@@ -10,6 +12,20 @@ import {classNos,windowsOpen} from "../store/MainStore.js"
 	};
 		
 		let root;
+	/* onMount(()=>{ */
+	/* anime({ */
+	/* 	targets:".iframe_cont", */
+
+	/* 	left:["-200%","0%"], */
+
+	/* 	duration:5000, */
+
+		 
+		
+		
+	/* }) */
+	
+	/* }) */
 </script>
 
 <div class="templete" bind:this={root}>
@@ -97,6 +113,7 @@ import {classNos,windowsOpen} from "../store/MainStore.js"
 		position: relative;
 		display: flex;
 		margin-top: 10px;
+		margin-right: 10px;
 	}
 	.logo {
 		height: 100%;
@@ -114,9 +131,12 @@ margin-bottom: 10px;
 	overflow: hidden;
 	grid-template-rows:repeat(3,1fr) ;
 	grid-template-columns:repeat(2,1fr) ;
+	margin-right: 10px;
 	}
 
 	.links_fieldset {
+
+	margin-right: 10px;
 		margin-top: 10px;
 		display: flex;
 		justify-content: space-around;
@@ -143,29 +163,7 @@ margin-bottom: 10px;
 
 		margin-left: 5px;
 	}
-	.previos {
-		position: absolute;
-		left: 10px;
-	}
-	.next {
-		position: absolute;
-		right: 10px;
-	}
-	.icon {
-		font-size: 50px;
 
-		color: var(--color4);
-
-		position: relative;
-	}
-	.buttons_proj {
-		position: absolute;
-		width: 100%;
-		height: 5%;
-		bottom: 5%;
-		display: flex;
-		justify-content: space-around;
-	}
 	.dis_cont {
 		padding: 0;
 		width: 100%;
@@ -176,8 +174,8 @@ margin-bottom: 10px;
 	}
 	.max{
 
-		height: 30%;
-		max-height: 30%;
+		height: 35%;
+		max-height: 35%;
 	}
 	.min{
 
@@ -213,6 +211,8 @@ margin-bottom: 10px;
 		justify-content: center;
 		align-content: center;
 		flex-wrap: wrap;
+
+		position:relative;
 		width: 100%;
 		height: 60%;
 	}
