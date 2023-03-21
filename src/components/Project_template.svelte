@@ -1,76 +1,98 @@
 <script>
 	import { closed, isProj, windowsOpen, classList, classNos } from '../store/MainStore.js';
+	import { fade } from 'svelte/transition';
 	import ActualProjectsTemplete from './Actual_projects_templete.svelte';
 	import Contactme from './Contactme.svelte';
- /* demoLink; */
+	/* demoLink; */
 	/* export let githubLink; */
 	/* export let stackUsed; */
 	/* export let discription; */
 	/* export let logo; */
-	let root ;
-	$:{
-
-	if(root!=undefined){
-
-if($classNos[3] ==4){
-		root.style.setProperty("--icon_font","50px")
-	}if($classNos[3] ==3){
-
-
-		root.style.setProperty("--icon_font","40px")
-	}
-	if($windowsOpen ==2){
-
-		root.style.setProperty("--icon_font","25px")
-	}
-	}
-	
+	let root;
+	$: {
+		if (root != undefined) {
+			if ($classNos[3] == 4) {
+				root.style.setProperty('--pos', '50%');
+				root.style.setProperty('--icon_font', '35px');
+			}
+			if ($classNos[3] == 3) {
+				root.style.setProperty('--pos', '50%');
+				root.style.setProperty('--icon_font', '30px');
+			}
+			if ($classNos[3] == 2) {
+				root.style.setProperty('--icon_font', '20px');
+				root.style.setProperty('--pos', '15px');
+			}
+		}
 	}
 
 	const projects = [
-	{
-	demoLink:"https://golang.org",
-	githubLink:"https://github.com/dopeCape/config",
-	stackUsed:["rust","tauri","svelte","anime.js","mongoDB","rocket"],
-	dis:"Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.",
-	lang:"rust"
+[		{
+			demoLink: 'https://netflix-clone-3f085.web.app/',
+			githubLink: 'https://github.com/dopeCape/netflix_clone',
+			dis: 'It is a  netflix-alike-app written in javaScript with help of React as it ui Framework along  with redux to manage its state .Firebase was used to deploy and auth .For managing payments ans subs i used stripe',
+			stackUsed: ['Js', 'React', 'Redux', 'Firebase', 'tailwind', 'stripe'],
+			lang: 'js'
+		},{
+			demoLink: 'https://reddit.com',
+			githubLink: 'https://github.com/dopeCape/config',
+			stackUsed: ['js', 'xyx', 'svelte', 'anime.js', 'mongoDB', 'rocket'],
+			dis: 'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.Lorem Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.',
+			lang: 'js'
+		}],
 
-	},{
-	demoLink:"https://youtube.com",
-	githubLink:"https://github.com/dopeCape/config",
-	stackUsed:["go","xyx","svelte","anime.js","mongoDB","rocket"],
-	dis:"Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.Lorem Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-	lang:"go"
-
-	},{
-demoLink:"https://reddit.com",
-	githubLink:"https://github.com/dopeCape/config",
-	stackUsed:["js","xyx","svelte","anime.js","mongoDB","rocket"],
-	dis:"Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.Lorem Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-	lang:"js"
+		[{
+			demoLink: 'https://golang.org',
+			githubLink: 'https://github.com/dopeCape/config',
+			stackUsed: ['rust', 'tauri', 'svelte', 'anime.js', 'mongoDB', 'rocket'],
+			dis: 'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.Lorem ipsum dolor sit amet, officia excepteur ex fugiat reprehenderit enim labore culpa sint ad nisi Lorem pariatur mollit ex esse exercitation amet. Nisi anim cupidatat excepteur officia. Reprehenderit nostrud nostrud ipsum Lorem est aliquip amet voluptate voluptate dolor minim nulla est proident. Nostrud officia pariatur ut officia. Sit irure elit esse ea nulla sunt ex occaecat reprehenderit commodo officia dolor Lorem duis laboris cupidatat officia voluptate. Culpa proident adipisicing id nulla nisi laboris ex in Lorem sunt duis officia eiusmod. Aliqua reprehenderit commodo ex non excepteur duis sunt velit enim. Voluptate laboris sint cupidatat ullamco ut ea consectetur et est culpa et culpa duis.',
+			lang: 'rust'
+		}],
+		[{
+			demoLink: 'https://youtube.com',
+			githubLink: 'https://github.com/dopeCape/config',
+			stackUsed: ['go', 'xyx', 'svelte', 'anime.js', 'mongoDB', 'rocket'],
+			dis: 'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.Lorem Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.',
+			lang: 'go'
+		}],
+		
+	];
+	let counter = 0;
+	let lang =0;
+	const handleUp =()=>{
+		counter =0;
+		lang= lang + 1;
+		lang = lang % projects.length;
+		
+	
 	}
-
-	]
-let counter =0;
-const prevProj =()=>{
-	if (counter == 0){
-		counter  = projects.length -1
-	}else{
-	counter = counter -1
-	counter = counter % (projects.length)
-	console.log(counter)
-
-	}
+	const handleDown =()=>{
+		
+		counter =0;
+		if (lang == 0) {
+			lang = projects.length - 1;
+		} else {
+			lang = lang - 1;
+			lang = lang % projects.length;
+			console.log(lang);
+		}
 
 	
-}
-const nextProj =()=>{
- 
-	counter = counter +1;
-	counter = counter % (projects.length)
-	console.log(counter)
+	}
+	const prevProj = () => {
+		if (counter == 0) {
+			counter = projects[lang].length - 1;
+		} else {
+			counter = counter - 1;
+			counter = counter % projects[lang].length;
 
-}
+		}
+	};
+	const nextProj = () => {
+		counter = counter + 1;
+		counter = counter % projects[lang].length;
+
+	};
 
 	const close = (e) => {
 		doMeDaddy();
@@ -96,30 +118,84 @@ const nextProj =()=>{
 	<div class="proj_container">
 		<div class="proj_tittle">what has he made?</div>
 		<div class="proj_contents">
-		<ActualProjectsTemplete  data={projects[counter]} />
+			<ActualProjectsTemplete data={projects[lang][counter]} />
+		</div>
+
 		
-</div>
+		{#if lang < projects.length-1 && lang!=projects.length-1}
+		<div  transition:fade={{duration:200}} class=" up {$classNos[3] == 2?'up_down':' og_up'}" on:click={handleUp}>
+			<i class="fa-solid fa-up-long" />
+		</div>
+		{/if}
+		{#if lang > 0}
+		<div  transition:fade={{duration:200}} class="down {$classNos[3] == 2?'down_down':'og_down '}" on:click={handleDown}> 
+			<i class="fa-solid fa-down-long" />
+		</div>
+		{/if}
 	</div>
 	<div class="buttons_proj">
-<div class="previos" on:click={prevProj}>
-<i class="fa-solid fa-arrow-left icon"></i>
-</div>
-	<div class="next" on:click={nextProj}>
-<i class=" fa-solid fa-arrow-right icon"></i>
+		{#if counter > 0}
+			<div transition:fade={{ duration: 200 }} class="previos" on:click={prevProj}>
+				<i class="fa-solid fa-arrow-left icon" />
+			</div>
+		{/if}
+		{#if counter < projects.length - 1 && counter!=projects[lang].length-1}
+			<div transition:fade={{ duration: 200 }} class="next" on:click={nextProj}>
+				<i class=" fa-solid fa-arrow-right icon" />
+			</div>
+		{/if}
 
-</div>	
-
-
-<div class="prev"></div>
+		<div class="prev" />
 	</div>
 
+	<div class="current_info" />
 </div>
 
 <style>
 	:global() {
 		--font-size: ;
+		--pos: 50%;
 	}
-.previos {
+	.og_up{
+		top: 5%;
+		left: 10px;
+
+	}
+	.og_down{
+	bottom: 10px;
+		right: 10px;
+	}
+	.down{
+		position: absolute;
+
+	
+		cursor: pointer;
+
+		z-index: 3;
+		color: var(--color4);
+	
+		font-size: var(--icon_font);
+	}
+	.up_down{
+	left: 40%;
+	bottom: 5px;
+
+	}
+	.down_down{
+	left: 60%;
+	bottom: 5px;
+	}
+	.up {
+		position: absolute;
+
+		cursor: pointer;
+		z-index: 3;
+		width: 100px;
+		z-index: 3;
+		color: var(--color4);
+		font-size: var(--icon_font);
+	}
+	.previos {
 		position: absolute;
 		left: 10px;
 	}
@@ -127,22 +203,25 @@ const nextProj =()=>{
 		position: absolute;
 		right: 10px;
 	}
+
 	.icon {
-		font-size: var(--font-size);
+		cursor: pointer;
+		font-size: var(--icon_font);
 
 		color: var(--color4);
 
 		position: relative;
 	}
 	.buttons_proj {
+		padding-top: 10px;
 		position: absolute;
 		width: 100%;
 		height: 5%;
-	bottom: 2%;
+		bottom: var(--pos);
 		display: flex;
 		justify-content: space-around;
 	}
-.close {
+	.close {
 		position: absolute;
 		right: 10px;
 		font-size: 20px;
@@ -186,7 +265,6 @@ const nextProj =()=>{
 		border: 2px solid var(--color3);
 	}
 	.main_proj-div {
-
 		transition: width 1.5s linear, height 1.5s linear, all 1s ease-out, border 0s;
 		position: relative;
 
