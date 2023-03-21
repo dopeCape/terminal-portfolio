@@ -70,7 +70,7 @@
 		color: var(--color1);
 	}
 	.social_icons {
-		bottom: 50%;
+		bottom: 45%;
 		left: 12.5%;
 		display: flex;
 		align-items: center;
