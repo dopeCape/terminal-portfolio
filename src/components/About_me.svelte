@@ -36,6 +36,42 @@
 
 		clearTimeout(htime);
 	});
+	const randomLetter = (target) => {
+		let iteration = 0;
+
+		const letters = 'abcdefghijklmnopqrstuvwxyz!@#$()';
+		clearInterval(interval);
+		console.log(document.getElementById(target).innerText);
+
+		interval = setInterval(() => {
+			document.getElementById(target).innerText = document
+				.getElementById(target)
+				.innerText.toLowerCase()
+				.split('')
+				.map((letter, index) => {
+					if (index < iteration) {
+						return document.getElementById(target).dataset.value[index];
+					}
+					if (document.getElementById(target).dataset.value[index] == ' ') {
+						return ' ';
+					}
+					if (document.getElementById(target).dataset.value[index] == "."){
+					return ".";
+
+					}
+
+					return letters[Math.floor(Math.random() * 32)];
+				})
+				.join('');
+
+			if (iteration >= document.getElementById(target).dataset.value.length) {
+				clearInterval(interval);
+
+				About_loded = true;
+			}
+			iteration += 1 / 3;
+		}, 100);
+	};
 	onMount(() => {
 		let iteration = 0;
 
@@ -63,17 +99,26 @@
 				clearInterval(interval);
 				About_loded = true;
 
-				setTimeout(() => {
+				setTimeout(async () => {
 					let i = 0;
 					let it = setInterval(
-						() => {
+						async() => {
 							if (i < tejes.length) {
 								rTejas.push(tejes[i]);
 								rTejas = rTejas;
+								if (i > 0) {
+
+						await			    randomLetter(tejes[i - 1].v)
+
+
+								}
 
 								i++;
 							} else {
+
+								 randomLetter(tejes[i - 1].v)
 								clearInterval(it);
+
 								htime = setTimeout(() => {
 									anime({
 										targets: '.skill_meter',
@@ -133,7 +178,7 @@
 
 						400
 					);
-				}, 1100);
+				}, 300);
 			}
 
 			iteration += 1 / 2;
@@ -257,7 +302,7 @@
 		{
 			n: 'spells_i_know',
 			v: ['rust', 'go', 'python', 'js', 'ts', 'cpp'],
-			e: '[!$f!(,F13r8F,&T*#$3480,(#&*$,$(*&34,(&*$]'
+			e: [!'$f!','F13r8F','&T*#$3480','(#&*$','$(*&34','(&*$']
 		},
 		{ n: 'goal', v: 'trying to escape matrix', e: 'YR9*#$' },
 		{ n: 'mage_class:', v: '[MERN]', e: '18!*$H' },
@@ -283,7 +328,7 @@
 					{#each rTejas as t}
 						<p class="json_data font_resize">
 							<span class="property"
-								>{t.n} : <span class="json_pro json" data-value={t.d}>{t.e}</span></span
+								>{t.n} : <span class="json_pro json" data-value={t.v} id={t.v}>{t.e}</span></span
 							>
 						</p>
 					{/each}
@@ -292,14 +337,23 @@
 						<fieldset class="skill_border">
 							<legend class="font_resize">Sys Info</legend>
 
+							<div class="meter_cont">
+								Rust
+								<div class="meter"><div data-value="70%" class="meter_color" /></div>
+							</div>
 
-							<div class="meter_cont">Rust<div class="meter"><div data-value="70%" class="meter_color"></div></div></div>
-
-							<div class="meter_cont">Go<div class="meter"><div data-value="75%"class="meter_color"></div></div></div>
-							<div class="meter_cont">Webdev<div class="meter"><div data-value="78%" class="meter_color"></div></div></div>
-							<div class="meter_cont">Cpp/Py<div class="meter"><div data-value="50%" class="meter_color"></div></div></div>
-
-							
+							<div class="meter_cont">
+								Go
+								<div class="meter"><div data-value="75%" class="meter_color" /></div>
+							</div>
+							<div class="meter_cont">
+								Webdev
+								<div class="meter"><div data-value="78%" class="meter_color" /></div>
+							</div>
+							<div class="meter_cont">
+								Cpp/Py
+								<div class="meter"><div data-value="50%" class="meter_color" /></div>
+							</div>
 						</fieldset>
 					</div>
 				</div>
@@ -359,18 +413,16 @@
 </div>
 
 <style>
-	.svg_text{
-	font: 1rem;
-	color: var(--color4);
-	opacity: 1;
+	.svg_text {
+		font: 1rem;
+		color: var(--color4);
+		opacity: 1;
 	}
 	.svg_main {
-
-
-	width: 50%;
-	height: 100%;
-	position: absolute;
-	color:brown;
+		width: 50%;
+		height: 100%;
+		position: absolute;
+		color: brown;
 	}
 	.dish {
 		display: none;
@@ -492,7 +544,6 @@
 		max-width: 100%;
 		text-align: center;
 		color: var(--color2);
-
 	}
 	.lang_progress {
 		color: var(--color2);
@@ -534,7 +585,7 @@
 		margin-left: 5px;
 		margin-right: 5px;
 		grid-gap: 1px;
-	position: relative;
+		position: relative;
 		height: 100%;
 		grid-template-columns: repeat(2, 50%);
 
