@@ -106,17 +106,11 @@
 							if (i < tejes.length) {
 								rTejas.push(tejes[i]);
 								rTejas = rTejas;
-								if (i > 0) {
-
-						await			    randomLetter(tejes[i - 1].v)
-
-
-								}
 
 								i++;
 							} else {
 
-								 randomLetter(tejes[i - 1].v)
+
 								clearInterval(it);
 
 								htime = setTimeout(() => {
@@ -227,7 +221,7 @@
 					delay: 1300,
 					duration: 1500,
 					easing: 'easeOutElastic(1, .2)',
-					width: meters[i].dataset.value
+					width: meters[i]?.dataset.value
 				});
 				i++;
 			}, 200);
@@ -275,7 +269,7 @@
 				x = offsetH * 0.03;
 			}
 
-			console.log(el);
+
 			el[i].style.fontSize = `${x}px`;
 		}
 
@@ -324,6 +318,8 @@
 				</div>
 			</div>
 			<div class={$classNos[1] == (4 || 3) ? 'main_content for2' : 'main_content for3'}>
+			{console.log($classNos[1])}
+
 				<div class="info_container">
 					{#each rTejas as t}
 						<p class="json_data font_resize">

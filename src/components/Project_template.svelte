@@ -99,6 +99,15 @@
 	};
 	const doMeDaddy = () => {
 		$closed = parseInt($classList[3][3]);
+	if ($classNos[2] < $classNos[3]) {
+			$classNos[2] = $classNos[2] + 1;
+		}
+		if ($classNos[1] < $classNos[3]) {
+			$classNos[1] = $classNos[1] + 1;
+		}
+
+		$classNos[3] = 0;
+
 		for (let i = 1; i < 4; i++) {
 			let x = parseInt($classList[i][3]);
 			if (x > parseInt($classList[3][3])) {
