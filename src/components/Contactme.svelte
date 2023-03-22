@@ -1,9 +1,89 @@
 <script>
 	import { closed, isContact, windowsOpen, classNos, classList } from '../store/MainStore.js';
-
+import {fly} from "svelte/transition";
 	import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
 	import { onMount } from 'svelte';
+	let TextLoaded = false;
+	class TextScramble {
+		constructor(el) {
+			this.el = el;
+			this.chars = '!<>-_\\/[]{}—=+*^?#________';
+			this.update = this.update.bind(this);
+		}
+		setText(newText) {
+			const oldText = this.el.innerText;
+			const length = Math.max(oldText.length, newText.length);
+			const promise = new Promise((resolve) => (this.resolve = resolve));
+			this.queue = [];
+			for (let i = 0; i < length; i++) {
+				const from = oldText[i] || '';
+				const to = newText[i] || '';
+				const start = Math.floor(Math.random() * 40);
+				const end = start + Math.floor(Math.random() * 40);
+				this.queue.push({ from, to, start, end });
+			}
+			cancelAnimationFrame(this.frameRequest);
+			this.frame = 0;
+			this.update();
+			return promise;
+		}
+		update() {
+			let output = '';
+			let complete = 0;
+			for (let i = 0, n = this.queue.length; i < n; i++) {
+				let { from, to, start, end, char } = this.queue[i];
+				if (this.frame >= end) {
+					complete++;
+					output += to;
+				} else if (this.frame >= start) {
+					if (!char || Math.random() < 0.28) {
+						char = this.randomChar();
+						this.queue[i].char = char;
+					}
+					output += `<span class="dud">${char}</span>`;
+				} else {
+					output += from;
+				}
+			}
+			this.el.innerHTML = output;
+			if (complete === this.queue.length) {
+				this.resolve();
+			} else {
+				this.frameRequest = requestAnimationFrame(this.update);
+				this.frame++;
+			}
+		}
+		randomChar() {
+			return this.chars[Math.floor(Math.random() * this.chars.length)];
+		}
+	}
+	onMount(() => {
+		const phrases = [
+			'Hey!!',
+			'Hope you liked what I have to offer :>',
+			'Feel free to ask me anything through Email',
+			'Btw I am  looking for opportunitys :)',
+			'Have a nice day. xD'
+		];
+		const el = document.querySelector('.text');
+		const fx = new TextScramble(el);
 
+		let counter = 0;
+		const next = () => {
+if(counter == phrases.length){
+			TextLoaded = true
+			}
+			fx.setText(phrases[counter]).then(() => {
+				setTimeout(next, 1800);
+			});
+			counter = (counter + 1) ;
+			
+
+		};
+
+		next();
+
+	});
 	const close = (e) => {
 		doMeDaddy();
 	};
@@ -52,15 +132,25 @@
 
 <div class="main_contact_div" bind:this={root}>
 	<h2 on:click={close} class="close">x</h2>
+
 	<div class="contain">
+
 		<div class="contact_tittle"><div class="title">wanna talk?</div></div>
-		<div class="social_icons">
+		{#if !TextLoaded}
+		<div class="containsText"  in:fly={{delay:200,duration:300,opacity:0,y:-300}} out:fly={{duration:800,opacity:0,y:-200}}>
+			<div class="text" />
+		</div>
+		{:else}
+
+
+		<div class="social_icons" in:fly={{delay:810,duration:500,opacity:0,y:200}}>
 			<i class="fa-brands fa-square-instagram icon" />
 			<i class="fa-brands fa-square-twitter icon" />
 			<i class="fa-solid fa-envelope icon" />
 			<i class="fa-brands fa-square-github icon" />
 			<i class="fa-brands fa-linkedin icon" />
 		</div>
+		{/if}
 	</div>
 </div>
 
@@ -68,6 +158,20 @@
 	.ba {
 		position: absolute;
 		color: var(--color1);
+	}
+	.dud {
+		color: var(--Comment);
+	}
+	.containsText {
+		font-size: 30px;
+		position: absolute;
+		top: 40%;
+		display: flex;
+		width: 100%;
+		color: var(--color2);
+
+		justify-content: center;
+		align-items: center;
 	}
 	.social_icons {
 		bottom: 45%;
@@ -143,11 +247,9 @@
 		flex-direction: column;
 		width: 100%;
 		position: absolute;
-		background: radial-gradient(rgba(255,255,255,0.2) 8%, transparent 8%);
+		background: radial-gradient(rgba(255, 255, 255, 0.2) 8%, transparent 8%);
 		background-position: 0% 0%;
 		background-size: 5vmin 5vmin;
-
-
 	}
 	.close {
 		position: absolute;
@@ -164,8 +266,8 @@
 
 		display: flex;
 		justify-content: center;
-align-items: center;
-	background: var(--foreground);
+		align-items: center;
+		background: var(--foreground);
 		height: 5%;
 		width: 100%;
 		border-bottom: 1px solid gray;
@@ -188,5 +290,4 @@ align-items: center;
 		max-height: 99%;
 		width: 99%;
 	}
-
 </style>
