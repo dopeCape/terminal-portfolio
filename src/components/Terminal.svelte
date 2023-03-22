@@ -27,19 +27,21 @@
 	$: count = $Terminal_command.length - 1;
 	onMount(() => {
 		if (input != undefined) {
-			input.focus();
+
 		}
 	});
 	onMount(() => {
 		if (input != undefined) {
-				const ty = new Typed('.terminal_input', {
+			setTimeout(()=>{
+			const ty = new Typed('.terminal_input', {
 				strings: ['Welcome,To my portfolio ', 'type help to list commands', 'help'],
 				typeSpeed: 25,
 				backSpeed: 30,
-				showCursor: true
-				
+
 			});
-			setTimeout(()=>{
+			},1200)
+			
+			setTimeout(() => {
 				$Terminal_command.push({ command: 'help', dir: currnet_dir });
 				$Terminal_command.push({ command: 'help', dir: currnet_dir });
 				command_to_render.push({
@@ -50,21 +52,18 @@
 				count = $Terminal_command.length - 1;
 
 				command_to_render = command_to_render;
-				input_val = "";
+				input_val = '';
+input.focus();
 
-
-			},6500)	
-
-			
-
+			}, 7700);
 		}
 	});
 	const tree = {
 		'~': {
 			child: [
-				{ n: 'contact.md', t: 'f' },
-				{ n: 'blogz.link', t: 'l' },
-				{ n: 'projects i made', t: 'd' }
+				{ n: 'contact', t: 'd' },
+				{ n: 'about_me' ,t: 'd' },
+				{ n: 'projects', t: 'd' }
 			]
 		}
 	};
@@ -75,12 +74,7 @@
 	];
 
 	let command_to_render = [];
-	function sleepFor(sleepDuration) {
-		var now = new Date().getTime();
-		while (new Date().getTime() < now + sleepDuration) {
-			/* Do nothing */
-		}
-	}
+	
 
 	const handelTerInput = (e) => {
 		if (e.keyCode == '13') {
@@ -123,7 +117,6 @@
 					msg: tree['~'].child
 				});
 				count = $Terminal_command.length - 1;
-
 				command_to_render = command_to_render;
 				e.target.value = '';
 			} else if (e.target.value == './about_me.md' || e.target.value == './about_me') {
@@ -146,7 +139,7 @@
 					$classList[1] = 'div' + x;
 					$windowsOpen = $windowsOpen + 1;
 					$isAbout = true;
-					$closed = false;
+
 				}
 			} else if (e.target.value == './contact') {
 				if (!$isContact) {
@@ -167,7 +160,7 @@
 					$classList[2] = 'div' + x;
 					$windowsOpen = $windowsOpen + 1;
 					$isContact = true;
-					$closed = false;
+
 				}
 			} else if (e.target.value == './projects') {
 				if (!$isProj) {
@@ -189,7 +182,7 @@
 
 					$windowsOpen = $windowsOpen + 1;
 					$isProj = true;
-					$closed = false;
+
 				}
 			} else if (e.target.value == '') {
 				$Terminal_command.push({ command: '', dir: currnet_dir });
@@ -274,7 +267,7 @@
 				{#each command_to_render as ter, index}
 					{#if command_to_render.length - 1 == index}
 						<div style="margin-bottom:8px;" in:fade={{ duration: 400 }}>
-							<div class="pre_command">{`Tejas@tejas-macbook-pro${ter.dir}$ `}{ter.command}</div>
+							<div class="pre_command">{`Tejas@tejas-macbook-pro${ter.dir}$ `}<span class="pre_command_act">{ter.command}</span></div>
 							{#if ter.msg != undefined}
 								{#if Array.isArray(ter.msg)}
 									<div class="list-dirs">
@@ -283,13 +276,13 @@
 										{/each}
 									</div>
 								{:else}
-									<div class="pre_msg">{ter.msg}</div>
+									<div class="pre_msg ">{ter.msg}</div>
 								{/if}
 							{/if}
 						</div>
 					{:else}
 						<div style="margin-bottom:8px;">
-							<div class="pre_command">{`Tejas@tejas-macbook-pro${ter.dir}$ `}{ter.command}</div>
+							<div class="pre_command">{`Tejas@tejas-macbook-pro${ter.dir}$ `}<span class="pre_command_act">{ter.command}</span></div>
 							{#if ter.msg != undefined}
 								{#if Array.isArray(ter.msg)}
 									<div class="list-dirs">
@@ -308,19 +301,24 @@
 			<div class={x % 2 == 0 ? 'input_fied_contiainer x' : 'input_fied_contiainer y'}>
 				<div class="current_input" in:fade={{ duration: 2000 }}>
 					{`Tejas@tejas-macbook-pro${$current_dir}$ `}
-					<input type="text" bind:value={input_val} bind:this={input} on:keydown={handelTerInput} class="terminal_input" />
+					<input
+						type="text"
+						bind:value={input_val}
+						bind:this={input}
+						on:keydown={handelTerInput}
+						class="terminal_input"
+					/>
 				</div>
 			</div>
 		</div>
 	</div>
-	{#if command_to_render.length < 2}
-		<div class="help_container" transition:blur={{ amount: 100, duration: 1000 }}>
-			<div class="help"><p>type "help".. it wont hurt your ego</p></div>
-		</div>
-	{/if}
+	
 </div>
 
 <style>
+	.pre_command_act{
+	color:var(--color2);
+	}
 	.help_container {
 		border: 2px solid var(--color3);
 		border-left: 2px solid var(--color3);

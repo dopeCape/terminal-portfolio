@@ -1,9 +1,10 @@
 <script>
 	import { closed, isContact, windowsOpen, classNos, classList } from '../store/MainStore.js';
-import {fly} from "svelte/transition";
+	import { fly } from 'svelte/transition';
 	import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
 	import { onMount } from 'svelte';
 	let TextLoaded = false;
+	let insideMeDaddy = false;
 	class TextScramble {
 		constructor(el) {
 			this.el = el;
@@ -57,8 +58,20 @@ import {fly} from "svelte/transition";
 			return this.chars[Math.floor(Math.random() * this.chars.length)];
 		}
 	}
+
 	onMount(() => {
+document.getElementById("contact").addEventListener("mouseenter",()=>{
+		insideMeDaddy = true;
+
+	})
+document.getElementById("contact").addEventListener("mouseover",()=>{
+		insideMeDaddy = true;
+	})
+document.getElementById("contact").addEventListener("mouseout",()=>{
+		insideMeDaddy = false;
+	})
 		const phrases = [
+
 			'Hey!!',
 			'Hope you liked what I have to offer :>',
 			'Feel free to ask me anything through Email',
@@ -70,19 +83,17 @@ import {fly} from "svelte/transition";
 
 		let counter = 0;
 		const next = () => {
-if(counter == phrases.length){
-			TextLoaded = true
+			if (counter == phrases.length) {
+				TextLoaded = true;
 			}
 			fx.setText(phrases[counter]).then(() => {
 				setTimeout(next, 1800);
 			});
-			counter = (counter + 1) ;
-			
-
+			counter = counter + 1;
 		};
 
 		next();
-
+		
 	});
 	const close = (e) => {
 		doMeDaddy();
@@ -90,6 +101,8 @@ if(counter == phrases.length){
 	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	const LETTERS = 'abcdefghijklmnopqrstuvwxyx1234567890@!.';
 	let root;
+	
+
 	$: {
 		if (root != undefined) {
 			if ($classNos[2] == 2) {
@@ -124,32 +137,44 @@ if(counter == phrases.length){
 		$isContact = false;
 		$windowsOpen = $windowsOpen - 1;
 	};
+
+	window.onmousemove = (e) => {
+		let x = Math.floor((e.clientX / root?.clientWidth) * 100);
+		let y = Math.floor((e.clientY / root?.clientHeight) * 100);
+		console.log(insideMeDaddy)
+		if (insideMeDaddy) {
+			root.style.setProperty('--backX', `${x}%`);
+
+			root.style.setProperty('--backY', `${y}%`);
+		}
+	};
 </script>
 
 <svelte:head>
 	{@html atomOneDark}
 </svelte:head>
 
-<div class="main_contact_div" bind:this={root}>
+<div class="main_contact_div" bind:this={root} id="contact">
 	<h2 on:click={close} class="close">x</h2>
 
 	<div class="contain">
-
 		<div class="contact_tittle"><div class="title">wanna talk?</div></div>
 		{#if !TextLoaded}
-		<div class="containsText"  in:fly={{delay:200,duration:300,opacity:0,y:-300}} out:fly={{duration:800,opacity:0,y:-200}}>
-			<div class="text" />
-		</div>
+			<div
+				class="containsText"
+				in:fly={{ delay: 200, duration: 300, opacity: 0, y: -300 }}
+				out:fly={{ duration: 800, opacity: 0, y: -200 }}
+			>
+				<div class="text" />
+			</div>
 		{:else}
-
-
-		<div class="social_icons" in:fly={{delay:810,duration:500,opacity:0,y:200}}>
-			<i class="fa-brands fa-square-instagram icon" />
-			<i class="fa-brands fa-square-twitter icon" />
-			<i class="fa-solid fa-envelope icon" />
-			<i class="fa-brands fa-square-github icon" />
-			<i class="fa-brands fa-linkedin icon" />
-		</div>
+			<div class="social_icons" in:fly={{ delay: 810, duration: 500, opacity: 0, y: 200 }}>
+				<i class="fa-solid fa-blog icon" />
+				<i class="fa-brands fa-square-twitter icon" />
+				<i class="fa-solid fa-envelope icon" />
+				<i class="fa-brands fa-square-github icon" />
+				<i class="fa-brands fa-linkedin icon" />
+			</div>
 		{/if}
 	</div>
 </div>
@@ -248,8 +273,8 @@ if(counter == phrases.length){
 		width: 100%;
 		position: absolute;
 		background: radial-gradient(rgba(255, 255, 255, 0.2) 8%, transparent 8%);
-		background-position: 0% 0%;
-		background-size: 5vmin 5vmin;
+		background-position: var(--backX) var(--backY);
+		background-size: 6vmin 6vmin;
 	}
 	.close {
 		position: absolute;
