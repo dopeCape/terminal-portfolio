@@ -21,40 +21,44 @@
 	let input_val;
 	let width = 100;
 	let height = 100;
+	const help_commands = [
+		{ n: 'exe <application_name>: to launch application', t: 'h' },
+		{ n: 'ls : list current directory', t: 'h' },
+
+		{ n: 'help:list commands', t: 'h' },
+		{ n: 'change_theme: To change between dark and light theme', t: 'h' }
+	];
 	let currnet_dir = $current_dir;
 	let count;
 	let x = 1;
 	$: count = $Terminal_command.length - 1;
 	onMount(() => {
 		if (input != undefined) {
-
 		}
 	});
 	onMount(() => {
 		if (input != undefined) {
-			setTimeout(()=>{
-			const ty = new Typed('.terminal_input', {
-				strings: ['Welcome,To my portfolio ', 'type help to list commands', 'help'],
-				typeSpeed: 25,
-				backSpeed: 30,
+			setTimeout(() => {
+				const ty = new Typed('.terminal_input', {
+					strings: ['Welcome,To my portfolio ', 'type help to list commands', 'help'],
+					typeSpeed: 25,
+					backSpeed: 30
+				});
+			}, 1200);
 
-			});
-			},1200)
-			
 			setTimeout(() => {
 				$Terminal_command.push({ command: 'help', dir: currnet_dir });
 				$Terminal_command.push({ command: 'help', dir: currnet_dir });
 				command_to_render.push({
 					command: 'help',
 					dir: currnet_dir,
-					msg: 'help'
+					msg: help_commands
 				});
 				count = $Terminal_command.length - 1;
 
 				command_to_render = command_to_render;
 				input_val = '';
-input.focus();
-
+				input.focus();
 			}, 7700);
 		}
 	});
@@ -62,19 +66,13 @@ input.focus();
 		'~': {
 			child: [
 				{ n: 'contact', t: 'd' },
-				{ n: 'about_me' ,t: 'd' },
+				{ n: 'about_me', t: 'd' },
 				{ n: 'projects', t: 'd' }
 			]
 		}
 	};
-	const helpa = [
-		{ n: 'exe <application_name>' },
-		{ n: 'ls:to list current child apps and file' },
-		{ n: 'cd:to change directory' }
-	];
 
 	let command_to_render = [];
-	
 
 	const handelTerInput = (e) => {
 		if (e.keyCode == '13') {
@@ -84,7 +82,6 @@ input.focus();
 				let l = command_to_render.length;
 
 				let cInterval = setInterval(() => {
-					console.log('asdfa');
 					if (i < l) {
 						command_to_render.pop();
 						command_to_render = command_to_render;
@@ -119,7 +116,7 @@ input.focus();
 				count = $Terminal_command.length - 1;
 				command_to_render = command_to_render;
 				e.target.value = '';
-			} else if (e.target.value == './about_me.md' || e.target.value == './about_me') {
+			} else if (e.target.value == 'exe about_me' || e.target.value == './about_me') {
 				if (!$isAbout) {
 					$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
 					command_to_render.push({
@@ -139,9 +136,8 @@ input.focus();
 					$classList[1] = 'div' + x;
 					$windowsOpen = $windowsOpen + 1;
 					$isAbout = true;
-
 				}
-			} else if (e.target.value == './contact') {
+			} else if (e.target.value == './contact' || e.target.value == 'exe contact') {
 				if (!$isContact) {
 					$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
 					command_to_render.push({
@@ -160,9 +156,8 @@ input.focus();
 					$classList[2] = 'div' + x;
 					$windowsOpen = $windowsOpen + 1;
 					$isContact = true;
-
 				}
-			} else if (e.target.value == './projects') {
+			} else if (e.target.value == './projects' || e.target.value == 'exe projects') {
 				if (!$isProj) {
 					$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
 					command_to_render.push({
@@ -182,7 +177,6 @@ input.focus();
 
 					$windowsOpen = $windowsOpen + 1;
 					$isProj = true;
-
 				}
 			} else if (e.target.value == '') {
 				$Terminal_command.push({ command: '', dir: currnet_dir });
@@ -201,7 +195,7 @@ input.focus();
 				command_to_render.push({
 					command: 'help',
 					dir: currnet_dir,
-					msg: 'help'
+					msg: help_commands
 				});
 				count = $Terminal_command.length - 1;
 
@@ -267,7 +261,11 @@ input.focus();
 				{#each command_to_render as ter, index}
 					{#if command_to_render.length - 1 == index}
 						<div style="margin-bottom:8px;" in:fade={{ duration: 400 }}>
-							<div class="pre_command">{`Tejas@tejas-macbook-pro${ter.dir}$ `}<span class="pre_command_act">{ter.command}</span></div>
+							<div class="pre_command">
+								{`Tejas@tejas-macbook-pro${ter.dir}$ `}<span class="pre_command_act"
+									>{ter.command}</span
+								>
+							</div>
 							{#if ter.msg != undefined}
 								{#if Array.isArray(ter.msg)}
 									<div class="list-dirs">
@@ -282,7 +280,11 @@ input.focus();
 						</div>
 					{:else}
 						<div style="margin-bottom:8px;">
-							<div class="pre_command">{`Tejas@tejas-macbook-pro${ter.dir}$ `}<span class="pre_command_act">{ter.command}</span></div>
+							<div class="pre_command">
+								{`Tejas@tejas-macbook-pro${ter.dir}$ `}<span class="pre_command_act"
+									>{ter.command}</span
+								>
+							</div>
 							{#if ter.msg != undefined}
 								{#if Array.isArray(ter.msg)}
 									<div class="list-dirs">
@@ -312,12 +314,14 @@ input.focus();
 			</div>
 		</div>
 	</div>
-	
 </div>
 
 <style>
-	.pre_command_act{
-	color:var(--color2);
+	.pre_command_act {
+		color: var(--color2);
+	}
+	.type-h {
+		color: var(--Comment);
 	}
 	.help_container {
 		border: 2px solid var(--color3);
