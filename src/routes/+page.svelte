@@ -8,6 +8,7 @@
 	import AboutMe from '../components/About_me.svelte';
 	import {
 		closed,
+		classNos,
 		Loded,
 		isAbout,
 		isContact,
@@ -96,15 +97,13 @@
 
 				anim({
 					targets: '.div3 ',
-keyframes: [
+					keyframes: [
 						{ top: '0', left: '50%', scale: 0.8, easing: 'easeOutQuint', duration: 200 },
 						{ scale: 1, easing: 'easeOutQuint', duration: 1500 }
 					],
 					duration: 400,
 					height: '100%',
 					width: '50%',
-
-
 
 					easing: 'easeOutQuint',
 					direction: 'forwards'
@@ -149,21 +148,29 @@ keyframes: [
 					direction: 'forwards'
 				});
 
-				anim({
-					targets: '.div3',
-					keyframes: [
-						{ top: '0', left: '50%', scale: 0.8, easing: 'easeOutQuint', duration: 200 },
-						{ scale: 1, easing: 'easeOutQuint', duration: 1500 }
-					],
+				let d3 = document.getElementsByClassName('div3');
+				for (let i = 0; i < d3.length; i++) {
+					let el = d3[i].id;
+					console.log(el,"it me ")
+					if (el != '3') {
+						anim({
+							targets: '.div3',
+							keyframes: [
+								{ top: '0', left: '50%', scale: 0.8, easing: 'easeOutQuint', duration: 200 },
+								{ scale: 1, easing: 'easeOutQuint', duration: 1500 }
+							],
 
-					left: '50%',
-					maxWidth: '50%',
+							left: '50%',
+							maxWidth: '50%',
 
-					height: '100%',
-					/* easing:'spring(1,80,10,0)', */
-					easing: 'easeOutQuint',
-					direction: 'forwards'
-				});
+							height: '100%',
+							/* easing:'spring(1,80,10,0)', */
+							easing: 'easeOutQuint',
+							direction: 'forwards'
+						});
+					}
+				}
+
 
 				root.style.setProperty('--div3w', '50%');
 				root.style.setProperty('--div3h', '100%');
@@ -229,16 +236,18 @@ keyframes: [
 	<div
 		class={($isAbout || $isContact || $isProj) && $Loded ? ' loading  div1 ' : 'loading main-div  '}
 	>
-		<LoadingScreen  --Comment={c != undefined ? c.Comment : 'red'} --color2={c != undefined ? c.color2 : 'red'} --color3={c != undefined ? c.color3 : 'red'}   />
-
+		<LoadingScreen
+			--Comment={c != undefined ? c.Comment : 'red'}
+			--color2={c != undefined ? c.color2 : 'red'}
+			--color3={c != undefined ? c.color3 : 'red'}
+		/>
 	</div>
 
 	{#if $isAbout && $Loded}
 		<div
-			id="about"
+			id={`${$classNos[1]}`}
 			class={$classList[1] + ' about screen'}
 			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
-
 		>
 			<AboutMe
 				--foreground={c.foreground}
@@ -252,11 +261,11 @@ keyframes: [
 	{/if}
 	{#if $isContact && $Loded}
 		<div
+			id={`${$classNos[2]}`}
 			class={$classList[2] + ' contact screen'}
 			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
 		>
 			<Contactme
-
 				--Comment={c.Comment}
 				--foreground={c.foreground}
 				--color3={c.color3}
@@ -268,11 +277,11 @@ keyframes: [
 	{/if}
 	{#if $isProj && $Loded}
 		<div
+			id={`${$classNos[3]}`}
 			class={$classList[3] + ' project screen'}
 			in:scale={{ duration: 800, start: 0.1, easing: expoOut }}
 		>
 			<ProjectTemplate
-
 				--Comment={c.Comment}
 				--color2={c.color2}
 				--foreground={c.foreground}

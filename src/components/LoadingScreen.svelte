@@ -59,8 +59,9 @@
 <style>
 	:global(:root) {
 		--maxheight: 100vh;
-		--foreground:
-		--background:"";
+		--foreground:'#0b0e14';
+		--background:'#1d222b';
+		
 	}
 	.fl {
 		display: flex;
