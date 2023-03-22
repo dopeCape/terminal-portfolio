@@ -1,5 +1,5 @@
 <script>
-	import { fade } from 'svelte/transition';
+	import { fade,fly } from 'svelte/transition';
 	import { onMount, onDestroy } from 'svelte';
 	import anime from 'animejs';
 	import { closed, isAbout, windowsOpen, classList, classNos } from '../store/MainStore.js';
@@ -97,7 +97,12 @@
 
 			if (iteration >= document.getElementById('quo').dataset.value.length) {
 				clearInterval(interval);
+
+				setTimeout(()=>{
+
 				About_loded = true;
+				},1000)
+
 
 				setTimeout(async () => {
 					let i = 0;
@@ -172,7 +177,7 @@
 
 						400
 					);
-				}, 300);
+				}, 200);
 			}
 
 			iteration += 1 / 2;
@@ -324,7 +329,7 @@
 					{#each rTejas as t}
 						<p class="json_data font_resize">
 							<span class="property"
-								>{t.n} : <span class="json_pro json" data-value={t.v} id={t.v}>{t.e}</span></span
+								>{t.n} : <span class="json_pro json" data-value={t.v} in:fly={{delay:400,duration:1000,x:-1000,opacity:0}} >{t.v}</span></span
 							>
 						</p>
 					{/each}
@@ -424,7 +429,7 @@
 		display: none;
 	}
 	.json_pro {
-		color: red;
+		color:var(--color1)
 	}
 	.meter {
 		border-top: 1px solid white;
@@ -614,30 +619,10 @@
 		margin-left: 5px;
 		max-width: 100%;
 
-		color: var(--color1);
+		color: var(--color1) !important;
 	}
 
-	/* .img_container > img { */
-	/* 	width: 100%; */
-	/* 	height: 100%; */
-	/* 	object-fit: cover; */
-	/* 	object-position: 50% 35%; */
-
-	/* 	max-height: 100%; */
-	/* } */
-
-	/* 	.img_container { */
-	/* 		object-fit: cover; */
-	/* 		box-sizing: border-box; */
-	/* 		width: 100%; */
-	/* 		height: 100%; */
-	/* 		max-height: 100%; */
-	/* 		max-width: 100%; */
-	/* 		left: 1px; */
-	/* 		position: absolute; */
-	/* 		grid-area: img; */
-	/* 	} */
-	.info_container::-webkit-scrollbar {
+		.info_container::-webkit-scrollbar {
 		opacity: 0.4;
 		width: 0;
 	}

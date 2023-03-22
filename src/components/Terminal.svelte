@@ -1,5 +1,6 @@
 <script>
 	import { Terminal_command } from '../store/ComponentStore.js';
+	import Typed from 'typed.js';
 	import { current_dir } from '../store/dir_store.js';
 	import { flip } from 'svelte/animate';
 	import { fade, blur } from 'svelte/transition';
@@ -17,6 +18,7 @@
 	} from '../store/MainStore.js';
 	import { onMount } from 'svelte';
 	let input;
+	let input_val;
 	let width = 100;
 	let height = 100;
 	let currnet_dir = $current_dir;
@@ -26,6 +28,35 @@
 	onMount(() => {
 		if (input != undefined) {
 			input.focus();
+		}
+	});
+	onMount(() => {
+		if (input != undefined) {
+				const ty = new Typed('.terminal_input', {
+				strings: ['Welcome,To my portfolio ', 'type help to list commands', 'help'],
+				typeSpeed: 25,
+				backSpeed: 30,
+				showCursor: true
+				
+			});
+			setTimeout(()=>{
+				$Terminal_command.push({ command: 'help', dir: currnet_dir });
+				$Terminal_command.push({ command: 'help', dir: currnet_dir });
+				command_to_render.push({
+					command: 'help',
+					dir: currnet_dir,
+					msg: 'help'
+				});
+				count = $Terminal_command.length - 1;
+
+				command_to_render = command_to_render;
+				input_val = "";
+
+
+			},6500)	
+
+			
+
 		}
 	});
 	const tree = {
@@ -56,22 +87,18 @@
 			//NOTE: key code 13 means "enter key"
 			if (e.target.value == 'clear') {
 				let i = 0;
-				let l = command_to_render.length
+				let l = command_to_render.length;
 
 				let cInterval = setInterval(() => {
-
-					console.log("asdfa")
+					console.log('asdfa');
 					if (i < l) {
 						command_to_render.pop();
 						command_to_render = command_to_render;
 
 						i++;
-					}else{
-
-				clearInterval(cInterval)
-
+					} else {
+						clearInterval(cInterval);
 					}
-
 				}, 30);
 
 				$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
@@ -109,8 +136,8 @@
 					});
 					count = $Terminal_command.length - 1;
 
-					$classNos[2] =$classNos[2] -1;
-					$classNos[3] =$classNos[3] -1;
+					$classNos[2] = $classNos[2] - 1;
+					$classNos[3] = $classNos[3] - 1;
 					$classNos[1] = 4;
 					command_to_render = command_to_render;
 
@@ -131,9 +158,8 @@
 					});
 					count = $Terminal_command.length - 1;
 
-
-					$classNos[1] =$classNos[1] -1;
-					$classNos[3] =$classNos[3] -1;
+					$classNos[1] = $classNos[1] - 1;
+					$classNos[3] = $classNos[3] - 1;
 					$classNos[2] = 4;
 					command_to_render = command_to_render;
 					e.target.value = '';
@@ -153,9 +179,8 @@
 					});
 					count = $Terminal_command.length - 1;
 
-
-					$classNos[1] =$classNos[1] -1;
-					$classNos[2] =$classNos[2] -1;
+					$classNos[1] = $classNos[1] - 1;
+					$classNos[2] = $classNos[2] - 1;
 					$classNos[3] = 4;
 					command_to_render = command_to_render;
 					e.target.value = '';
@@ -172,6 +197,18 @@
 					command: '',
 					dir: currnet_dir,
 					msg: ''
+				});
+				count = $Terminal_command.length - 1;
+
+				command_to_render = command_to_render;
+				e.target.value = '';
+			} else if (e.target.value == 'help') {
+				$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
+				$Terminal_command.push({ command: 'help', dir: currnet_dir });
+				command_to_render.push({
+					command: 'help',
+					dir: currnet_dir,
+					msg: 'help'
 				});
 				count = $Terminal_command.length - 1;
 
@@ -271,7 +308,7 @@
 			<div class={x % 2 == 0 ? 'input_fied_contiainer x' : 'input_fied_contiainer y'}>
 				<div class="current_input" in:fade={{ duration: 2000 }}>
 					{`Tejas@tejas-macbook-pro${$current_dir}$ `}
-					<input type="text" bind:this={input} on:keydown={handelTerInput} class="terminal_input" />
+					<input type="text" bind:value={input_val} bind:this={input} on:keydown={handelTerInput} class="terminal_input" />
 				</div>
 			</div>
 		</div>
@@ -305,7 +342,7 @@
 		position: absolute;
 		width: 100%;
 		margin-left: 5px;
-	margin-top: 10px;
+		margin-top: 10px;
 	}
 	.input_fied_contiainer {
 		width: 100%;
@@ -377,11 +414,12 @@
 		font-size: 1rem;
 	}
 	.terminal_input {
-		color: var(--color1);
+		color: var(--color2);
 		caret-shape: block;
 		font-size: 1rem;
 		background: var(--foreground);
 		margin-left: 5px;
+		width: 40%;
 		position: relative;
 		font-family: 'hack';
 		border: none;
@@ -394,7 +432,7 @@
 	.current_dir_input {
 		font-size: 1rem;
 		transition: all 1s ease-out;
-		color: var(--color1);
+		color: var(--color2);
 		font-weight: bold;
 	}
 

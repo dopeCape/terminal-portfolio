@@ -229,7 +229,8 @@ keyframes: [
 	<div
 		class={($isAbout || $isContact || $isProj) && $Loded ? ' loading  div1 ' : 'loading main-div  '}
 	>
-		<LoadingScreen --color3={c != undefined ? c.color3 : 'red'} />
+		<LoadingScreen  --color2={c != undefined ? c.color2 : 'red'} --color3={c != undefined ? c.color3 : 'red'}   />
+
 	</div>
 
 	{#if $isAbout && $Loded}
