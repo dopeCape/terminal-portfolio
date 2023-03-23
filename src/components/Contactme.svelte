@@ -1,8 +1,8 @@
 <script>
-	import { closed,d4c, isContact, windowsOpen, classNos, classList } from '../store/MainStore.js';
+	import { closed, d4c, isContact, windowsOpen, classNos, classList } from '../store/MainStore.js';
 	import { fly } from 'svelte/transition';
 	import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
-	import { onMount } from 'svelte';
+	import { onDestroy, onMount } from 'svelte';
 	let TextLoaded = false;
 	let insideMeDaddy = false;
 	class TextScramble {
@@ -60,18 +60,21 @@
 	}
 
 	onMount(() => {
-document.getElementById("contact").addEventListener("mouseenter",()=>{
-		insideMeDaddy = true;
+		document.getElementById('contact').addEventListener('mouseenter', () => {
+			insideMeDaddy = true;
+		});
+		document.getElementById('contact').addEventListener('mouseover', () => {
+			insideMeDaddy = true;
+		});
+		document.getElementById('contact').addEventListener('mouseout', () => {
+			insideMeDaddy = false;
+		});
 
-	})
-document.getElementById("contact").addEventListener("mouseover",()=>{
-		insideMeDaddy = true;
-	})
-document.getElementById("contact").addEventListener("mouseout",()=>{
-		insideMeDaddy = false;
-	})
+
+
+
+
 		const phrases = [
-
 			'Hey!!',
 			'Hope you liked what I have to offer :>',
 			'Feel free to ask me anything through Email',
@@ -93,16 +96,29 @@ document.getElementById("contact").addEventListener("mouseout",()=>{
 		};
 
 		next();
-		
-	});
+
+	
+					});
+					onDestroy(()=>{
+
+					})
 	const close = (e) => {
 		doMeDaddy();
 	};
 	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 	const LETTERS = 'abcdefghijklmnopqrstuvwxyx1234567890@!.';
 	let root;
-	
+		const moveMouse = (e) => {
+			let x = Math.floor((e.clientX / root?.clientWidth) * 100);
 
+			let y = Math.floor((e.clientY / root?.clientHeight) * 100);
+			console.log(insideMeDaddy);
+			if (insideMeDaddy) {
+				root.style.setProperty('--backX', `${x}%`);
+
+				root.style.setProperty('--backY', `${y}%`);
+			}
+		}
 	$: {
 		if (root != undefined) {
 			if ($classNos[2] == 2) {
@@ -117,9 +133,21 @@ document.getElementById("contact").addEventListener("mouseout",()=>{
 		}
 	}
 	const doMeDaddy = () => {
+			document.getElementById('contact').removeEventListener('mouseenter', () => {
+
+			});
+			document.getElementById('contact').removeEventListener('mouseover', () => {
+
+			});
+			document.getElementById('contact').removeEventListener('mouseout', () => {
+
+			});
+			window.removeEventListener("mousemove",moveMouse)
+
+	 
 		$closed = parseInt($classList[2][3]);
-	if($closed == 4){
-		$d4c =  true
+		if ($closed == 4) {
+			$d4c = true;
 		}
 		$isContact = false;
 		if ($classNos[3] < $classNos[2]) {
@@ -130,7 +158,6 @@ document.getElementById("contact").addEventListener("mouseout",()=>{
 		}
 
 		$classNos[2] = 0;
-
 
 		for (let i = 1; i < 4; i++) {
 			let x = parseInt($classList[i][3]);
@@ -143,16 +170,8 @@ document.getElementById("contact").addEventListener("mouseout",()=>{
 		$windowsOpen = $windowsOpen - 1;
 	};
 
-	window.onmousemove = (e) => {
-		let x = Math.floor((e.clientX / root?.clientWidth) * 100);
-		let y = Math.floor((e.clientY / root?.clientHeight) * 100);
-		console.log(insideMeDaddy)
-		if (insideMeDaddy) {
-			root.style.setProperty('--backX', `${x}%`);
-
-			root.style.setProperty('--backY', `${y}%`);
-		}
-	};
+		window.addEventListener("mousemove" ,moveMouse);
+	
 </script>
 
 <svelte:head>
