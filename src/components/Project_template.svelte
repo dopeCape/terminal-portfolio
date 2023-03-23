@@ -99,7 +99,7 @@
 	};
 	const doMeDaddy = () => {
 		$closed = parseInt($classList[3][3]);
-
+	
 		$isProj = false;
 	if ($classNos[2] < $classNos[3]) {
 			$classNos[2] = $classNos[2] + 1;

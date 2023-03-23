@@ -2,7 +2,7 @@
 	import { fade,fly } from 'svelte/transition';
 	import { onMount, onDestroy } from 'svelte';
 	import anime from 'animejs';
-	import { closed, isAbout, windowsOpen, classList, classNos } from '../store/MainStore.js';
+	import {d4c, closed, isAbout, windowsOpen, classList, classNos } from '../store/MainStore.js';
 	import { linear } from 'svelte/easing';
 	let About_loded = false;
 	const q = [
@@ -241,7 +241,9 @@
 	}
 	const doMeDaddy = () => {
 		$closed = parseInt($classList[1][3]);
-
+		if($closed ==4){
+$d4c =true;
+		}
 
 		$classNos[1] = 0;
 		if ($classNos[3] < $classNos[1]) {
