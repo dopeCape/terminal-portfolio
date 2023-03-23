@@ -99,6 +99,8 @@
 	};
 	const doMeDaddy = () => {
 		$closed = parseInt($classList[3][3]);
+
+		$isProj = false;
 	if ($classNos[2] < $classNos[3]) {
 			$classNos[2] = $classNos[2] + 1;
 		}
@@ -108,6 +110,8 @@
 
 		$classNos[3] = 0;
 
+
+
 		for (let i = 1; i < 4; i++) {
 			let x = parseInt($classList[i][3]);
 			if (x > parseInt($classList[3][3])) {
@@ -116,7 +120,7 @@
 			}
 		}
 
-		$isProj = false;
+
 
 		$windowsOpen = $windowsOpen - 1;
 	};

@@ -1,5 +1,5 @@
 <script>
-	import { closed, isContact, windowsOpen, classNos, classList } from '../store/MainStore.js';
+	import { closed,d4c, isContact, windowsOpen, classNos, classList } from '../store/MainStore.js';
 	import { fly } from 'svelte/transition';
 	import atomOneDark from 'svelte-highlight/styles/atom-one-dark';
 	import { onMount } from 'svelte';
@@ -118,7 +118,10 @@ document.getElementById("contact").addEventListener("mouseout",()=>{
 	}
 	const doMeDaddy = () => {
 		$closed = parseInt($classList[2][3]);
-
+	if($closed == 4){
+		$d4c =  true
+		}
+		$isContact = false;
 		if ($classNos[3] < $classNos[2]) {
 			$classNos[3] = $classNos[3] + 1;
 		}
@@ -127,6 +130,8 @@ document.getElementById("contact").addEventListener("mouseout",()=>{
 		}
 
 		$classNos[2] = 0;
+
+
 		for (let i = 1; i < 4; i++) {
 			let x = parseInt($classList[i][3]);
 			if (x > parseInt($classList[2][3])) {
@@ -134,7 +139,7 @@ document.getElementById("contact").addEventListener("mouseout",()=>{
 				$classList[i] = 'div' + x;
 			}
 		}
-		$isContact = false;
+
 		$windowsOpen = $windowsOpen - 1;
 	};
 

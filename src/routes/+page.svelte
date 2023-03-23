@@ -8,6 +8,7 @@
 	import AboutMe from '../components/About_me.svelte';
 	import {
 		closed,
+		d4c,
 		classNos,
 		Loded,
 		isAbout,
@@ -149,12 +150,20 @@
 				});
 
 				let d3 = document.getElementsByClassName('div3');
+				let d2 = document.getElementsByClassName('div2');
+
 				for (let i = 0; i < d3.length; i++) {
-					let el = d3[i].id;
-					console.log(el,"it me ")
-					if (el != '3') {
+					const x = (y) => {
+						return y == 2;
+					};
+					console.log($closed,"cl")
+					console.log($classNos,"asdf")
+					
+
+
+					if ( $closed == 4) { //NOTE:if 2 is not present in clasNos
 						anim({
-							targets: '.div3',
+							targets: d3[i],
 							keyframes: [
 								{ top: '0', left: '50%', scale: 0.8, easing: 'easeOutQuint', duration: 200 },
 								{ scale: 1, easing: 'easeOutQuint', duration: 1500 }
@@ -170,7 +179,6 @@
 						});
 					}
 				}
-
 
 				root.style.setProperty('--div3w', '50%');
 				root.style.setProperty('--div3h', '100%');
