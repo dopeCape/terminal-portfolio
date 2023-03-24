@@ -321,7 +321,7 @@
 		color: var(--color2);
 	}
 	.type-h {
-		color: var(--Comment);
+		color: var(--color4);
 	}
 	.help_container {
 		border: 2px solid var(--color3);

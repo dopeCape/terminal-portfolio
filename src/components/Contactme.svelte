@@ -42,7 +42,7 @@
 						char = this.randomChar();
 						this.queue[i].char = char;
 					}
-					output += `<span class="dud">${char}</span>`;
+					output += `<span style="color:#acb6bf8c;font-weight:1000;" >${char}</span>`;
 				} else {
 					output += from;
 				}
@@ -186,7 +186,8 @@
 </svelte:head>
 
 <div class="main_contact_div" bind:this={root} id="contact">
-	<h2 on:click={close} class="close">x</h2>
+
+<i class="fa-solid fa-xmark close" on:click={close}></i>
 
 	<div class="contain">
 		<div class="contact_tittle"><div class="title">wanna talk?</div></div>
@@ -237,10 +238,7 @@ top: 60%;
 left: 42.5%;
 
 }
-	.ba {
-		position: absolute;
-		color: var(--color1);
-	}
+	
 	.dud {
 		color: var(--Comment);
 	}
@@ -274,55 +272,12 @@ left: 42.5%;
 		font-size: var(--font_size);
 		color: var(--Comment);
 	}
-	.contact_form_cont {
-		display: flex;
 
-		border-radius: 10px;
-		height: 60%;
-		flex-direction: column;
-		width: 60%;
-		justify-content: center;
-		align-items: center;
-		top: 5%;
-		position: relative;
-	}
-	.contact {
-		display: flex;
-		width: 100%;
-		top: 5%;
-		height: 95%;
-		position: absolute;
-		justify-content: center;
 
-		align-items: flex-start;
-	}
 	.text {
 		margin-left: 10px;
 	}
-	.email {
-		height: 30px;
 
-		margin-left: 10px;
-	}
-	.text_contact::-webkit-scrollbar {
-		width: 0;
-	}
-	.text_contact {
-		height: 90px;
-	}
-	.contact_input {
-		background: var(--foreground);
-		caret-color: var(--color1);
-		color: var(--color1);
-
-		border: 1px solid var(--color3);
-
-		outline: none;
-		margin-bottom: 10px;
-		width: 80%;
-	}
-	.text_contact {
-	}
 	.contain {
 		display: flex;
 		height: 100%;
@@ -333,12 +288,19 @@ left: 42.5%;
 		background-position: var(--backX) var(--backY);
 		background-size: 6vmin 6vmin;
 	}
+	.close:hover{
+		transform:rotate(90deg)
+
+	}
 	.close {
+	transition:transform 500ms ease-out;
+
 		position: absolute;
 		right: 10px;
 		font-size: 20px;
 		z-index: 3;
 		margin: 0;
+
 		color: red;
 		cursor: pointer;
 	}

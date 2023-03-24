@@ -320,7 +320,7 @@ $d4c =true;
 </script>
 
 <div class="main_about-div" bind:offsetWidth={offsetW} bind:this={root} bind:offsetHeight={offsetH}>
-	<h2 on:click={close} class="close">x</h2>
+<i class="fa-solid fa-xmark close" on:click={close}></i>
 	{#if About_loded}
 		<div in:fade={{ delay: 1050, duration: 200, easing: linear }}>
 			<div class="tittle_bar">
@@ -329,7 +329,7 @@ $d4c =true;
 				</div>
 			</div>
 			<div class={$classNos[1] == (4 || 3) ? 'main_content for2' : 'main_content for3'}>
-			{console.log($classNos[1])}
+
 
 				<div class="info_container">
 					{#each rTejas as t}
@@ -696,14 +696,18 @@ $d4c =true;
 		align-items: flex-end;
 		border-bottom: 1px solid grey;
 	}
+	.close:hover{
+	transform:rotate(90deg);
+	}
 	.close {
 		position: absolute;
+		transition:transform 500ms ease-out;
 		right: 10px;
 		font-size: 19px;
 		z-index: 3;
 		margin: 0;
 
-		height: 100%;
+
 		color: red;
 		cursor: pointer;
 	}

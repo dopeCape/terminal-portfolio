@@ -127,7 +127,7 @@
 </script>
 
 <div class="main_proj-div" bind:this={root}>
-	<h2 on:click={close} class="close">x</h2>
+<i class="fa-solid fa-xmark close" on:click={close}></i>
 	<div class="proj_container">
 		<div class="proj_tittle">what has he made?</div>
 		<div class="proj_contents">
@@ -234,12 +234,19 @@
 		display: flex;
 		justify-content: space-around;
 	}
+	.close:hover{
+	transform:rotate(90deg)
+ 
+	}
 	.close {
+		transition:transform 500ms ease-out;
+
 		position: absolute;
 		right: 10px;
 		font-size: 20px;
 		z-index: 3;
 		margin: 0;
+
 
 		color: red;
 		cursor: pointer;
