@@ -5,6 +5,7 @@
 	import { onDestroy, onMount } from 'svelte';
 	let TextLoaded = false;
 	let insideMeDaddy = false;
+	let copyed =false;
 	class TextScramble {
 		constructor(el) {
 			this.el = el;
@@ -70,10 +71,6 @@
 			insideMeDaddy = false;
 		});
 
-
-
-
-
 		const phrases = [
 			'Hey!!',
 			'Hope you liked what I have to offer :>',
@@ -96,29 +93,25 @@
 		};
 
 		next();
-
-	
-					});
-					onDestroy(()=>{
-
-					})
+	});
+	onDestroy(() => {});
 	const close = (e) => {
 		doMeDaddy();
 	};
-	var mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
 	const LETTERS = 'abcdefghijklmnopqrstuvwxyx1234567890@!.';
 	let root;
-		const moveMouse = (e) => {
-			let x = Math.floor((e.clientX / root?.clientWidth) * 100);
+	const moveMouse = (e) => {
+		let x = Math.floor((e.clientX / root?.clientWidth) * 100);
 
-			let y = Math.floor((e.clientY / root?.clientHeight) * 100);
-			console.log(insideMeDaddy);
-			if (insideMeDaddy) {
-				root.style.setProperty('--backX', `${x}%`);
+		let y = Math.floor((e.clientY / root?.clientHeight) * 100);
 
-				root.style.setProperty('--backY', `${y}%`);
-			}
+		if (insideMeDaddy) {
+			root.style.setProperty('--backX', `${x}%`);
+
+			root.style.setProperty('--backY', `${y}%`);
 		}
+	};
 	$: {
 		if (root != undefined) {
 			if ($classNos[2] == 2) {
@@ -133,18 +126,11 @@
 		}
 	}
 	const doMeDaddy = () => {
-			document.getElementById('contact').removeEventListener('mouseenter', () => {
+		document.getElementById('contact').removeEventListener('mouseenter', () => {});
+		document.getElementById('contact').removeEventListener('mouseover', () => {});
+		document.getElementById('contact').removeEventListener('mouseout', () => {});
+		window.removeEventListener('mousemove', moveMouse);
 
-			});
-			document.getElementById('contact').removeEventListener('mouseover', () => {
-
-			});
-			document.getElementById('contact').removeEventListener('mouseout', () => {
-
-			});
-			window.removeEventListener("mousemove",moveMouse)
-
-	 
 		$closed = parseInt($classList[2][3]);
 		if ($closed == 4) {
 			$d4c = true;
@@ -170,8 +156,29 @@
 		$windowsOpen = $windowsOpen - 1;
 	};
 
-		window.addEventListener("mousemove" ,moveMouse);
-	
+	window.addEventListener('mousemove', moveMouse);
+
+	const redictBlog = () => {
+		window.open('https://blog.tejes.dev', 'blank');
+	};
+	const redictTwi = () => {
+		window.open('https://twitter.com/tejeszz', 'blank');
+	};
+	const redictGit = () => {
+		window.open('https://github.com/dopeCape', 'blank');
+	};
+	const copyMail = () => {
+		navigator.clipboard.writeText('me@tejes.dev');
+
+		copyed = true;
+
+		setTimeout(() => {
+			copyed = false;
+		}, 2000);
+	};
+	const reditLink = () =>{
+	window.open("https://www.linkedin.com/in/tejas-komawar-b6594022b/","blank")
+	}
 </script>
 
 <svelte:head>
@@ -193,17 +200,43 @@
 			</div>
 		{:else}
 			<div class="social_icons" in:fly={{ delay: 810, duration: 500, opacity: 0, y: 200 }}>
-				<i class="fa-solid fa-blog icon" />
-				<i class="fa-brands fa-square-twitter icon" />
-				<i class="fa-solid fa-envelope icon" />
-				<i class="fa-brands fa-square-github icon" />
+				<div on:click={redictBlog}>
+					<i class="fa-solid fa-blog icon" />
+				</div>
+				<div on:click={redictTwi}>
+					<i class="fa-brands fa-square-twitter icon" />
+				</div>
+				<div on:click={copyMail}>
+					<i class="fa-solid fa-envelope icon" />
+				</div>
+				<div on:click={redictGit}>
+					<i class="fa-brands fa-square-github icon" />
+				</div>
+<div on:click={reditLink}>
 				<i class="fa-brands fa-linkedin icon" />
+				</div>
+
+
 			</div>
+
+			{#if copyed}
+			<div in:fly={{y:100,duration:200,opacity:0}} out:fly={{y:100,duration:200,opacity:0}} class="copy">
+				Copyed to clipboard	
+			</div>
+{/if}
 		{/if}
 	</div>
 </div>
 
 <style>
+.copy{
+color:var(--color2);
+font-size:15px;
+position: absolute;
+top: 60%;
+left: 42.5%;
+
+}
 	.ba {
 		position: absolute;
 		color: var(--color1);

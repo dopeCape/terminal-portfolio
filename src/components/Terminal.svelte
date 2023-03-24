@@ -26,7 +26,7 @@
 		{ n: 'ls : list current directory', t: 'h' },
 
 		{ n: 'help:list commands', t: 'h' },
-		{ n: 'change_theme: To change between dark and light theme', t: 'h' }
+{n:"clear: clear terminal",t:'h'}
 	];
 	let currnet_dir = $current_dir;
 	let count;
