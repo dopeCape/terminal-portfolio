@@ -262,7 +262,7 @@
 					{#if command_to_render.length - 1 == index}
 						<div style="margin-bottom:8px;" in:fade={{ duration: 400 }}>
 							<div class="pre_command">
-								{`Tejas@tejas-macbook-pro${ter.dir}$ `}<span class="pre_command_act"
+								{`Tejas@tejas-macbook-pro${ter.dir} `}{"$: "}<span class="pre_command_act"
 									>{ter.command}</span
 								>
 							</div>
@@ -281,7 +281,7 @@
 					{:else}
 						<div style="margin-bottom:8px;">
 							<div class="pre_command">
-								{`Tejas@tejas-macbook-pro${ter.dir}$ `}<span class="pre_command_act"
+								{`Tejas@tejas-macbook-pro${ter.dir}`}{"$:"}<span class="pre_command_act"
 									>{ter.command}</span
 								>
 							</div>
@@ -302,8 +302,8 @@
 			</div>
 			<div class={x % 2 == 0 ? 'input_fied_contiainer x' : 'input_fied_contiainer y'}>
 				<div class="current_input" in:fade={{ duration: 2000 }}>
-					{`Tejas@tejas-macbook-pro${$current_dir}$ `}
-					<input
+					{`Tejas@tejas-macbook-pro ${$current_dir}`}
+					{"$:"}<input
 						type="text"
 						bind:value={input_val}
 						bind:this={input}
