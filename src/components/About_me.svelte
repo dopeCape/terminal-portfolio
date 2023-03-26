@@ -302,18 +302,18 @@ $d4c =true;
 
 	const tejes = [
 		{ n: 'Name', v: 'Tejes K.', e: 'Y7(#! U1' },
-		{ n: 'race', v: 'Human', e: '(*!&@bjkhwde ' },
-		{ n: 'level', v: '18', e: '(*&@ 342(* &@#' },
+
+		{ n: 'Age', v: '18', e: '(*&@ 342(* &@#' },
 		{
-			n: 'spells_i_know',
+			n: 'Languages',
 			v: ['rust', 'go', 'python', 'js', 'ts', 'cpp'],
 			e: [!'$f!','F13r8F','&T*#$3480','(#&*$','$(*&34','(&*$']
 		},
 		{ n: 'goal', v: 'trying to escape matrix', e: 'YR9*#$' },
-		{ n: 'mage_class:', v: '[MERN]', e: '18!*$H' },
+		{ n: 'Stack:', v: '[MERN]', e: '18!*$H' },
 		{
 			n: 'Tools',
-			v: ['react', 'svelte', 'gin', 'rocket', 'tauri', 'mongoDB', 'node.js', 'AWS', 'expess'],
+			v: ['react', 'svelte', 'gin', 'rocket', 'tauri', 'mongoDB', 'node.js', 'AWS', 'express.js'],
 			e: '[!$f!(,F13r8F,&T*#$3480,(#&*$,$(*&34,(&*$]'
 		}
 	];

@@ -22,11 +22,11 @@
 	let width = 100;
 	let height = 100;
 	const help_commands = [
-		{ n: 'exe <application_name>: to launch application', t: 'h' },
+		{ n: 'exe <application_name>: to launch application,eg: exe contact', t: 'h' },
 		{ n: 'ls : list current directory', t: 'h' },
-
+{n:"resume:To see my resume I guess",t:"h"},
 		{ n: 'help:list commands', t: 'h' },
-{n:"clear: clear terminal",t:'h'}
+		{ n: 'clear: clear terminal', t: 'h' }
 	];
 	let currnet_dir = $current_dir;
 	let count;
@@ -38,12 +38,14 @@
 	});
 	onMount(() => {
 		if (input != undefined) {
+			var ty = null;
 			setTimeout(() => {
-				const ty = new Typed('.terminal_input', {
+				ty = new Typed('.terminal_input', {
 					strings: ['Welcome,To my portfolio ', 'type help to list commands', 'help'],
 					typeSpeed: 25,
 					backSpeed: 30
 				});
+			
 			}, 1200);
 
 			setTimeout(() => {
@@ -58,8 +60,9 @@
 
 				command_to_render = command_to_render;
 				input_val = '';
-				input.focus();
-			}, 7700);
+			input.focus();
+							}, 7700);
+
 		}
 	});
 	const tree = {
@@ -137,6 +140,20 @@
 					$windowsOpen = $windowsOpen + 1;
 					$isAbout = true;
 				}
+			}else if(e.target.value =="resume"){
+$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
+					command_to_render.push({
+						command: e.target.value,
+						dir: currnet_dir,
+						msg: ''
+					});
+					count = $Terminal_command.length - 1;
+					window.open("https://shorturl.at/dlTX2","blank")
+
+					e.target.value = '';
+					command_to_render = command_to_render;
+
+
 			} else if (e.target.value == './contact' || e.target.value == 'exe contact') {
 				if (!$isContact) {
 					$Terminal_command.push({ command: e.target.value, dir: currnet_dir });
@@ -262,7 +279,7 @@
 					{#if command_to_render.length - 1 == index}
 						<div style="margin-bottom:8px;" in:fade={{ duration: 400 }}>
 							<div class="pre_command">
-								{`Tejas@tejas-macbook-pro${ter.dir} `}{"$: "}<span class="pre_command_act"
+								{`Tejas@tejas-macbook-pro${ter.dir} `}{'$: '}<span class="pre_command_act"
 									>{ter.command}</span
 								>
 							</div>
@@ -281,7 +298,7 @@
 					{:else}
 						<div style="margin-bottom:8px;">
 							<div class="pre_command">
-								{`Tejas@tejas-macbook-pro${ter.dir}`}{"$:"}<span class="pre_command_act"
+								{`Tejas@tejas-macbook-pro${ter.dir}`}{'$:'}<span class="pre_command_act"
 									>{ter.command}</span
 								>
 							</div>
@@ -303,7 +320,7 @@
 			<div class={x % 2 == 0 ? 'input_fied_contiainer x' : 'input_fied_contiainer y'}>
 				<div class="current_input" in:fade={{ duration: 2000 }}>
 					{`Tejas@tejas-macbook-pro ${$current_dir}`}
-					{"$:"}<input
+					{'$:'}<input
 						type="text"
 						bind:value={input_val}
 						bind:this={input}

@@ -30,7 +30,7 @@
 [		{
 			demoLink: 'https://netflix-clone-3f085.web.app/',
 			githubLink: 'https://github.com/dopeCape/netflix_clone',
-			dis: 'It is a  netflix-alike-app written in javaScript with help of React as it ui Framework along  with redux to manage its state .Firebase was used to deploy and auth .For managing payments ans subs i used stripe',
+			dis: 'It is a  netflix-alike-app written in javaScript with help of React as it ui Framework along  with redux to manage its state .Firebase was used to deploy and auth .For managing payments and subs I used stripe',
 			stackUsed: ['Js', 'React', 'Redux', 'Firebase', 'tailwind', 'stripe'],
 			lang: 'js'
 		},{

@@ -42,7 +42,7 @@
 						char = this.randomChar();
 						this.queue[i].char = char;
 					}
-					output += `<span style="color:#acb6bf8c;font-weight:1000;" >${char}</span>`;
+					output += `<span style= >${char}</span>`;
 				} else {
 					output += from;
 				}
@@ -73,10 +73,10 @@
 
 		const phrases = [
 			'Hey!!',
-			'Hope you liked what I have to offer :>',
+			'Hope you liked what I have to  opportunities',
 			'Feel free to ask me anything through Email',
-			'Btw I am  looking for opportunitys :)',
-			'Have a nice day. xD'
+			'Btw I am  looking for opportunitys',
+			'Have a nice day.'
 		];
 		const el = document.querySelector('.text');
 		const fx = new TextScramble(el);
